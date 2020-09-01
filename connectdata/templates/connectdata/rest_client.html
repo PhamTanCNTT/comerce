@@ -1,0 +1,173 @@
+<html>
+<head>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+    <script>
+    var URL = "/rest_courses/";
+
+    $(document).ready(
+        function() {
+            $("#courses").hide();
+        }
+    );
+
+    function readCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    }
+    var csrftoken = readCookie('csrftoken');
+    function getCourses()
+    {
+       $.getJSON(URL,{},showCourses);
+    }
+
+    function getCourse()
+    {
+       $.getJSON(URL + $("#code").val())
+           .done(showCourse)   // on success - 200
+           .fail(function()    // on failure - 404
+                 {
+                      alert("Sorry! Course Not Found!");
+                 }
+           );
+    }
+
+    function showCourse(course)
+    {
+        $("#title").val(course.title)
+        $("#duration").val(course.duration)
+        $("#fee").val(course.fee)
+    }
+
+    function showCourses(courses) {
+       $("#courserows").html("")
+       $.each(courses,
+              function(idx,course) {
+                 $("#courserows").append("<tr><td>" + course.code + "</td><td>" +
+                       course.title + "</td><td>" + course.duration + "</td><td>" +
+                       course.fee + "</td></tr>");
+              } // anonymous function
+        ); // each()
+
+        $("#courses").show();
+   } // showCourses
+
+    function addCourse()
+    {
+       $.ajax(
+          { "url": URL,
+             "data": {
+                       "code" : $("#code").val(),
+                       "title" : $("#title").val(),
+                       "duration" : $("#duration").val(),
+                       "fee" : $("#fee").val()
+                     },
+             "type" : "POST",
+             "headers":{"X-CSRFToken": csrftoken},
+             "success" : add_success,
+             "error" : add_error
+          }
+      ); // ajax()
+    }
+
+    function add_success()
+    {
+      alert("Added course Successfully");
+    }
+
+    function add_error()
+    {
+      alert("Could not add course!");
+    }
+
+    function deleteCourse()
+    {
+       $.ajax(
+          {  "url": URL + $("#code").val(),
+             "type" : "DELETE",
+             "success" : delete_success,
+             "error" : delete_error
+          }
+      ); // ajax()
+    }
+
+    function delete_success()
+    {
+      alert("Deleted Course Successfully");
+    }
+
+    function delete_error()
+    {
+      alert("Could not delete Course!");
+    }
+
+
+    function updateCourse()
+    {
+       $.ajax(
+          {  "url"     : URL + $("#code").val() + "/",
+             "data"    : { "code"     : $("#code").val(),
+                           "title"    : $("#title").val(),
+                           "duration" : $("#duration").val(),
+                           "fee"      : $("#fee").val()
+                          },
+             "type"    : "PUT",
+             "headers":{"X-CSRFToken": csrftoken},
+             "success" : update_success,
+             "error"   : update_error
+          }
+      ); // ajax()
+    }
+
+    function update_success()
+    {
+      alert("Updated Course Successfully");
+    }
+
+    function update_error()
+    {
+      alert("Could not update Course!");
+    }
+    </script>
+</head>
+<body>
+<div style="background-color:navy;color:white;font-family:arial;font-size:20pt;font-weight:bold">Course Client</div>
+<p/>
+Code <br/>
+<input type="text" id="code"/>
+<br/>
+Title <br/>
+<input type="text" id="title"/>
+<br/>
+Duration <br/>
+<input type="number" id="duration"/>
+<br/>
+Fee <br/>
+<input type="number" id="fee"/>
+<p/>
+{% csrf_token %}
+<button onclick="getCourse()">Details</button>
+<button onclick="addCourse()">Add </button>
+<button onclick="deleteCourse()">Delete </button>
+<button onclick="updateCourse()">Update </button>
+<button onclick="getCourses()">List</button>
+<p/>
+
+<table border="1" cellpadding="5pt" id="courses">
+    <thead>
+    <tr>
+        <th>Code</th>
+        <th>Title</th>
+        <th>Duration</th>
+        <th>Fee</th>
+    </tr>
+    </thead>
+    <tbody id="courserows"></tbody>
+</table>
+</body>
+</html>

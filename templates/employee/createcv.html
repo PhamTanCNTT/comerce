@@ -1,0 +1,1491 @@
+{% extends 'base.html' %}
+{% load static %}
+{#    {% block ajax_create_resume %}#}
+{#        <script src="{% static 'Page/create_resume.js' %}"></script>#}
+{#    {% endblock %}#}
+    {% block createcv %}
+		<!--/Header Main-->
+        <div>{% csrf_token %}</div>
+            {% if user.is_authenticated %}
+                <script> window.onload = get_profile()</script>
+                {% if not user.employee %}
+                    <script> window.location.href = "/jwtauth/checkfunc/"</script>
+                {% endif %}
+            {% else %}
+                <script> window.location.href = "/account/login/"</script>
+            {% endif %}
+		<!--Sliders Section-->
+		<section>
+			<div class="bannerimg cover-image bg-background3" data-image-src="../assets/images/banners/banner2.jpg">
+				<div class="header-text mb-0">
+					<div class="container">
+						<div class="text-center text-white">
+							<h1>Tạo hồ sơ</h1>
+							<ol class="breadcrumb text-center">
+								<li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+								<li class="breadcrumb-item"><a href="#">Ứng viên</a></li>
+								<li class="breadcrumb-item active text-white" aria-current="page">Tạo hồ sơ</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--/Sliders Section-->
+
+        {% block edit_profile_resume %}
+		<!--Job posts-section-->
+		<section class="sptb">
+			<div class="container">
+				<div class="row ">
+                    {#show profile#}
+                    {% block show_profile %}
+					<div class="col-lg-8 col-md-12 col-md-12">
+						<div class="card dropify-image-avatar" id="show_profile">
+							<div class="card-header ">
+								<h3 class="card-title">Thông tin cá nhân</h3>
+                                    <div class="card-options">
+                                        <button  id="show_hide_profile" class="btn btn-light btn-sm" href="#"><i class="fa fa-edit"></i> Sữa</button>
+                                    </div>
+							</div>
+							<div class="card-body" id="show_profile">
+								<div class="row">
+									<div class="col-lg-3 mb-4 mb-lg-0">
+										 <img src="{{ user.Profile.UserImage.url }}" alt="error">
+{#                                        <img src="" id="id_img" alt="error">#}
+									</div>
+									<div class="col-lg-9">
+										<div class="row">
+											<div class="col-md-6">
+                                                <div class="form-group">
+													<label class="form-label text-dark">Họ và tên: </label>
+													<input type="text" class="form-control userfullname" placeholder="Họ và tên:" required id="fullname">
+												</div>
+
+												<div class="form-group">
+													<label class="form-label text-dark">User First Name: </label>
+													<input type="text" class="form-control userfullname" placeholder="User First Name" required id="userfirtname1">
+												</div>
+												<div class="form-group">
+													<label class="form-label text-dark">User Middle Name</label>
+													<input type="text" class="form-control phonenumber" placeholder="User Middle Name" required id="usermiddlename1">
+												</div>
+												<div class="form-group">
+													<label class="form-label text-dark">User Last Name</label>
+													<input type="email" class="form-control city" placeholder="User Last Name" required id="userlastname1">
+												</div>
+                                                <div class="form-group">
+													<label class="form-label text-dark">User Phone</label>
+													<input type="text" class="form-control address" placeholder="User Phone" required id="userphone1">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="form-label text-dark">User Full Name</label>
+													<input type="text" class="form-control address" placeholder="User Full Name" required id="userfullname1">
+												</div>
+                                                <div class="form-group">
+													<label class="form-label text-dark">User Birth Day</label>
+													<input type="text" class="form-control postalcode" placeholder="User Birth Day" required id="userbirthday1">
+												</div>
+                                                <div class="form-group">
+													<label class="form-label text-dark">User Sex</label>
+													<input type="text" class="form-control desctiption" placeholder="User Sex" required id="usersex1">
+												</div>
+                                                <div class="form-group">
+													<label class="form-label text-dark">Email</label>
+													<input type="text" class="form-control postalcode" placeholder="Email" required id="email1">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+                        {# edit profile #}
+{#                            <div class="card dropify-image-avatar" id="edit_profile">#}
+                            <div class="card dropify-image-avatar" id="edit_profile">
+							<div class="card-header">
+								<h3 class="card-title">Chỉnh sữa Thông Tin Cá Nhân</h3>
+							</div>
+							<div class="card-body">
+								<div class="row">
+                                    <div class="col-md-6">
+												<div class="form-group">
+													<label class="form-label text-dark">Họ: </label>
+													<input type="text" class="form-control userfullname" placeholder="Tên" required id="userfirtname">
+												</div>
+												<div class="form-group">
+													<label class="form-label text-dark">Họ lót:</label>
+													<input type="text" class="form-control phonenumber" placeholder="Họ lót" required id="usermiddlename">
+												</div>
+												<div class="form-group">
+													<label class="form-label text-dark">Tên:</label>
+													<input type="email" class="form-control city" placeholder="Tên" required id="userlastname">
+												</div>
+                                                <div class="form-group">
+													<label class="form-label text-dark">Số điện thoại: </label>
+													<input type="text" class="form-control address" placeholder="Số điện thoại" required id="userphone">
+												</div>
+											</div>
+                                    <div class="col-md-6">
+												<div class="form-group">
+													<label class="form-label text-dark">Ngày tháng năm sinh: </label>
+													<input type="text" class="form-control address" placeholder="Ngày tháng năm sinh" required id="userfullname">
+												</div>
+                                                <div class="form-group">
+													<label class="form-label text-dark">Giới tính:</label>
+													<input type="text" class="form-control postalcode" placeholder="Giới tính:" required id="userbirtday">
+												</div>
+                                                <div class="form-group">
+													<label class="form-label text-dark">Tình trạng hôn nhân: </label>
+													<input type="text" class="form-control desctiption" placeholder="Tình trạng hôn nhân:" required id="usersex">
+												</div>
+                                                <div class="form-group">
+													<label class="form-label text-dark">Email</label>
+													<input type="text" class="form-control postalcode" placeholder="Email" required id="email">
+												</div>
+											</div>
+                                    <img src="" alt="error" id="id_img1">
+                                   <form id="avatar_form">
+                                        <div>
+                                            <label for="id_avatar">Đăng hình cá nhân</label>
+                                            <input type="file" class="form-control-file" id="id_avatar"/>
+                                        </div>
+                                        <button type="submit" id="upload_img">Upload</button>
+                                   </form>
+                                    {#///////////////////////////////////////  ajax upload image \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                                    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+                                    <script>
+                                        $(document).ready(
+                                                function() {
+                                                    $("#edit_profile").hide();
+                                                }
+                                            );
+
+                                        $(document).ready(function(){
+                                            $("#show_hide_profile").click(function(){
+                                                $("#edit_profile").show();
+                                                $("#show_profile").hide();
+                                            });});
+
+                                        function reload_profile(){
+                                            var container = document.getElementById("show_hide_profile");
+                                            var content = container.innerHTML;
+                                            container.innerHTML= content;
+
+                                           //this line is to watch the result in console , you can remove it later
+                                            console.log("Refreshed");
+                                        }
+                                        var urlhttp = "https://localhost:8000"
+                                        var URL_profile = urlhttp + "/connectdata/ProfileUserViewSet/";
+
+                                        function readCookie(name) {
+                                            var nameEQ = name + "=";
+                                            var ca = document.cookie.split(';');
+                                            for(var i=0;i < ca.length;i++) {
+                                                var c = ca[i];
+                                                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                                                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+                                            }
+                                            return null;
+                                        }
+
+                                        var csrftoken = readCookie('csrftoken');
+
+
+                                        document.getElementById('avatar_form').addEventListener('submit', function(event) {
+                                            event.preventDefault();
+                                            let input = document.getElementById('id_avatar');
+                                            let data = new FormData();
+                                            data.append('UserImage', input.files[0]);
+                                            console.log(data)
+                                            var id_img = document.getElementById("upload_img").value;
+                                            fetch('https://localhost:8000/connectdata/ProfileImageAPIView/'+id_img+"/", {
+                                                method: 'PUT',
+                                                headers: {
+                                                    "X-CSRFToken": csrftoken
+                                                },
+                                                body: data
+
+                                                }).then(response => {
+                                                    return response.json();
+                                                }).then(data => {
+                                                    console.log(data);
+                                                    get_img()
+                                                }).catch((error) => {
+                                                    console.error('Error:', error);
+                                                });
+                                        });
+                                    </script>
+                                    {#/////////////////////////////////////// end ajax upload image \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+								</div>
+							</div>
+							<div class="card-footer">
+                                <button type="submit" class="btn btn-primary" onclick="upload_profile()" id="upload_img">Updated Profile</button>
+							</div>
+						</div>
+                            {# end edit profile #}
+                        {#\\\\\\\\ CurriculumVitae ///////#}
+                        {#//////////////////////////////////// html add CurriculumVitae \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                        <div class="card" id="addCurriculumVitae">
+							<div class="card-header ">
+								<h3 class="card-title">Tạo mới hồ sơ</h3>
+                                <i class="card-options">(*)thông tin bắc buộc</i>
+							</div>
+							<div class="card-body">
+								<div class="form-group">
+									<label class="form-label text-dark">Tên hồ sơ</label>
+									<input type="text" class="form-control" placeholder="Title" id="Title" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">Nghề nghiệp</label>
+									<input type="text" class="form-control" placeholder="Career" id="Career" required>
+								</div>
+								<div class="form-group">
+									<label class="form-label text-dark">FullName</label>
+									<input type="text" class="form-control" placeholder="FullName" id="FullName" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">Giới tính</label>
+									<input type="text" class="form-control" placeholder="Sex" id="Sex" required>
+								</div>
+								<div class="form-group">
+									<label class="form-label text-dark">BirthDay</label>
+									<input type="text" class="form-control" placeholder="BirthDay" id="BirthDay" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">Phone</label>
+									<input type="text" class="form-control" placeholder="Phone" id="Phone" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">MaritalStatus</label>
+									<input type="text" class="form-control" placeholder="MaritalStatus" id="MaritalStatus" required>
+								</div>
+								<div class="form-group">
+									<label class="form-label text-dark">Email</label>
+									<input type="text" class="form-control" placeholder="Email" id="Email" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">Address</label>
+									<input type="text" class="form-control" placeholder="Address" id="Address" required>
+								</div>
+								<div class="form-group">
+									<label class="form-label text-dark">Introduce</label>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">Introduce</label>
+									<input type="text" class="form-control" placeholder="Introduce" id="Introduce" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">FormOfWork</label>
+									<input type="text" class="form-control" placeholder="FormOfWork" id="FormOfWork" required>
+								</div>
+								<div class="form-group">
+									<label class="form-label text-dark">WorkLocation</label>
+									<input type="text" class="form-control" placeholder="WorkLocation" id="WorkLocation" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">DesiredSalary</label>
+									<input type="text" class="form-control" placeholder="DesiredSalary" id="DesiredSalary" required>
+								</div>
+								<div class="form-group">
+									<label class="form-label text-dark">Skill</label>
+									<input type="text" class="form-control" placeholder="Skill" id="Skill" required>
+								</div>
+							</div>
+{#                            <div class="card-footer ">#}
+{#								<button onclick="update_bank()">POST</button>#}
+{#							</div>#}
+						</div>
+                        {#//////////////////////////////////// end html add CurriculumVitae \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+                        {#//////////////////////////////////// html upload CurriculumVitae \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                        <div class="card" id="uploadCurriculumVitae">
+							<div class="card-header ">
+								<h3 class="card-title">Update CurriculumVitae</h3>
+                                <i class="card-options">(*)thông tin bắc buộc nhập</i>
+							</div>
+							<div class="card-body">
+								<div class="form-group">
+									<label class="form-label text-dark">Title</label>
+									<input type="text" class="form-control" placeholder="Title" id="Title_update" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">Career</label>
+									<input type="text" class="form-control" placeholder="Career" id="Career_update" required>
+								</div>
+								<div class="form-group">
+									<label class="form-label text-dark">FullName</label>
+									<input type="text" class="form-control" placeholder="FullName" id="FullName_update" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">Sex</label>
+									<input type="text" class="form-control" placeholder="Sex" id="Sex_update" required>
+								</div>
+								<div class="form-group">
+									<label class="form-label text-dark">BirthDay</label>
+									<input type="text" class="form-control" placeholder="BirthDay" id="BirthDay_update" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">Phone</label>
+									<input type="text" class="form-control" placeholder="Phone" id="Phone_update" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">MaritalStatus</label>
+									<input type="text" class="form-control" placeholder="MaritalStatus" id="MaritalStatus_update" required>
+								</div>
+								<div class="form-group">
+									<label class="form-label text-dark">Email</label>
+									<input type="text" class="form-control" placeholder="Email" id="Email_update" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">Address</label>
+									<input type="text" class="form-control" placeholder="Address" id="Address_update" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">Introduce</label>
+									<input type="text" class="form-control" placeholder="Introduce" id="Introduce_update" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">FormOfWork</label>
+									<input type="text" class="form-control" placeholder="FormOfWork" id="FormOfWork_update" required>
+								</div>
+								<div class="form-group">
+									<label class="form-label text-dark">WorkLocation</label>
+									<input type="text" class="form-control" placeholder="WorkLocation" id="WorkLocation_update" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">DesiredSalary</label>
+									<input type="text" class="form-control" placeholder="DesiredSalary" id="DesiredSalary_update" required>
+								</div>
+								<div class="form-group">
+									<label class="form-label text-dark">Skill</label>
+									<input type="text" class="form-control" placeholder="Skill" id="Skill_update" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">CurriculumVitaeExperience</label>
+									<input type="text" class="form-control" placeholder="Skill" id="CurriculumVitaeExperience_update" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">CurriculumVitaeEducate</label>
+									<input type="text" class="form-control" placeholder="Skill" id="CurriculumVitaeEducate_update" required>
+								</div>
+							</div>
+{#                            <div class="card-footer ">#}
+{#								<button onclick="update_bank()">POST</button>#}
+{#							</div>#}
+						</div>
+                        {#//////////////////////////////////// end html upload CurriculumVitae \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+                        {#//////////////////////////////////// ajax add - detail - update CurriculumVitae \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                        <script>
+                            var URL_create_CurriculumVitae = "/employee/EmployeeCVFullViewSet/";
+
+                            $(document).ready(
+                                function() {
+                                    $("#addCurriculumVitae").show();
+                                    $("#btn_Finish").show();
+                                    $("#uploadCurriculumVitae").hide();
+                                    $("#btn_Save").hide();
+                                });
+
+
+                            function create_cv_test() {
+                                var jsonarr_update_CurriculumVitae = {
+                                        "Title": $("#Title").val(),
+                                        "FullName": $("#FullName").val(),
+                                        "Sex": $("#Sex").val(),
+                                        "BirthDay": $("#BirthDay").val(),
+                                        "Phone": $("#Phone").val(),
+                                        "MaritalStatus": $("#MaritalStatus").val(),
+                                        "Email": $("#Email").val(),
+                                        "Address": $("#Address").val(),
+                                        "Introduce": $("#Introduce").val(),
+                                        "Career": $("#Career").val(),
+                                        "FormOfWork": $("#FormOfWork").val(),
+                                        "WorkLocation": $("#WorkLocation").val(),
+                                        "DesiredSalary": $("#DesiredSalary").val(),
+                                        "Skill": $("#Skill").val(),
+                                        "CurriculumVitaeExperience": checked_Experiences(),
+                                        "CurriculumVitaeEducate": checked_educate(),
+                                    };
+                                console.log(JSON.stringify(jsonarr_update_CurriculumVitae));
+
+                                $.ajax({
+                                    "url": URL_create_CurriculumVitae,
+                                    "data": JSON.stringify(jsonarr_update_CurriculumVitae),
+                                    "headers":{"X-CSRFToken": csrftoken},
+                                    "processData": false,
+                                    "contentType": 'application/json',
+                                    "type": "POST",
+                                    "success": create_CurriculumVitae_success,
+                                    "error": create_CurriculumVitae_error
+                                });
+                            }
+
+                            function create_CurriculumVitae_success()
+                            {
+                                alert("CurriculumVitae create success!");
+                                location.reload()
+                            }
+
+                            function create_CurriculumVitae_error()
+                            {
+                                alert("CurriculumVitae create error!");
+                                location.reload()
+                            }
+
+                            var arr_checked = [];
+                            function checked_educate() {
+                                var i = 0;
+                                for (var j = 1; j <= ID_Education; j++){
+                                    var x = $("#" + j +"checkbox_education" +":checked" ).val()
+                                    if (x != null){
+                                        arr_checked[i] = parseInt(x)
+                                        i++
+                                    }
+                                }
+                                var json_arr_checked = JSON.stringify(arr_checked)
+                                alert(json_arr_checked)
+                                return arr_checked
+                            }
+
+                            var arr_Experiences = [];
+                            function checked_Experiences() {
+                                var i = 0;
+                                for (var j = 1; j <= ID_Experiences; j++){
+                                    var x = $("#" + j +"checkbox_Experiences" +":checked" ).val()
+                                    if (x != null){
+                                        arr_Experiences[i] = parseInt(x)
+                                        i++
+                                    }
+                                }
+                                var json_arr_checked = JSON.stringify(arr_Experiences)
+                                alert(arr_Experiences)
+                                return arr_Experiences
+                            }
+
+                            //detail CurriculumVitae
+                            var URL_detail_update_CurriculumVitae ="/connectdata/EmployeeCVFullViewSet/";
+                            function get_detail_CurriculumVitae()
+                            {
+                                $.getJSON(URL_detail_update_CurriculumVitae + {{ ID_CurriculumVitae }} + "/",{},detail_CurriculumVitae);
+                            }
+
+                            var educate_checked = '';
+                            function detail_CurriculumVitae(employee) {
+
+                                $("#Title_update").val(employee.Title);
+                                $("#FullName_update").val(employee.FullName);
+                                $("#Sex_update").val(employee.Sex);
+                                $("#BirthDay_update").val(employee.BirthDay);
+                                $("#Phone_update").val(employee.Phone);
+                                $("#MaritalStatus_update").val(employee.MaritalStatus);
+                                $("#Email_update").val(employee.Email);
+                                $("#Address_update").val(employee.Address);
+                                $("#Introduce_update").val(employee.Introduce);
+                                $("#Career_update").val(employee.Career);
+                                $("#FormOfWork_update").val(employee.FormOfWork);
+                                $("#WorkLocation_update").val(employee.WorkLocation);
+                                $("#DesiredSalary_update").val(employee.DesiredSalary);
+                                $("#Skill_update").val(employee.Skill);
+                                {#$("#select_skill").val(employee.Skill);#}
+                                $("#CurriculumVitaeExperience_update").val(employee.CurriculumVitaeExperience);
+                                $("#CurriculumVitaeEducate_update").val(employee.CurriculumVitaeEducate);
+                            }
+
+                            function update_CurriculumVitae() {
+                                var jsonarr_update_CurriculumVitae = {
+                                        "Title": $("#Title_update").val(),
+                                        "FullName": $("#FullName_update").val(),
+                                        "Sex": $("#Sex_update").val(),
+                                        "BirthDay": $("#BirthDay_update").val(),
+                                        "Phone": $("#Phone_update").val(),
+                                        "MaritalStatus": $("#MaritalStatus_update").val(),
+                                        "Email": $("#Email_update").val(),
+                                        "Address": $("#Address_update").val(),
+                                        "Introduce": $("#Introduce_update").val(),
+                                        "Career": $("#Career_update").val(),
+                                        "FormOfWork": $("#FormOfWork_update").val(),
+                                        "WorkLocation": $("#WorkLocation_update").val(),
+                                        "DesiredSalary": $("#DesiredSalary_update").val(),
+                                        "Skill": $('#Skill_update').val(),
+                                        {#"Skill": JSON.stringify($('#select_skill').val()),#}
+                                        "CurriculumVitaeExperience": checked_Experiences(),
+                                        "CurriculumVitaeEducate": checked_educate(),
+                                    };
+                                console.log(JSON.stringify(jsonarr_update_CurriculumVitae));
+
+                                $.ajax({
+                                    "url": URL_detail_update_CurriculumVitae + {{ ID_CurriculumVitae }} + "/",
+                                    "data": JSON.stringify(jsonarr_update_CurriculumVitae),
+                                    "headers":{"X-CSRFToken": csrftoken},
+                                    "processData": false,
+                                    "contentType": 'application/json',
+                                    "type": "PUT",
+                                    "success": update_Education_success,
+                                    "error": update_Education_error
+                                });
+                            }
+
+                            window.onload = get_detail_CurriculumVitae();
+                        </script>
+                        {% if ID_CurriculumVitae %}
+                            <script>
+                                $(document).ready(
+                                function() {
+                                    $("#addCurriculumVitae").hide();
+                                    $("#btn_Finish").hide();
+                                    $("#uploadCurriculumVitae").show();
+                                    $("#btn_Save").show();
+                                });
+                            </script>
+                        {% endif %}
+                        {#//////////////////////////////////// end ajax add - detail - update CurriculumVitae \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+                        {#\\\\\\\\\\ Educate ////////////#}
+                        {#////////////////////////////////// ajax list Educate \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                        <script>
+                            var URL_Educate = "/employee/EmployeeEducateFullViewSet/";
+
+                            var URL_get_id_CurriculumVitae = "/employee/FinishCVAPIView/";
+
+                            {#function get_id_CurriculumVitae(){#}
+                            {#    $.getJSON(URL_get_id_CurriculumVitae,{},get_id_CurriculumVitae1);}#}
+
+                            {#var id_CurriculumVitae = '';#}
+                            {#function get_id_CurriculumVitae1(curriculumVitae){#}
+                            {#    id_CurriculumVitae = curriculumVitae.id;}#}
+
+                            $(document).ready(
+                                function() {
+                                    $("#addbank").hide();
+                                    $("#uploadbank").hide();
+                                }
+                            );
+
+                            function readCookie(name) {
+                                var nameEQ = name + "=";
+                                var ca = document.cookie.split(';');
+                                for(var i=0;i < ca.length;i++) {
+                                    var c = ca[i];
+                                    while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                                    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+                                }
+                                return null;
+                            }
+
+                            var csrftoken = readCookie('csrftoken');
+
+                            var URL_select_checked_educate = '/employee/EmployeeCVFullViewSet/{{ ID_CurriculumVitae }}/';
+                            function select_checked_educate() {
+                                $.getJSON(URL_select_checked_educate,{},select_checked_educate1);
+                            }
+
+                            var a = [];
+                            function select_checked_educate1(employee) {
+                                a = employee.CurriculumVitaeEducate;
+
+                                for (var i = 0; i <= ID_Education; i++){
+                                    for (var j = 0; j < a.length; j++){
+                                        if ( document.getElementById(i+"checkbox_education") != null){
+                                            var b = document.getElementById(i+"checkbox_education").value;
+
+                                            if (a[j] == b){
+                                                document.getElementById(i+"checkbox_education").checked = true
+                                            }
+                                        }
+                                    }
+                                }
+
+                                return a
+                            }
+
+                            window.onload = select_checked_educate()
+
+                            function get_Educate()
+                            {
+                                $.getJSON(URL_Educate,{},list_Educate);
+                            }
+
+                            var ID_Education = '';
+                            function list_Educate(employee) {
+                                var DateTime_Supply1 ='';
+                                var EducationalInstitution1 ='';
+                                var Specialized1 ='';
+                                var Language1 ='';
+                                var Role1 ='';
+                                var Degree1 ='';
+                                var x = [];
+                                for (var i = 0; i < employee.length; i++)
+                                {
+                                    ID_Education = employee[i].id;
+                                    DateTime_Supply1 = employee[i].DateTime_Supply;
+                                    EducationalInstitution1 = employee[i].EducationalInstitution;
+                                    Specialized1 = employee[i].Specialized;
+                                    Language1 = employee[i].Language;
+                                    Role1 = employee[i].Role;
+                                    Degree1 = employee[i].Degree;
+
+                                    $("#eduacterow").append("<tr>"+
+                                        "<td>" +
+                                            '<label class="custom-control custom-checkbox">' +
+                                                '<input type="checkbox" class="custom-control-input checkbox_education" name="checkbox"  value='+ID_Education+' id='+ID_Education+"checkbox_education"+'>'+
+                                                '<span class="custom-control-label"></span>'+
+                                            '</label>'
+                                        + "</td>" +
+                                        "<td>" + DateTime_Supply1 + "</td>" +
+                                        "<td>" + EducationalInstitution1 + "</td>" +
+                                        "<td>" + Specialized1 + "</td>" +
+                                        "<td>" + Language1 + "</td>" +
+                                        "<td>" + Role1 + "</td>" +
+                                        "<td>" + Degree1 + "</td>" +
+                                        '<td>' +
+                                            '<button onclick="get_detail_Education(id)" id='+ID_Education+' class="btn btn-success btn-sm text-white" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i></button>' +
+                                            '<button onclick="show_hide_bank()" id='+ID_Education+' class="btn btn-danger btn-sm text-white" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash-o"></i></button>' +
+                                            '<button onclick="show_hide_bank()" id='+ID_Education+' class="btn btn-primary btn-sm text-white" data-toggle="tooltip" data-original-title="View"><i class="fa fa-eye"></i></button>' +
+                                        '</td>'
+                                        +"</tr>")
+
+                                    {#if (ID_Education = x[i]){#}
+                                    {#    document.getElementById(ID_Education+"checkbox_education").checked = true}#}
+                                }
+                            }
+
+                            //check box education
+                            var URL_select_education = "/employee/CVEducationViewSet/";
+
+                            function select_education(id) {
+                                var jsonarr_select_education = {"CurriculumVitaeIDEducation": [parseInt(id_CurriculumVitae)]}
+                                console.log(JSON.stringify(jsonarr_select_education));
+
+                                $.ajax({
+                                    "url": URL_select_education + id + "/",
+                                    "data": JSON.stringify(jsonarr_select_education),
+                                    "headers":{"X-CSRFToken": csrftoken},
+                                    "processData": false,
+                                    "contentType": 'application/json',
+                                    "type": "PUT",
+                                    "success": get_id_checkbox_success,
+                                    "error": get_id_checkbox_error
+                                });
+                            }
+
+                            function get_id_checkbox_success(){
+                            }
+
+                            function get_id_checkbox_error(){
+                                alert("get id checkbox error")
+                            }
+
+                            window.onload = get_Educate()
+                        </script>
+{#                        //////////////////////////////////// end ajax list Educate \\\\\\\\\\\\\\\\\\\\\\\\#}
+
+{#                        ///////////////////////////////// html list Educate \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                        <div class="card" id="listEducate">
+                            <div class="card-header ">
+								<h3 class="card-title">Educate</h3>
+								<div class="card-options">
+									<a onclick="showform_Education_add()" class="btn btn-light btn-sm" href="#"><i class="fa fa-plus"></i> Add Another</a>
+								</div>
+							</div>
+                            <div class="card-body pt-0 pt-md-5">
+                                <div class="tab-content">
+                                    <div class="tab-pane active table-responsive border-top userprof-tab" id="tab1">
+                                        <table class="table table-bordered table-hover mb-0 text-nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th>Select</th>
+                                                    <th>DateTime_Supply</th>
+                                                    <th>EducationalInstitution</th>
+                                                    <th>Specialized</th>
+                                                    <th>Language</th>
+                                                    <th>Role</th>
+                                                    <th>Degree</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="eduacterow">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+{#                        //////////////////////////////////// end html list Educate \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+{#                        //////////////////////////////////// html add Educate \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                        <div class="card" id="addEducate">
+							<div class="card-header ">
+								<h3 class="card-title">Add Educate</h3>
+							</div>
+							<div class="card-body">
+								<div class="form-group">
+									<label class="form-label text-dark">DateTime_Supply</label>
+									<input type="datetime-local" class="form-control" placeholder="DateTime_Supply" id="DateTime_Supply_add" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">EducationalInstitution</label>
+									<input type="text" class="form-control" placeholder="EducationalInstitution" id="EducationalInstitution_add" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">Specialized</label>
+									<input type="text" class="form-control" placeholder="Specialized" id="Specialized_add" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">Language</label>
+									<input type="text" class="form-control" placeholder="Language" id="Language_add" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">Role</label>
+									<input type="text" class="form-control" placeholder="Role" id="Role_add" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">Degree</label>
+									<input type="text" class="form-control" placeholder="Degree" id="Degree_add" required>
+								</div>
+							</div>
+                            <div class="card-footer ">
+								<button onclick="add_Education()">POST</button>
+							</div>
+						</div>
+{#                        //////////////////////////////////// end html add Educate \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+{#                        //////////////////////////////////// html update Educate \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                        <div class="card" id="uploadEducation">
+							<div class="card-header ">
+								<h3 class="card-title">Upload Education</h3>
+							</div>
+							<div class="card-body">
+								<div class="form-group">
+									<label class="form-label text-dark">DateTime_Supply</label>
+									<input type="text" class="form-control" placeholder="DateTime_Supply" id="DateTime_Supply_update" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">EducationalInstitution</label>
+									<input type="text" class="form-control" placeholder="EducationalInstitution" id="EducationalInstitution_update" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">Specialized</label>
+									<input type="text" class="form-control" placeholder="Specialized" id="Specialized_update" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">Language</label>
+									<input type="text" class="form-control" placeholder="Language" id="Language_update" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">Role</label>
+									<input type="text" class="form-control" placeholder="Role" id="Role_update" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">Degree</label>
+									<input type="text" class="form-control" placeholder="Degree" id="Degree_update" required>
+								</div>
+							</div>
+                            <div class="card-footer ">
+								<button onclick="update_Education()">Save</button>
+							</div>
+						</div>
+{#                        //////////////////////////////////// end html update Educate \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+{#                        //////////////////////////////////// ajax add - detail - update Educate \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                        <script>
+                            {#var URL_detail_Education = "/connectdata/UserBankFullViewSet/";#}
+                            {#var URL_Add_Education = "/connectdata/CVEmployeeEducationViewSet/";#}
+                            // Education sai 1 link URL_Educate cho list - add - update
+
+                            $(document).ready(
+                                function() {
+                                    $("#addEducate").hide();
+                                    $("#uploadEducation").hide();
+                                }
+                            );
+
+                            var url_update_educate = '';
+                            function get_detail_Education(id)
+                            {
+                                $("#uploadEducation").show();
+                                $("#listEducate").hide();
+                                $.getJSON(url_update_educate = URL_Educate + id + "/",{},detail_Education);
+                            }
+
+                            function detail_Education(employee) {
+                                $("#DateTime_Supply_update").val(employee.DateTime_Supply);
+                                $("#EducationalInstitution_update").val(employee.EducationalInstitution);
+                                $("#Specialized_update").val(employee.Specialized);
+                                $("#Language_update").val(employee.Language);
+                                $("#Role_update").val(employee.Role);
+                                $("#Degree_update").val(employee.Degree);
+                            }
+
+                            function showform_Education_add() {
+                                $("#addEducate").show();
+                                $("#listEducate").hide();
+                            }
+
+                            function add_Education() {
+
+                                var jsonarr_Education = {
+                                        "DateTime_Supply": $("#DateTime_Supply_add").val(),
+                                        "EducationalInstitution": $("#EducationalInstitution_add").val(),
+                                        "Specialized": $("#Specialized_add").val(),
+                                        "Language": $("#Language_add").val(),
+                                        "Role": $("#Role_add").val(),
+                                        "Degree": $("#Degree_add").val()
+                                    };
+                                console.log(JSON.stringify(jsonarr_Education));
+
+                                $.ajax({
+                                    "url": URL_Educate,
+                                    "data": JSON.stringify(jsonarr_Education),
+                                    "headers":{"X-CSRFToken": csrftoken},
+                                    "processData": false,
+                                    "contentType": 'application/json',
+                                    "type": "POST",
+                                    "success": add_Education_success,
+                                    "error": add_Education_error
+                                });
+                            }
+
+                            function add_Education_success()
+                            {
+                                get_Educate()
+                                $("#listEducate").show();
+                                $("#addEducate").hide();
+                                $("#uploadEducation").hide();
+                                alert("add Education success");
+                            }
+
+                            function add_Education_error()
+                            {
+                                get_Educate()
+                                $("#listEducate").show();
+                                $("#addEducate").hide();
+                                $("#uploadEducation").hide();
+                                alert("add Education error!");
+                            }
+
+                            function update_Education() {
+                                var jsonarr = {
+                                        "DateTime_Supply": $("#DateTime_Supply_update").val(),
+                                        "EducationalInstitution": $("#EducationalInstitution_update").val(),
+                                        "Specialized": $("#Specialized_update").val(),
+                                        "Language": $("#Language_update").val(),
+                                        "Role": $("#Role_update").val(),
+                                        "Degree": $("#Degree_update").val()
+                                    };
+                                console.log(JSON.stringify(jsonarr));
+
+                                $.ajax({
+                                    "url": url_update_educate,
+                                    "data": JSON.stringify(jsonarr),
+                                    "headers":{"X-CSRFToken": csrftoken},
+                                    "processData": false,
+                                    "contentType": 'application/json',
+                                    "type": "PUT",
+                                    "success": update_Education_success,
+                                    "error": update_Education_error
+                                });
+                            }
+
+                            function update_Education_success()
+                            {
+                                get_Educate()
+                                $("#listEducate").show();
+                                $("#addEducate").hide();
+                                $("#uploadEducation").hide();
+                                alert("Education update success!");
+                            }
+
+                            function update_Education_error()
+                            {
+                                get_Educate()
+                                $("#listEducate").show();
+                                $("#addEducate").hide();
+                                $("#uploadEducation").hide();
+                                alert("Education update error!");
+                            }
+
+                            {#window.onload = get_id_CurriculumVitae()#}
+                        </script>
+                        {#//////////////////////////////////// end ajax add - detail - update Education \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+                        {# \\\\\\\\\ Experiences //////////////////#}
+                        {#////////////////////////////////// ajax list Experiences \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                        <script>
+                            var URL_Experiences = "/employee/EmployeeExperiencesFullViewSet/";
+
+                            {#var URL_get_id_CurriculumVitae = "/connectdata/FinishCVAPIView/"#}
+
+                            {#function get_id_CurriculumVitae(){#}
+                            {#    $.getJSON(URL_get_id_CurriculumVitae,{},get_id_CurriculumVitae1);}#}
+                            {##}
+                            {#var id_CurriculumVitae = '';#}
+                            {#function get_id_CurriculumVitae1(curriculumVitae){#}
+                            {#    id_CurriculumVitae = curriculumVitae.id;}#}
+
+                            function readCookie(name) {
+                                var nameEQ = name + "=";
+                                var ca = document.cookie.split(';');
+                                for(var i=0;i < ca.length;i++) {
+                                    var c = ca[i];
+                                    while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                                    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+                                }
+                                return null;
+                            }
+                            var csrftoken = readCookie('csrftoken');
+
+
+
+                            function get_Experiences()
+                            {
+                                $.getJSON(URL_Experiences,{},list_Experiences);
+                            }
+
+                            var ID_Experiences = '';
+                            function list_Experiences(employee) {
+                                var UserIDExperiences ='';
+                                var EmployeeIDExperiences ='';
+                                var ExperiencesName ='';
+                                var Position ='';
+                                var TimeSince ='';
+                                var TimeUntill ='';
+
+                                for (var i = 0; i < employee.length; i++)
+                                {
+                                    ID_Experiences = employee[i].id;
+                                    UserIDExperiences = employee[i].UserIDExperiences;
+                                    EmployeeIDExperiences = employee[i].EmployeeIDExperiences;
+                                    ExperiencesName = employee[i].ExperiencesName;
+                                    Position = employee[i].Position;
+                                    TimeSince = employee[i].TimeSince;
+                                    TimeUntill = employee[i].TimeUntill;
+
+                                    $("#Experiencesrow").append("<tr>"+
+                                        "<td>" +
+                                            '<label class="custom-control custom-checkbox">' +
+                                                '<input type="checkbox" class="custom-control-input checkbox_Experiences" name="checkbox" value='+ID_Experiences+' id= '+ID_Experiences+"checkbox_Experiences"+'>'+
+                                                '<span class="custom-control-label"></span>'+
+                                            '</label>'
+                                        + "</td>" +
+                                            "<td>" + ExperiencesName + "</td>" +
+                                            "<td>" + Position + "</td>" +
+                                            "<td>" + TimeSince + "</td>" +
+                                            "<td>" + TimeUntill + "</td>" +
+                                        '<td>' +
+                                            '<button onclick="get_detail_Experiences(id)" id='+ID_Experiences+' class="btn btn-success btn-sm text-white" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i></button>' +
+                                            '<button onclick="show_hide_bank()" id='+ID_Experiences+' class="btn btn-danger btn-sm text-white" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash-o"></i></button>' +
+                                            '<button onclick="show_hide_bank()" id='+ID_Experiences+' class="btn btn-primary btn-sm text-white" data-toggle="tooltip" data-original-title="View"><i class="fa fa-eye"></i></button>' +
+                                        '</td>' +"</tr>")
+                                }
+                            }
+
+                            var URL_select_checked_Experiences = '/connectdata/EmployeeCVFullViewSet/{{ ID_CurriculumVitae }}/';
+                            function select_checked_Experiences() {
+                                $.getJSON(URL_select_checked_Experiences,{},select_checked_Experiences1);
+                            }
+
+                            var c = [];
+                            function select_checked_Experiences1(employee) {
+                                c = employee.CurriculumVitaeExperience;
+
+                                for (var i = 0; i <= ID_Experiences; i++){
+                                    for (var j = 0; j < c.length; j++){
+                                        if ( document.getElementById(i+"checkbox_Experiences") != null){
+                                            var b = document.getElementById(i+"checkbox_Experiences").value;
+
+                                            if (c[j] == b){
+                                                document.getElementById(i+"checkbox_Experiences").checked = true
+                                            }
+                                        }
+                                    }
+                                }
+
+                                return c
+                            }
+
+                            window.onload = select_checked_Experiences();
+
+                            //check box education
+                            var URL_select_education = "/connectdata/CVEducationViewSet/";
+
+                            function select_education(id) {
+                                var jsonarr_select_education = {"CurriculumVitaeIDEducation": [parseInt(id_CurriculumVitae)]}
+                                console.log(JSON.stringify(jsonarr_select_education));
+
+                                $.ajax({
+                                    "url": URL_select_education + id + "/",
+                                    "data": JSON.stringify(jsonarr_select_education),
+                                    "headers":{"X-CSRFToken": csrftoken},
+                                    "processData": false,
+                                    "contentType": 'application/json',
+                                    "type": "PUT",
+                                    "success": get_id_checkbox_success,
+                                    "error": get_id_checkbox_error
+                                });
+                            }
+
+                            function get_id_checkbox_success(){
+                            }
+
+                            function get_id_checkbox_error(){
+                                alert("get id checkbox error")
+                            }
+
+                            window.onload = get_Experiences()
+                        </script>
+{#                        //////////////////////////////////// end ajax list Experiences \\\\\\\\\\\\\\\\\\\\\\\\#}
+
+{#                        ///////////////////////////////// html list Experiences \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                        <div class="card" id="listExperiences">
+                            <div class="card-header ">
+								<h3 class="card-title">Experiences</h3>
+								<div class="card-options">
+									<a onclick="showform_Experiences_add()" class="btn btn-light btn-sm" href="#"><i class="fa fa-plus"></i> Add Another</a>
+								</div>
+							</div>
+                            <div class="card-body pt-0 pt-md-5">
+                                <div class="tab-content">
+                                    <div class="tab-pane active table-responsive border-top userprof-tab" id="tab1">
+                                        <table class="table table-bordered table-hover mb-0 text-nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th>Select</th>
+                                                    <th>ExperiencesName</th>
+                                                    <th>Position</th>
+                                                    <th>TimeSince</th>
+                                                    <th>TimeUntill</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="Experiencesrow">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+{#                        //////////////////////////////////// end html list Experiences \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+{#                        //////////////////////////////////// html add Experiences \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                        <div class="card" id="addExperiences">
+							<div class="card-header ">
+								<h3 class="card-title">Add Experiences</h3>
+							</div>
+							<div class="card-body">
+								<div class="form-group">
+									<label class="form-label text-dark">ExperiencesName</label>
+									<input type="text" class="form-control" placeholder="ExperiencesName" id="ExperiencesName_add" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">Position</label>
+									<input type="text" class="form-control" placeholder="Position" id="Position_add" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">TimeSince</label>
+									<input type="text" class="form-control" placeholder="TimeSince" id="TimeSince_add" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">TimeUntill</label>
+									<input type="text" class="form-control" placeholder="TimeUntill" id="TimeUntill_add" required>
+								</div>
+							</div>
+                            <div class="card-footer ">
+								<button onclick="add_Experiences()">POST</button>
+							</div>
+						</div>
+{#                        //////////////////////////////////// end html add Experiences \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+{#                        //////////////////////////////////// html update Experiences \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                        <div class="card" id="uploadExperiences">
+							<div class="card-header ">
+								<h3 class="card-title">Upload Experiences</h3>
+							</div>
+							<div class="card-body">
+								<div class="form-group">
+									<label class="form-label text-dark">ExperiencesName</label>
+									<input type="text" class="form-control" placeholder="ExperiencesName" id="ExperiencesName_update" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">Position</label>
+									<input type="text" class="form-control" placeholder="Position" id="Position_update" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">TimeSince</label>
+									<input type="text" class="form-control" placeholder="TimeSince" id="TimeSince_update" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">TimeUntill</label>
+									<input type="text" class="form-control" placeholder="TimeUntill" id="TimeUntill_update" required>
+								</div>
+							</div>
+                            <div class="card-footer">
+								<button onclick="update_Experiences()">Save</button>
+							</div>
+						</div>
+{#                        //////////////////////////////////// end html update Experiences \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+{#                        //////////////////////////////////// ajax add - detail - update Experiences \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                        <script>
+                            // Experiences sai 1 link URL_Experiences cho list - add - update
+
+                            $(document).ready(
+                                function() {
+                                    $("#addExperiences").hide();
+                                    $("#uploadExperiences").hide();
+                                }
+                            );
+
+                            function showform_Experiences_add() {
+                                $("#addExperiences").show();
+                                $("#listExperiences").hide();
+                            }
+
+                            function add_Experiences() {
+
+                                var jsonarr_Experiences = {
+                                    "ExperiencesName": $("#ExperiencesName_add").val(),
+                                    "Position": $("#Position_add").val(),
+                                    "TimeSince": $("#TimeSince_add").val(),
+                                    "TimeUntill": $("#TimeUntill_add").val(),
+                                };
+                                console.log(JSON.stringify(jsonarr_Experiences));
+
+                                $.ajax({
+                                    "url": URL_Experiences,
+                                    "data": JSON.stringify(jsonarr_Experiences),
+                                    "headers":{"X-CSRFToken": csrftoken},
+                                    "processData": false,
+                                    "contentType": 'application/json',
+                                    "type": "POST",
+                                    "success": add_Experiences_success,
+                                    "error": add_Experiences_error
+                                });
+                            }
+
+                            function add_Experiences_success()
+                            {
+                                get_Experiences()
+                                $("#addExperiences").hide();
+                                $("#uploadExperiences").hide();
+                                $("#listExperiences").show();
+                                alert("add Experiences success");
+                            }
+
+                            function add_Experiences_error()
+                            {
+                                get_Experiences()
+                                $("#addExperiences").hide();
+                                $("#uploadExperiences").hide();
+                                $("#listExperiences").show();
+                                alert("add Experiences error!");
+                            }
+
+                            var url_update = '';
+                            function get_detail_Experiences(id)
+                            {
+                                $("#uploadExperiences").show();
+                                $("#listExperiences").hide();
+                                $.getJSON(url_update = URL_Experiences + id + "/",{},detail_Experiences);
+                            }
+
+                            function detail_Experiences(employee) {
+                                $("#ExperiencesName_update").val(employee.ExperiencesName);
+                                $("#Position_update").val(employee.Position);
+                                $("#TimeSince_update").val(employee.TimeSince);
+                                $("#TimeUntill_update").val(employee.TimeUntill);
+                            }
+
+                            function update_Experiences() {
+                                var jsonarr_update_Experiences = {
+                                    "ExperiencesName": $("#ExperiencesName_update").val(),
+                                    "Position": $("#Position_update").val(),
+                                    "TimeSince": $("#TimeSince_update").val(),
+                                    "TimeUntill": $("#TimeUntill_update").val(),
+                                    };
+                                console.log(JSON.stringify(jsonarr_update_Experiences));
+
+                                $.ajax({
+                                    "url": url_update,
+                                    "data": JSON.stringify(jsonarr_update_Experiences),
+                                    "headers":{"X-CSRFToken": csrftoken},
+                                    "processData": false,
+                                    "contentType": 'application/json',
+                                    "type": "PUT",
+                                    "success": update_Experiences_success,
+                                    "error": update_Experiences_error
+                                });
+                            }
+
+                            function update_Experiences_success()
+                            {
+                                {#get_Experiences()#}
+                                $("#Experiencesrow").load($("#Experiencesrow"))
+                                $("#addExperiences").hide();
+                                $("#uploadExperiences").hide();
+                                $("#listExperiences").show();
+                                alert("Experiences update success!");
+                            }
+
+                            function update_Experiences_error()
+                            {
+                                get_Experiences()
+                                $("#addExperiences").hide();
+                                $("#uploadExperiences").hide();
+                                $("#listExperiences").show();
+                                alert("Experiences update error!");
+                            }
+
+                            {#window.onload = get_id_CurriculumVitae()#}
+                        </script>
+                        {#//////////////////////////////////// end ajax add - detail - update Experiences \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+                        {#////////////////////////////////////  html list Skills \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+{#						<div class="card">#}
+{#							<div class="card-header ">#}
+{#								<h3 class="card-title">Professional Skills</h3>#}
+{#								<div class="card-options">#}
+{#									<a class="btn btn-light btn-sm" href="#"><i class="fa fa-plus"></i> Add Another</a>#}
+{#								</div>#}
+{#							</div>#}
+{#							<div class="card-body">#}
+{#								<div class="form-group">#}
+{#									<label class="form-label">Professional Skills</label>#}
+{#									<select class="form-control select2-no-search" data-placeholder="Choose Browser" id="select_skill" multiple>#}
+{#										<option value="Java">Java</option>#}
+{#										<option value="C">C</option>#}
+{#										<option value="C++">C++</option>#}
+{#										<option value="Core Java">Core Java</option>#}
+{#										<option value="Advanced Java">Advanced Java</option>#}
+{#										<option value="Bootstrap">Bootstrap</option>#}
+{#										<option value="HTML" selected>HTML</option>#}
+{#										<option value="CSS">CSS</option>#}
+{#										<option value="Jquery">Jquery</option>#}
+{#										<option value="Angular">Angular</option>#}
+{#										<option value=".net">.net</option>#}
+{#										<option value="php">php</option>#}
+{#										<option value="phython">phython</option>#}
+{#										<option value="React js">React js</option>#}
+{#										<option value="Wordpress">Wordpress</option>#}
+{#										<option value="Angular js">Angular js</option>#}
+{#										<option value="Sap">Sap</option>#}
+{#										<option value="Java Script">Java Script</option>#}
+{#										<option value="HTML 5">HTML 5</option>#}
+{#										<option value="CSS 3">CSS 3</option>#}
+{#									</select>#}
+{#								</div>#}
+{#							</div>#}
+{#						</div>#}
+                        {#//////////////////////////////////// end  html list Skills \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+{#                        <h1><button onclick="get_select_skill()">get_select_skill</button></h1>#}
+                        {#//////////////////////////////////// ajax list Skills \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+{#                        <script>#}
+{#                            function get_select_skill() {#}
+{#                                var values = JSON.stringify($('#select_skill').val());#}
+{#                                console.log(values)#}
+{#                                for (var i = 0; i < values.length; i++){#}
+{#                                    alert(stringify[i](values))#}
+{#                                }#}
+{##}
+{#                                return values#}
+{#                            }#}
+{##}
+{#                        </script>#}
+                        {#//////////////////////////////////// end ajax html list Skills \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+						<div class="float-right mb-4 mb-lg-0">
+                            <button class="btn btn-success w-150" href="#" onclick="create_cv_test()" id="btn_Finish">Finish</button>
+						</div>
+                        <div class="float-right mb-4 mb-lg-0">
+                            <button class="btn btn-success w-150" href="#" onclick="update_CurriculumVitae()" id="btn_Save">Save</button>
+						</div>
+					</div>
+                    {% endblock %}
+                    {#end show profile#}
+                    {#show Column# right#}
+					<div class="col-lg-4 col-md-12">
+						<div class="card">
+							<div class="card-header">
+								<h3 class="card-title">Terms And Conditions</h3>
+							</div>
+							<div class="card-body">
+								<ul class="list-unstyled widget-spec  mb-0">
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Money Not Refundable
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>You can renew your Premium ad after experted.
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium ads are active for depend on package.
+									</li>
+									<li class="ml-5 mb-0">
+										<a href="tips.html"> View more..</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="card">
+							<div class="card-header">
+								<h3 class="card-title">Benefits Of Premium Ad</h3>
+							</div>
+							<div class="card-body pb-2">
+								<ul class="list-unstyled widget-spec vertical-scroll mb-0">
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium Ads Active
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium ads are displayed on top
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium ads will be Show in Google results
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium Ads Active
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium ads are displayed on top
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium ads will be Show in Google results
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium Ads Active
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium ads are displayed on top
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium ads will be Show in Google results
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium Ads Active
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium ads are displayed on top
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium ads will be Show in Google results
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium Ads Active
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium ads are displayed on top
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium ads will be Show in Google results
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="card mb-0">
+							<div class="card-header">
+								<h3 class="card-title">Safety Tips For Buyers</h3>
+							</div>
+							<div class="card-body">
+								<ul class="list-unstyled widget-spec  mb-0">
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i> Meet Seller at public Place
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i> Check item before you buy
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i> Pay only after collecting item
+									</li>
+									<li class="ml-5 mb-0">
+										<a href="tips.html"> View more..</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--/Job posts-section-->
+        {% endblock %}
+		<!--Blogs-->
+		<section class="sptb bg-white">
+			<div class="container">
+				<div class="section-title center-block text-center">
+					<h2>How It Works?</h2>
+					<p>Mauris ut cursus nunc. Morbi eleifend, ligula at consectetur vehicula</p>
+				</div>
+				<div class="row">
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<div class="">
+							<div class="mb-lg-0 mb-4">
+								<div class="service-card text-center">
+									<div class="bg-light icon-bg  icon-service text-purple">
+										<img src="#" alt="img">
+									</div>
+									<div class="servic-data mt-3">
+										<h4 class="font-weight-semibold mb-2">Find Candidates</h4>
+										<p class="text-muted mb-0">Nam libero tempore, cum soluta nobis est eligendi cumque facere possimus</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<div class="">
+							<div class="mb-lg-0 mb-4">
+								<div class="service-card text-center">
+									<div class="bg-light icon-bg icon-service text-purple">
+										<img src="#" alt="img">
+									</div>
+									<div class="servic-data mt-3">
+										<h4 class="font-weight-semibold mb-2">Pay Online</h4>
+										<p class="text-muted mb-0">Nam libero tempore, cum soluta nobis est eligendi cumque facere possimus</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<div class="">
+							<div class="mb-lg-0 mb-4">
+								<div class="service-card text-center">
+									<div class="bg-light icon-bg  icon-service text-purple">
+										<img src="#" alt="img">
+									</div>
+									<div class="servic-data mt-3">
+										<h4 class="font-weight-semibold mb-2">Hire Candidate</h4>
+										<p class="text-muted mb-0">Nam libero tempore, cum soluta nobis est eligendi cumque facere possimus</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<div class="">
+							<div class="">
+								<div class="service-card text-center">
+									<div class="bg-light icon-bg  icon-service text-purple">
+										<img src="#" alt="img">
+									</div>
+									<div class="servic-data mt-3">
+										<h4 class="font-weight-semibold mb-2">Work</h4>
+										<p class="text-muted mb-0">Nam libero tempore, cum soluta nobis est eligendi cumque facere possimus</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+    {% endblock %}
+		<!--Blogs-->
+
+		<!--Footer Section-->
+
+		<!--Footer Section-->
+
+		<!-- Notification -->

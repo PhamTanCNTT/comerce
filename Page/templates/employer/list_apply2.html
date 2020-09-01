@@ -1,0 +1,202 @@
+{% extends 'base_admin2.html' %}
+{% load static %}
+
+
+{% block mydash2 %}
+{#////////////////////////////////// ajax list CurriculumVitae \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+<script>
+    var URL_job_apply = "/employer/EmployerJobApply/";
+    var url_curr_apply = "/employee/GetCVetailView/";
+    function get_jobs_apply()
+    {
+        $.getJSON(URL_job_apply + {{ id_apply }} + "/",{},get_jobs_apply1);
+    }
+
+    var ID_sd = '';
+    var ID_curr = '';
+    function get_jobs_apply1(apply) {
+        var apply_title = '';
+        var apply_career='';
+        var datetimeapply = '';
+
+        for (var i = 0; i < apply.length; i++)
+        {
+            ID_sd = apply[i].id;
+            datetimeapply = apply[i].DatetimeApply;
+            var y = 0;
+            $.getJSON(url_curr_apply + apply[i].CurriculumVitaeIDJobApply + "/", {}, get_jobs_apply2);
+        }
+        function get_jobs_apply2(apply2){
+        var id_apply = apply2.id;
+        var title_curr = apply2.Title;
+        var Career_curr = apply2.Career;
+        var FormOfWork_curr = apply2.FormOfWork;
+        var WorkLocation_curr = apply2.WorkLocation;
+        var DesiredSalary_curr = apply2.DesiredSalary;
+
+
+        $("#mycvrow").append("<tr>"+
+                "<td>" +
+                    '<label class="custom-control custom-checkbox">' +
+                        '<input type="checkbox" class="custom-control-input select_checkbox" name="checkbox" id="'+y+'id_checkbox">'+
+                        '<span class="custom-control-label"></span>'+
+                    '</label>'+
+                "</td>" +
+                '<td>'+ title_curr + '</td>'+
+                '<td>'+ Career_curr + '</td>'+
+                '<td>'+ FormOfWork_curr + '</td>'+
+                '<td>'+ WorkLocation_curr + '</td>'+
+                '<td>' +
+                    '<button onclick="alert_id(value)" value="'+y+'value_btn" id="'+y+'btn_add" class="btn btn-primary btn-sm text-white" data-toggle="tooltip" data-original-title="View">Apply</button>' +
+                    '<button id="'+y+'btn_refuse" class="btn btn-danger btn-sm text-white" data-toggle="tooltip" data-original-title="View">Refuse</button>'+
+                    '<input id="'+y+'btn_add">' +
+                '</td>' +
+                "</tr>")
+            y++
+        }
+    }
+
+    window.onload = get_jobs_apply();
+
+    function get_checkbox_btn()
+    {
+        $.getJSON(URL_job_apply + {{ id_apply }} + "/",{},get_checkbox_btn1);
+    }
+
+    function get_checkbox_btn1(apply1) {
+        var apply_title = '';
+        var apply_career='';
+        var datetimeapply = '';
+
+        for (var j = 0; j < apply1.length; j++)
+        {
+            ID_sd = apply1[j].id;
+
+            $("#" + j + "id_checkbox").val(ID_sd)
+            $("#" + j + "btn_add").val(ID_sd)
+            $("#" + j + "btn_refuse").val(ID_sd)
+
+            $("#" + j + "value_btn").text(ID_sd)
+
+            {#document.getElementById(j + "id_checkbox").value = ID_sd;#}
+            {#document.getElementById(j + "btn_add").value = ID_sd;#}
+            {#document.getElementById(j + "btn_refuse").value = ID_sd;#}
+
+        }
+    }
+    window.onload = get_checkbox_btn();
+    function alert_id(id) {
+        alert(id)
+    }
+
+    var url_apply_comfim = "/employer/EmployerComfirmView/";
+    function manage_apply(id) {
+        var jsonarr_manage_apply = {
+            "Confirm": true,
+            };
+        console.log(JSON.stringify(jsonarr_manage_apply));
+
+        $.ajax({
+            "url": url_apply_comfim + id + "/",
+            "data": JSON.stringify(jsonarr_manage_apply),
+            "headers":{"X-CSRFToken": csrftoken},
+            "processData": false,
+            "contentType": 'application/json',
+            "type": "PUT",
+            "success": update_jsonarr_manage_apply_success1,
+            "error": update_Ejsonarr_manage_apply_error1
+        });
+    }
+    function update_jsonarr_manage_apply_success1(){
+        alert("update comfim true success")
+    }
+    function update_Ejsonarr_manage_apply_error1(){
+        alert("update comfim true error")
+    }
+
+    function manage_no_apply(id) {
+        var jsonarr_manage_apply = {
+            "Confirm": false,
+            };
+        console.log(JSON.stringify(jsonarr_manage_apply));
+
+        $.ajax({
+            "url": url_apply_comfim + id + "/",
+            "data": JSON.stringify(jsonarr_manage_apply),
+            "headers":{"X-CSRFToken": csrftoken},
+            "processData": false,
+            "contentType": 'application/json',
+            "type": "PUT",
+            "success": update_jsonarr_apply_success1,
+            "error": update_Ejsonarr_apply_error1
+        });
+    }
+    function update_jsonarr_apply_success1(){
+        alert("update comfim false success")
+    }
+    function update_Ejsonarr_apply_error1(){
+        alert("update comfim false error")
+    }
+
+
+
+</script>
+{#//////////////////////////////////// end ajax list CurriculumVitae \\\\\\\\\\\\\\\\\\\\\\\\#}
+
+{#///////////////////////////////// html list CurriculumVitae \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+    <div class="col-xl-9 col-lg-12 col-md-12">
+        <div class="card" id="listmycv">
+            <div class="card-header ">
+                <h3 class="card-title">List Jobs</h3>
+                <div class="card-options">
+                    <button onclick="showform_job_add()" class="btn btn-light btn-sm" href="#"><i class="fa fa-plus"></i> Add Another</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="ads-tabs">
+                    <div class="tabs-menus">
+                        <!-- Tabs -->
+                        <ul class="nav panel-tabs">
+                            <li class=""><a href="#tab1" class="active" data-toggle="tab">All Ads (20)</a></li>
+                            <li><a href="#tab2" data-toggle="tab">Published (08)</a></li>
+                            <li><a href="#tab3" data-toggle="tab">Featured (05)</a></li>
+                            <li><a href="#tab4" data-toggle="tab">Sold (03)</a></li>
+                            <li><a href="#tab5" data-toggle="tab">Active (03)</a></li>
+                            <li><a href="#tab6" data-toggle="tab">Expired (01)</a></li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                    <div class="tab-pane active table-responsive border-top userprof-tab" id="tab1">
+                        <table class="table table-bordered table-hover mb-0 text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>select</th>
+                                    <th>title_curr</th>
+                                    <th>Career_curr</th>
+                                    <th>FormOfWork_curr</th>
+                                    <th>WorkLocation_curr</th>
+                                    <th >Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="mycvrow">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+{#//////////////////////////////////// end html list CurriculumVitae \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+{#////////////////////////////////// ajax add - detail - update CurriculumVitae \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+    <script>
+        function showform_job_add() {
+            window.location.href = "/page/jobs/"
+        }
+    </script>
+{#//////////////////////////////////// end ajax add - detail - update CurriculumVitae \\\\\\\\\\\\\\\\\\\\\\\\#}
+
+{% endblock %}

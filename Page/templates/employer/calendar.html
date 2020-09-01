@@ -1,0 +1,1159 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calendar</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+
+    <title>rejoin - Job board html template</title>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+   <!-- Bootstrap Css -->
+<link href="{% static 'assets/plugins/bootstrap-4.3.1-dist/css/bootstrap.min.css' %}" rel="stylesheet" />
+<!-- Dashboard Css -->
+<link href="{% static 'assets/css/style.css'%}" rel="stylesheet"/>
+
+<!-- Font-awesome  Css -->
+<link href="{% static 'assets/css/icons.css'%}" rel="stylesheet"/>
+
+<!--Horizontal Menu-->
+<link href="{% static 'assets/plugins/horizontal/horizontal-menu/animation/fade-down.css'%}" rel="stylesheet"type="text/css" />
+<link href="{% static 'assets/plugins/horizontal/horizontal-menu/horizontal.css'%}" rel="stylesheet" type="text/css"/>
+
+<!--Select2 Plugin -->
+<link href="{% static 'assets/plugins/select2/select2.min.css'%}" rel="stylesheet" type="text/css" />
+
+<!-- Cookie css -->
+<link href="{% static 'assets/plugins/cookie/cookie.css'%}" rel="stylesheet" type="text/css"/>
+
+<!-- Owl Theme css-->
+<link href="{% static 'assets/plugins/owl-carousel/owl.carousel.css'%}" rel="stylesheet" type="text/css"/>
+
+<!-- Custom scroll bar css-->
+<link href="{% static 'assets/plugins/scroll-bar/jquery.mCustomScrollbar.css'%}" rel="stylesheet" type="text/css"/>
+
+<!-- COLOR-SKINS -->
+<link id="theme" rel="stylesheet" type="text/css" media="all" href="{% static 'assets/color-skins/color-skins/color10.css'%}" />
+
+<!--    css tu them-->
+<link rel="stylesheet" href="{% static 'assets/css/tu_them.css'%}">
+
+</head>
+<body>
+<div id="global-loader">
+    <img src="{% static 'assets/images/loader.svg'%}" class="loader-img" alt="">
+</div>
+
+<!--Header Main-->
+<div class="header-main">
+    <!--Top Bar-->
+    <div class="top-bar">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-7 col-lg-7 col-sm-4 col-7">
+                    <div class="top-bar-left d-flex">
+                        <div class="clearfix">
+                            <ul class="socials">
+                                <li>
+                                    <a class="social-icon" href="#"><i class="fa fa-facebook"></i></a>
+                                </li>
+                                <li>
+                                    <a class="social-icon" href="#"><i class="fa fa-twitter"></i></a>
+                                </li>
+                                <li>
+                                    <a class="social-icon" href="#"><i class="fa fa-linkedin"></i></a>
+                                </li>
+                                <li>
+                                    <a class="social-icon" href="#"><i class="fa fa-google-plus"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="clearfix">
+                            <ul class="contact border-left">
+                                <li class="d-lg-none">
+                                    <a href="#" class="callnumber"><span><i class="fa fa-phone mr-1"></i>: +425 345 8765</span></a>
+                                </li>
+                                <li class="select-country">
+                                    <select class="form-control select2-flag-search" data-placeholder="Select Country">
+                                        <option value="UM">United States of America</option>
+                                        <option value="AF">Afghanistan</option>
+                                        <option value="AL">Albania</option>
+                                        <option value="AD">Andorra</option>
+                                        <option value="AG">Antigua and Barbuda</option>
+                                        <option value="AU">Australia</option>
+                                        <option value="AM">Armenia</option>
+                                        <option value="AO">Angola</option>
+                                        <option value="AR">Argentina</option>
+                                        <option value="AT">Austria</option>
+                                        <option value="AZ">Azerbaijan</option>
+                                        <option value="BA">Bosnia and Herzegovina</option>
+                                        <option value="BB">Barbados</option>
+                                        <option value="BD">Bangladesh</option>
+                                        <option value="BE">Belgium</option>
+                                        <option value="BF">Burkina Faso</option>
+                                        <option value="BG">Bulgaria</option>
+                                        <option value="BH">Bahrain</option>
+                                        <option value="BJ">Benin</option>
+                                        <option value="BN">Brunei</option>
+                                        <option value="BO">Bolivia</option>
+                                        <option value="BT">Bhutan</option>
+                                        <option value="BY">Belarus</option>
+                                        <option value="CD">Congo</option>
+                                        <option value="CA">Canada</option>
+                                        <option value="CF">Central African Republic</option>
+                                        <option value="CI">Cote d'Ivoire</option>
+                                        <option value="CL">Chile</option>
+                                        <option value="CM">Cameroon</option>
+                                        <option value="CN">China</option>
+                                        <option value="CO">Colombia</option>
+                                        <option value="CU">Cuba</option>
+                                        <option value="CV">Cabo Verde</option>
+                                        <option value="CY">Cyprus</option>
+                                        <option value="DJ">Djibouti</option>
+                                        <option value="DK">Denmark</option>
+                                        <option value="DM">Dominica</option>
+                                        <option value="DO">Dominican Republic</option>
+                                        <option value="EC">Ecuador</option>
+                                        <option value="EE">Estonia</option>
+                                        <option value="ER">Eritrea</option>
+                                        <option value="ET">Ethiopia</option>
+                                        <option value="FI">Finland</option>
+                                        <option value="FJ">Fiji</option>
+                                        <option value="FR">France</option>
+                                        <option value="GA">Gabon</option>
+                                        <option value="GD">Grenada</option>
+                                        <option value="GE">Georgia</option>
+                                        <option value="GH">Ghana</option>
+                                        <option value="GH">Ghana</option>
+                                        <option value="HN">Honduras</option>
+                                        <option value="HT">Haiti</option>
+                                        <option value="HU">Hungary</option>
+                                        <option value="ID">Indonesia</option>
+                                        <option value="IE">Ireland</option>
+                                        <option value="IL">Israel</option>
+                                        <option value="IN">India</option>
+                                        <option value="IQ">Iraq</option>
+                                        <option value="IR">Iran</option>
+                                        <option value="IS">Iceland</option>
+                                        <option value="IT">Italy</option>
+                                        <option value="JM">Jamaica</option>
+                                        <option value="JO">Jordan</option>
+                                        <option value="JP">Japan</option>
+                                        <option value="KE">Kenya</option>
+                                        <option value="KG">Kyrgyzstan</option>
+                                        <option value="KI">Kiribati</option>
+                                        <option value="KW">Kuwait</option>
+                                        <option value="KZ">Kazakhstan</option>
+                                        <option value="LA">Laos</option>
+                                        <option value="LB">Lebanons</option>
+                                        <option value="LI">Liechtenstein</option>
+                                        <option value="LR">Liberia</option>
+                                        <option value="LS">Lesotho</option>
+                                        <option value="LT">Lithuania</option>
+                                        <option value="LU">Luxembourg</option>
+                                        <option value="LV">Latvia</option>
+                                        <option value="LY">Libya</option>
+                                        <option value="MA">Morocco</option>
+                                        <option value="MC">Monaco</option>
+                                        <option value="MD">Moldova</option>
+                                        <option value="ME">Montenegro</option>
+                                        <option value="MG">Madagascar</option>
+                                        <option value="MH">Marshall Islands</option>
+                                        <option value="MK">Macedonia (FYROM)</option>
+                                        <option value="ML">Mali</option>
+                                        <option value="MM">Myanmar (formerly Burma)</option>
+                                        <option value="MN">Mongolia</option>
+                                        <option value="MR">Mauritania</option>
+                                        <option value="MT">Malta</option>
+                                        <option value="MV">Maldives</option>
+                                        <option value="MW">Malawi</option>
+                                        <option value="MX">Mexico</option>
+                                        <option value="MZ">Mozambique</option>
+                                        <option value="NA">Namibia</option>
+                                        <option value="NG">Nigeria</option>
+                                        <option value="NO">Norway</option>
+                                        <option value="NP">Nepal</option>
+                                        <option value="NR">Nauru</option>
+                                        <option value="NZ">New Zealand</option>
+                                        <option value="OM">Oman</option>
+                                        <option value="PA">Panama</option>
+                                        <option value="PF">Paraguay</option>
+                                        <option value="PG">Papua New Guinea</option>
+                                        <option value="PH">Philippines</option>
+                                        <option value="PK">Pakistan</option>
+                                        <option value="PL">Poland</option>
+                                        <option value="QA">Qatar</option>
+                                        <option value="RO">Romania</option>
+                                        <option value="RU">Russia</option>
+                                        <option value="RW">Rwanda</option>
+                                        <option value="SA">Saudi Arabia</option>
+                                        <option value="SB">Solomon Islands</option>
+                                        <option value="SC">Seychelles</option>
+                                        <option value="SD">Sudan</option>
+                                        <option value="SE">Sweden</option>
+                                        <option value="SG">Singapore</option>
+                                        <option value="TG">Togo</option>
+                                        <option value="TH">Thailand</option>
+                                        <option value="TJ">Tajikistan</option>
+                                        <option value="TL">Timor-Leste</option>
+                                        <option value="TM">Turkmenistan</option>
+                                        <option value="TN">Tunisia</option>
+                                        <option value="TO">Tonga</option>
+                                        <option value="TR">Turkey</option>
+                                        <option value="TT">Trinidad and Tobago</option>
+                                        <option value="TW">Taiwan</option>
+                                        <option value="UA">Ukraine</option>
+                                        <option value="UG">Uganda</option>
+                                        <option value="UY">Uruguay</option>
+                                        <option value="UZ">Uzbekistan</option>
+                                        <option value="VA">Vatican City (Holy See)</option>
+                                        <option value="VE">Venezuela</option>
+                                        <option value="VN">Vietnam</option>
+                                        <option value="VU">Vanuatu</option>
+                                        <option value="YE">Yemen</option>
+                                        <option value="ZM">Zambia</option>
+                                        <option value="ZW">Zimbabwe</option>
+                                    </select>
+                                </li>
+                                <li class="dropdown d-none d-xl-inline-block">
+                                    <a href="#" class="" data-toggle="dropdown"><span> Language <i class="fa fa-caret-down"></i></span> </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                        <a href="#" class="dropdown-item" >
+                                            English
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            Arabic
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            German
+                                        </a>
+                                        <a href="#" class="dropdown-item" >
+                                            Greek
+                                        </a>
+                                        <a href="#" class="dropdown-item" >
+                                            Spanish
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="dropdown d-none d-xl-inline-block">
+                                    <a href="#" class="" data-toggle="dropdown"><span>Currency <i class="fa fa-caret-down"></i></span></a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                        <a href="#" class="dropdown-item" >
+                                            USD
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            EUR
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            INR
+                                        </a>
+                                        <a href="#" class="dropdown-item" >
+                                            GBP
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-5 col-lg-5 col-sm-8 col-5">
+                    <div class="top-bar-right">
+                        <ul class="custom">
+                            <li>
+                                <!--base cũ-->
+<!--                            {% block body %}-->
+
+<!--                            {% if messages %}-->
+<!--                            <div>-->
+<!--                              <strong>Messages:</strong>-->
+<!--                              <ul>-->
+<!--                                {% for message in messages %}-->
+<!--                                <li>{{message}}</li>-->
+<!--                                {% endfor %}-->
+<!--                              </ul>-->
+<!--                            </div>-->
+<!--                            {% endif %}-->
+
+                            {% if user.is_authenticated %}
+                                <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
+                                <li><a href="{% url 'account_logout' %}">Log Out</a></li>
+<!--                                <li>-->
+<!--                                    <form method="post" action="{% url 'account_logout' %}">-->
+<!--                                        {% csrf_token %}-->
+<!--                                        {% if redirect_field_value %}-->
+<!--                                            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>-->
+<!--                                        {% endif %}-->
+<!--                                            <button type="submit" id="Sign_out" style="background: #6851EA;color: white;">Sign Out</button>-->
+<!--                                    </form>-->
+<!--                                </li>-->
+
+                            {% else %}
+                                <li><a href="{% url 'account_signup' %}"><i class="fa fa-user mr-1"></i>Sign Up</a></li>
+                                <li><a href="{% url 'account_login' %}"><i class="fa fa-sign-in mr-1"></i>Sign In</a></li>
+                            {% endif %}
+
+<!--                            {% block content %}-->
+<!--                            {% endblock %}-->
+<!--                            {% endblock %}-->
+<!--                            {% block extra_body %}-->
+<!--                            {% endblock %}-->
+
+                            <!--end base cũ-->
+                            </li>
+
+<!--                            <li>-->
+<!--                                <a href="/Page/register/" class=""><i class="fa fa-user mr-1"></i> <span>Register</span></a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="/Page/login/" class=""><i class="fa fa-sign-in mr-1"></i> <span>Login</span></a>-->
+<!--                            </li>-->
+                            <li class="dropdown">
+                                <a href="#" class="" data-toggle="dropdown"><i class="fa fa-home mr-1"></i><span> My Dashboard</span></a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                    <a href="/Page/mydash/" class="dropdown-item" >
+                                        <i class="dropdown-icon icon icon-user"></i> My Profile
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="dropdown-icon icon icon-speech"></i> Inbox
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="dropdown-icon icon icon-bell"></i> Notifications
+                                    </a>
+
+                                    <a href="/Page/mydash/" class="dropdown-item" >
+                                        <i class="dropdown-icon  icon icon-settings"></i> Account Settings
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="dropdown-icon icon icon-power"></i> Log out
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="/Page/login/" class=""><i class="fa fa-black-tie mr-1"></i> <span>For Employer</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Top Bar-->
+
+    <!-- Mobile Header -->
+        <div class="sticky">
+             <div class="horizontal-header clearfix ">
+                <div class="container">
+                    <a id="horizontal-navtoggle" class="animated-arrow"><span></span></a>
+                    <span class="smllogo"><img src="{% static 'assets/images/brand/logo.png'%}" width="120" alt="img"/></span>
+                    <a href="#" class="callusbtn bg-light"><i class="fa fa-bell text-body" aria-hidden="true"></i></a></div></div>
+                </div>
+            </div>
+        </div>
+    <!-- /Mobile Header -->
+
+    <!--Horizontal-main-->
+    <div class="horizontal-main clearfix">
+        <div class="horizontal-mainwrapper container clearfix">
+            <div class="desktoplogo">
+                <a href="/page/index/"><img src="{% static 'assets/images/brand/logo.png'%}" alt=""></a>
+            </div>
+            <div class="desktoplogo-1">
+                <a href="/page/index/"><img src="{% static 'assets/images/brand/logo.png'%}" alt=""></a>
+            </div>
+            <!--Nav-->
+            <nav class="horizontalMenu clearfix d-md-flex">
+                <ul class="horizontalMenu-list">
+                    <li><a href="#">Home <span class="fa fa-caret-down m-0"></span></a>
+                        <ul class="sub-menu">
+                            <li><a href="/page/index/">Home Deafult</a></li>
+                            <li><a href="/Page/index2/">Home Style 02</a></li>
+                            <li><a href="/Page/index3/">Home Style 03</a></li>
+                            <li><a href="/Page/index4/">Home Style 04</a></li>
+                            <li><a href="/Page/index5/">Home Style 05</a></li>
+                            <li><a href="/Page/index6/">Home Style 06</a></li>
+                            <li><a href="/Page/index7/">Home Style 07</a></li>
+                            <li><a href="/Page/intro-page/">Home Intro Page</a></li>
+                            <li><a href="/Page/popup-login/">Home Pop-up login</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/Page/about/">About Us </a></li>
+                    <li><a href="#">Pages <span class="fa fa-caret-down m-0"></span></a>
+                        <div class="horizontal-megamenu clearfix">
+                            <div class="container">
+                                <div class="megamenu-content">
+                                    <div class="row">
+                                        <ul class="col link-list">
+                                            <li class="title">Job List pages</li>
+                                            <li><a href="/Page/jobs-list/">Jobs List</a></li>
+                                            <li><a href="/Page/jobs-list-right/">Jobs List Right</a></li>
+                                            <li><a href="/Page/jobs-list-map/">Jobs Map list</a></li>
+                                            <li><a href="/Page/jobs-list-map2/">Jobs Map list 02</a></li>
+                                            <li><a href="/Page/jobs-list-map3/">Jobs Map style 03</a></li>
+                                            <li><a href="/Page/jobs/">Jobs Left</a></li>
+                                            <li><a href="/Page/jobs-right/">Jobs Rights </a></li>
+                                            <li class="title mt-4">Candidate list Pages</li>
+                                            <li><a href="/Page/candidate-listing/">Candidate Listing</a></li>
+                                            <li><a href="/Page/candidate-listing2/">Candidate Listing Style2</a></li>
+                                            <li><a href="/Page/candidate-profile/">Candidate Profile</a></li>
+                                        </ul>
+                                        <ul class="col link-list">
+                                            <li class="title">Candidate pages</li>
+                                            <li><a href="/Page/advanced-search/">Advanced Search</a></li>
+                                            <li><a href="/page/create_resume/">Create Resume </a></li>
+                                            <li class="title mt-4">Company List Pages</li>
+                                            <li><a href="/Page/company-list/">Company Listing</a></li>
+                                            <li><a href="/Page/company-list2/">Company Listing Style2</a></li>
+                                            <li><a href="/Page/company-details/">Company Details</a></li>
+                                            <li><a href="/Page/company-reviews/l">Company Reviews</a></li>
+                                            <li><a href="/Page/company-list-map/">Company Map list</a></li>
+                                            <li><a href="/Page/company-list-map2/">Company Map list 02</a></li>
+                                            <li><a href="/Page/company-list-map3/">Company Map style 03</a></li>
+                                            <li><a href="/Page/my-jobs/">My Jobs</a></li>
+                                        </ul>
+                                        <ul class="col link-list">
+                                            <li class="title">Widgets</li>
+                                            <li><a href="/Page/widgets/">Custom Widgets</a></li>
+                                            <li><a href="/Page/widgetscarousel/">Owl Carousel Widgets</a></li>
+                                            <li><a href="/Page/widgets-verticalscroll/">Vertical Scroll Widgets</a></li>
+                                            <li class="title mt-4">Pages</li>
+                                            <li><a href="/Page/categories/">Categories</a></li>
+                                            <li><a href="/Page/ad-post/">Ad Posts</a></li>
+                                            <li><a href="/Page/ad-post2/">Ad Posts2</a></li>
+                                            <li><a href="/Page/pricing/">Pricing Tables</a></li>
+                                            <li><a href="/Page/profile/">Profile Page</a></li>
+                                            <li><a href="/Page/userprofileadpost/"> User Profile</a></li>
+                                            <li><a href="/Page/usersall/">User Lists</a></li>
+
+                                        </ul>
+                                        <ul class="col link-list">
+                                            <li class="title">User Pages</li>
+                                            <li><a href="/Page/inovice/">Invoice</a></li>
+                                            <li><a href="/Page/typography/">Typography</a></li>
+                                            <li><a href="/Page/underconstruction/">Under Constructions</a></li>
+
+        <!--{#                                            <li><a href="400.html">400 Error</a></li>#}-->
+        <!--{#                                            <li><a href="404.html">404 Error</a></li>#}-->
+        <!--{#                                            <li><a href="500.html">500 Error</a></li>#}-->
+        <!--{#                                            <li><a href="404-inline.html">Inline Error</a></li>#}-->
+
+                                            <li><a href="/Page/register/">Register</a></li>
+                                            <li><a href="/Page/login/">Login</a></li>
+                                            <li><a href="/Page/login-2/">Login 02</a></li>
+                                            <li><a href="/Page/forgot/">Forgot Password</a></li>
+                                            <li><a href="/Page/lockscreen/">Lock Screen</a></li>
+                                            <li><a href="/Page/faq/">Faq</a></li>
+                                        </ul>
+                                        <ul class="col link-list">
+                                            <li class="title">Headers & Footers</li>
+                                            <li><a href="/Page/header-style1/">Header Style 01</a></li>
+                                            <li><a href="/Page/header-style2/">Header Style 02</a></li>
+                                            <li><a href="/Page/header-style3/">Header Style 03</a></li>
+                                            <li><a href="/Page/header-style4/">Header Style 04</a></li>
+                                            <li><a href="/Page/footer-style1/">Footer Style 01</a></li>
+                                            <li><a href="/Page/footer-style2/">Footer Style 02</a></li>
+                                            <li><a href="/Page/footer-style3/">Footer Style 03</a></li>
+                                            <li><a href="/Page/footer-style4/">Footer Style 04</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li><a href="#">Blog <span class="fa fa-caret-down m-0"></span></a>
+                        <ul class="sub-menu">
+                            <li><a href="#">Blog Grid <i class="fa fa-angle-right float-right mt-1 d-none d-lg-block"></i></a>
+                                 <ul class="sub-menu">
+                                    <li><a href="/Page/blog-grid/">Blog Grid Left</a></li>
+                                    <li><a href="/Page/blog-grid-right/">Blog Grid Right</a></li>
+                                    <li><a href="/Page/blog-grid-center/">Blog Grid Center</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Blog List <i class="fa fa-angle-right float-right mt-1 d-none d-lg-block"></i></a>
+                                 <ul class="sub-menu">
+                                    <li><a href="/Page/blog-list/">Blog List Left</a></li>
+                                    <li><a href="/Page/blog-list-right/">Blog List Right</a></li>
+                                    <li><a href="/Page/blog-list-center/">Blog List Center</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Blog Details <i class="fa fa-angle-right float-right mt-1 d-none d-lg-block"></i></a>
+                                <ul class="sub-menu">
+                                    <li><a href="/Page/blog-details/">Blog Details Left</a></li>
+                                    <li><a href="/Page/blog-details-right/">Blog Details Right</a></li>
+                                    <li><a href="/Page/blog-details-center/">Blog Details Center</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="#">My Dashboard <span class="fa fa-caret-down m-0"></span></a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a href="/page/mydash/">My Dashboard</a>
+                            </li>
+                            {% if user.employer.isEmployer == True %}
+                                <li>
+                                    <a href="/page/myjobs/">My Jobs</a>
+                                </li>
+                            {% endif %}
+                            {% if user.employee.isEmployee == True %}
+                                <li>
+                                    <a href="/page/mycv/">My CV</a>
+                                </li>
+                            {% endif %}
+                            <li>
+                                <a href="/Page/manged/">Manged Jobs</a>
+                            </li>
+                            <li>
+                                <a href="/Page/payments/">Payments</a>
+                            </li>
+                            <li>
+                                <a href="/Page/orders/"> Orders</a>
+                            </li>
+                            <li>
+                                <a href="/Page/settings/"> Settings</a>
+                            </li>
+                            <li>
+                                <a href="/Page/tips/">Tips</a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+<!--                {#2 button Submit a Job và create resume không hiển thị trên web #}-->
+
+                    <li><a href="/Page/contact/">  <span class="horizontal-arrow">Contact Us</span></a></li>
+                    <li class="d-lg-none pt-5 pb-2 mt-lg-0">
+								<span><a class="btn btn-secondary ad-post mt-1" href="/Page/ad-posts/"><i class="fa fa-briefcase"></i>Submit a Job</a></span>
+							</li>
+                    <li class="d-lg-none mt-0 pb-5 mt-lg-0">
+                        <span><a class="btn btn-info ad-post mt-1" href="/page/create_resume/" ><i class="fa fa-edit"></i>Create Resume</a></span>
+                    </li>
+                </ul>
+                {% if user.employer.isEmployer == True %}
+
+                    <ul class="mb-0 pr-2">
+                        <li class="d-none d-lg-flex">
+                            <span><a class="btn btn-secondary ad-post mt-1" href="/page/jobs/"><i class="fa fa-briefcase"></i>Submit a Job</a></span>
+                        </li>
+                    </ul>
+                {% else %}
+                    <ul class="mb-0 pl-2 create-resume-btn">
+                        <li class="d-none d-lg-flex">
+    <!--                        <span><a class="btn btn-info ad-post mt-1" onclick="create_resume()"><i class="fa fa-edit"></i> Create Resume</a></span>-->
+                            <span><a class="btn btn-info ad-post mt-1" href="/page/create_resume/"><i class="fa fa-edit"></i> Create Resume</a></span>
+                        </li>
+                    </ul>
+                {% endif %}
+                {#----------------------------------------------------------------------------------------------------#}
+            </nav>
+            <!--/Nav-->
+        </div>
+    </div>
+    <!--/Horizontal-main-->
+</div><br><br>
+
+<div class="container col-sm-4 col-md-7 col-lg-4 mt-5">
+    <div class="card mb-0">
+        <div class="card-body center-block">
+            <div class="row">
+                <div class="col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <label for="">Schedule Name: </label>
+                        <input type="text" id="schename">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <h3 class="card-header" id="monthAndYear"></h3>
+        <table class="table table-bordered table-responsive-sm" id="calendar">
+            <thead>
+            <tr>
+                <th>Sun</th>
+                <th>Mon</th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th>Thu</th>
+                <th>Fri</th>
+                <th>Sat</th>
+            </tr>
+            </thead>
+
+            <tbody id="calendar-body">
+
+            </tbody>
+        </table>
+
+        <div class="form-inline">
+
+            <button class="btn btn-outline-primary col-sm-6" id="previous" onclick="previous()">Previous</button>
+
+            <button class="btn btn-outline-primary col-sm-6" id="next" onclick="next()">Next</button>
+        </div>
+        <br/>
+        <form class="form-inline">
+            <label class="lead mr-2 ml-2" for="month">Jump To: </label>
+            <select class="form-control col-sm-4" name="month" id="month" onchange="jump()">
+                <option value=1>Jan</option>
+                <option value=2>Feb</option>
+                <option value=3>Mar</option>
+                <option value=4>Apr</option>
+                <option value=5>May</option>
+                <option value=6>Jun</option>
+                <option value=7>Jul</option>
+                <option value=8>Aug</option>
+                <option value=9>Sep</option>
+                <option value=10>Oct</option>
+                <option value=11>Nov</option>
+                <option value=12>Dec</option>
+            </select>
+
+
+            <label for="year"></label><select class="form-control col-sm-4" name="year" id="year" onchange="jump()">
+            <option value=1990>1990</option>
+            <option value=1991>1991</option>
+            <option value=1992>1992</option>
+            <option value=1993>1993</option>
+            <option value=1994>1994</option>
+            <option value=1995>1995</option>
+            <option value=1996>1996</option>
+            <option value=1997>1997</option>
+            <option value=1998>1998</option>
+            <option value=1999>1999</option>
+            <option value=2000>2000</option>
+            <option value=2001>2001</option>
+            <option value=2002>2002</option>
+            <option value=2003>2003</option>
+            <option value=2004>2004</option>
+            <option value=2005>2005</option>
+            <option value=2006>2006</option>
+            <option value=2007>2007</option>
+            <option value=2008>2008</option>
+            <option value=2009>2009</option>
+            <option value=2010>2010</option>
+            <option value=2011>2011</option>
+            <option value=2012>2012</option>
+            <option value=2013>2013</option>
+            <option value=2014>2014</option>
+            <option value=2015>2015</option>
+            <option value=2016>2016</option>
+            <option value=2017>2017</option>
+            <option value=2018>2018</option>
+            <option value=2019>2019</option>
+            <option value=2020>2020</option>
+            <option value=2021>2021</option>
+            <option value=2022>2022</option>
+            <option value=2023>2023</option>
+            <option value=2024>2024</option>
+            <option value=2025>2025</option>
+            <option value=2026>2026</option>
+            <option value=2027>2027</option>
+            <option value=2028>2028</option>
+            <option value=2029>2029</option>
+            <option value=2030>2030</option>
+        </select></form>
+    </div>
+    <br><br>
+    <button class="col-md-12 btn btn-outline-primary col-sm-6" data-toggle="modal" data-target="#exampleModal" onclick="create_schedule()">Create Schedule</button>
+    <br>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create Time In Out</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <select class="col-md-12 btn btn-outline-primary col-sm-6" id="select_schename" onchange="select_day_ion_out()"></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="form-group-lg">InOut Name</label>
+                        <input type="text" class="form-control" id="inout_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="form-group-lg">Time In</label>
+                        <input type="time" class="form-control" id="timein">
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="form-group-lg">Time Out</label>
+                        <input type="time" class="form-control" id="timeout">
+                    </div>
+                    <table class="table table-bordered table-hover mb-0 text-nowrap">
+                        <thead>
+                            <tr>
+                                <th>Select</th>
+                                <th>Date In Out</th>
+                            </tr>
+                        </thead>
+                        <tbody id="InOutRow">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="create_time_inout()">Create Time In Out</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <br><br>
+
+</div>
+<br><br><br>
+{#<script src="dist/bundle.js"></script>#}
+{#<link rel='stylesheet' href='https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.css'>#}
+{#<script src='https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.min.js'></script>#}
+<script>
+    var url_create_schedule = "/employer/ScheduleDateTime/";
+
+    function create_schedule() {
+        function json_date_inout_sche() {
+            var arr = [];
+            for (var i = 0; i < 32; i++){
+                var m = document.getElementById("month").value
+                var y = document.getElementById("year").value
+                var da = document.getElementById(i+"day"+m+y)
+                if (da != null) {
+                    var d = (da.innerText || da.textContent)
+                    arr[i] = {"DateIDInOut":y +"-"+ m + "-" + d}
+                    {#var filtered = arr[i].filter(function (el) {#}
+                    {#  return el != null;});#}
+                    {#if (arr[i] != null){#}
+                    {#    arr[i].filter(arr[i] != null)}#}
+                }
+            }
+            var arr_date_inout = arr.filter(function (el) {
+                return el != null
+            })
+            return arr_date_inout
+        }
+
+        var jsonarr_create_schedule = {
+            "SchName": $("#schename").val(),
+            {#"DateStartWork": $("#datestarwork").val(),#}
+            {#"DateEndWork": $("#dateendstarwork").val(),#}
+            {#"IsWeekend": $("#Career").val(),#}
+            {#"IsAbsentSat": $("#FormOfWork").val(),#}
+            {#"IsAbsentSun": $("#WorkLocation").val(),#}
+            {#"IsAbsentHol": $("#DesiredSalary").val(),#}
+            {#"CycleMode": $("#Skill").val(),#}
+            "dateinoutschedule": json_date_inout_sche()
+        };
+        console.log(JSON.stringify(jsonarr_create_schedule));
+
+        $.ajax({
+            "url": url_create_schedule,
+            "data": JSON.stringify(jsonarr_create_schedule),
+            "headers":{"X-CSRFToken": csrftoken},
+            "processData": false,
+            "contentType": 'application/json',
+            "type": "POST",
+            "success": create_schedule_success,
+            "error": create_schedule_error
+        });
+}
+function create_schedule_success() {
+    select_schename()
+    alert("create schedule success!")
+}
+
+function create_schedule_error() {
+    {#select_schename()#}
+    alert("create schedule error!")
+}
+
+function select_schename() {
+    $.getJSON(url_create_schedule,{},select_schename1);
+}
+
+function select_schename1(sche) {
+       var a = document.createElement("option");
+            a.setAttribute("value", 0);
+            a.setAttribute("class", "form-control option_addr_full");
+            var ta = document.createTextNode("Select Date Time");
+            a.appendChild(ta);
+            document.getElementById("select_schename").appendChild(a);
+
+    for (var i = 0; i < sche.length; i++){
+        var a1 = document.createElement("option");
+            a1.setAttribute("id", i+"option_addr_full");
+            a1.setAttribute("value", sche[i].id);
+            a1.setAttribute("class", "form-control option_addr_full");
+            var ta1 = document.createTextNode(sche[i].SchName);
+            a1.appendChild(ta1);
+            document.getElementById("select_schename").appendChild(a1);
+    }
+}
+
+function Schedule_name() {
+    var arr_name = []
+    var day  = "Day"
+    $("#DayInOut").append(
+        '<th>'+
+            day+
+        '</th>'
+    )
+    for (var i = 0; i < 32; i++){
+        var m = document.getElementById("month").value
+        var y = document.getElementById("year").value
+        var da = document.getElementById(i+"day"+m+y)
+        if (da != null) {
+            var d = (da.innerText || da.textContent)
+            arr_name[i] = d + "-" + m + "-" + y;
+            $("#DayInOut").append(
+                    '<th>'+
+                        arr_name[i]+
+                    '</th>'
+            )
+        }
+    }
+
+    var ca = "ca: ";
+    $("#TimeInOut").append(
+        '<td>'+
+            ca +
+        '</td>' +
+        '<td>'+
+        '</td>'
+    );
+
+    for (var a = 0; a < json_date_inout_sche.length; a++){
+        $("#TimeInOut").append(
+            '<td>'+
+            '</td>'
+        )
+    }
+}
+
+function list_InOut(){
+    var arr_name = [];
+    for (var i = 0; i < 32; i++){
+        var m = document.getElementById("month").value
+        var y = document.getElementById("year").value
+        var da = document.getElementById(i+"day"+m+y)
+        if (da != null) {
+            var d = (da.innerText || da.textContent)
+            arr_name[i] = d + "-" + m + "-" + y;
+            console.log(arr_name)
+            $("#InOutRow").append(
+                '<tr>'+
+                    '<td>'+
+                        '<label class="custom-control custom-checkbox">' +
+                            '<input type="checkbox" class="custom-control-input checkbox_education" name="checkbox" id="'+d+'id_dateionout" value="'+d+'">'+
+                            '<span class="custom-control-label"></span>'+
+                        '</label>'+
+                    '</td>'+
+                    '<td>'+
+                        arr_name[i]+
+                    '</td>'+
+                '</tr>'
+            )
+        }
+    }
+}
+
+function create_sche_ttime(){
+    create_schedule()
+}
+
+var url_create_time_inout = "/employer/InOutViewSet/";
+function create_time_inout() {
+        var arr_id = [];
+        function DateInOutID() {
+            alert(ID_dateinout)
+            var i = 0;
+            for (var j = 0; j <= ID_dateinout; j++){
+                var x = $("#" + j +"checkbox_datetinout" +":checked" ).val()
+                if (x != null){
+                    arr_id[i] = parseInt(x)
+                    i++
+                }
+            }
+            var json_arr_checked = JSON.stringify(arr_id)
+            return arr_id
+        }
+        
+        var jsonarr_create_time_inout = {
+            "InOutName": $("#inout_name").val(),
+            "TimeIn": $("#timein").val(),
+            "TimeOut": $("#timeout").val(),
+            "DateInOutIDInOut": DateInOutID()
+        };
+        console.log(JSON.stringify(jsonarr_create_time_inout));
+
+        $.ajax({
+            "url": url_create_time_inout,
+            "data": JSON.stringify(jsonarr_create_time_inout),
+            "headers":{"X-CSRFToken": csrftoken},
+            "processData": false,
+            "contentType": 'application/json',
+            "type": "POST",
+            "success": create_time_inout_success,
+            "error": create_time_inout_error
+        });
+}
+
+function create_time_inout_success(){
+    alert("create time out success!")
+}
+
+function create_time_inout_error(){
+    alert("create time out error!")
+}
+
+var url_sche_date_time = "/employer/ScheduleDateTime/";
+
+function select_day_ion_out() {
+    var select = document.getElementById("select_schename").value
+    $.getJSON(url_sche_date_time + select+ "/",{},select_day_ion_out1);
+}
+var ID_dateinout = '';
+function select_day_ion_out1(datetime) {
+    var dateinout = "";
+
+    for (var i = 0; i < datetime.dateinoutschedule.length; i++){
+        ID_dateinout = datetime.dateinoutschedule[i].id;
+        dateinout = datetime.dateinoutschedule[i].DateIDInOut;
+
+        if (document.getElementById(i+"tr")) {
+            document.getElementById(i + "tr").remove()
+        }
+
+            $("#InOutRow").append(
+                '<tr id="' + i + 'tr">' +
+                '<td>' +
+                '<label class="custom-control custom-checkbox">' +
+                '<input type="checkbox" class="custom-control-input checkbox_education" name="checkbox"  value=' + ID_dateinout + ' id=' + ID_dateinout + "checkbox_datetinout" + '>' +
+                '<span class="custom-control-label"></span>' +
+                '</label>'
+                + '</td>' +
+                '<td>' +
+                    dateinout +
+                '</td>' +
+                '</tr>'
+            )
+    }
+}
+    
+{#window.onload = select_schename()#}
+
+</script>
+<!--<button name="jump" onclick="jump()">Go</button>-->
+<script src="{% static 'assets/js/scripts_calendar.js' %}"></script>
+<!-- Optional JavaScript for bootstrap -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
+<!--Footer Section-->
+<section>
+    <footer class="bg-dark text-white cover-image" data-image-src="{% static 'assets/images/banners/banner3.jpg'%}">
+        <div class="footer-main">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-2 col-md-12">
+                        <h6>Job Categories</h6>
+                        <hr class="deep-purple  accent-2 mb-4 mt-0 d-inline-block mx-auto">
+                        <ul class="list-unstyled mb-0">
+                            <li><a href="#">Developement</a></li>
+                            <li><a href="#">Designing</a></li>
+                            <li><a href="#">Marketing</a></li>
+                            <li><a href="#">Others</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 col-md-12">
+                        <h6>Job Type</h6>
+                        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto">
+                        <ul class="list-unstyled mb-0">
+                            <li><a href="#">Work from home</a></li>
+                            <li><a href="#">Internship</a></li>
+                            <li><a href="#">Part time</a></li>
+                            <li><a href="#">Full time</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 col-md-12">
+                        <h6>Resources</h6>
+                        <hr class="deep-purple  accent-2 mb-4 mt-0 d-inline-block mx-auto">
+                        <ul class="list-unstyled mb-0">
+                            <li><a href="#">Support</a></li>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                            <li><a href="#">Contact Details</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <h6>Popular Ads</h6>
+                        <hr class="deep-purple  accent-2 mb-4 mt-0 d-inline-block mx-auto">
+                        <ul class="list-unstyled mb-0">
+                            <li><a href="#"><i class="fa fa-caret-right text-white-50"></i> Educational college Ads</a></li>
+                            <li><a href="#"><i class="fa fa-caret-right text-white-50"></i> Free Lancer for Web Developer</a></li>
+                            <li><a href="#"><i class="fa fa-caret-right text-white-50"></i> Searching for Developer</a></li>
+                            <li><a href="#"><i class="fa fa-caret-right text-white-50"></i> BPO Online In Bangalore</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <h6 class="mb-2">Subscribe</h6>
+                        <hr class="deep-purple  accent-2 mb-4 mt-0 d-inline-block mx-auto">
+                        <div class="input-group w-100">
+                            <input type="text" class="form-control  border" placeholder="Email">
+                            <div class="input-group-append ">
+                                <button type="button" class="btn btn-primary "> Subscribe </button>
+                            </div>
+                        </div>
+                        <h6 class="mb-2 mt-5">Payments</h6>
+                        <hr class="deep-purple  accent-2 mb-4 mt-0 d-inline-block mx-auto">
+                        <ul class="payments mb-0">
+                            <li>
+                                <a href="javascript:;" class="payments-icon"><i class="fa fa-cc-amex" aria-hidden="true"></i></a>
+                            </li>
+                            <li>
+                                <a href="javascript:;" class="payments-icon"><i class="fa fa-cc-visa" aria-hidden="true"></i></a>
+                            </li>
+                            <li>
+                                <a href="javascript:;" class="payments-icon"><i class="fa fa-credit-card-alt" aria-hidden="true"></i></a>
+                            </li>
+                            <li>
+                                <a href="javascript:;" class="payments-icon"><i class="fa fa-cc-mastercard" aria-hidden="true"></i></a>
+                            </li>
+                            <li>
+                                <a href="javascript:;" class="payments-icon"><i class="fa fa-cc-paypal" aria-hidden="true"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-white-50 border-top p-0">
+            <div class="container">
+                <div class="row d-flex">
+                    <div class="col-lg-8 col-sm-12  mt-2 mb-2 text-left ">
+                        Copyright © 2019 <a href="{% url 'account_login' %}" class="fs-14 text-white">rejoin</a>. Designed by <a href="spruko.com" class="fs-14 text-white">Spruko</a> All rights reserved.
+                    </div>
+                    <div class="col-lg-4 col-sm-12 ml-auto mb-2 mt-2 d-none d-lg-block">
+                        <ul class="social mb-0">
+                            <li>
+                                <a class="social-icon" href=""><i class="fa fa-facebook"></i></a>
+                            </li>
+                            <li>
+                                <a class="social-icon" href=""><i class="fa fa-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a class="social-icon" href=""><i class="fa fa-rss"></i></a>
+                            </li>
+                            <li>
+                                <a class="social-icon" href=""><i class="fa fa-youtube"></i></a>
+                            </li>
+                            <li>
+                                <a class="social-icon" href=""><i class="fa fa-linkedin"></i></a>
+                            </li>
+                            <li>
+                                <a class="social-icon" href=""><i class="fa fa-google-plus"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-white p-0 border-top">
+            <div class="container">
+                <div class="p-2 text-center footer-links">
+                    <a href="#" class="btn btn-link">How It Works</a>
+                    <a href="#" class="btn btn-link">About Us</a>
+                    <a href="#" class="btn btn-link">Pricing</a>
+                    <a href="#" class="btn btn-link">Ads Categories</a>
+                    <a href="#" class="btn btn-link">Privacy Policy</a>
+                    <a href="#" class="btn btn-link">Terms Of Conditions</a>
+                    <a href="#" class="btn btn-link">Blog</a>
+                    <a href="#" class="btn btn-link">Contact Us</a>
+                    <a href="#" class="btn btn-link">Premium Ad</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</section>
+<!--Footer Section-->
+<!-- Notification -->
+<a href="http://127.0.0.1:8000/Page/advanced-search/" id="notification" ><span class="notification-text">Create Job Alert</span><i class="fa fa-bell"></i></a>
+
+<!-- Back to top -->
+<a href="#top" id="back-to-top" ><i class="fa fa-arrow-up"></i></a>
+
+<!-- JQuery js-->
+<!-- JQuery js-->
+<script src="{% static 'assets/js/vendors/jquery-3.2.1.min.js'%}"></script>
+
+<!-- Bootstrap js -->
+<script src="{% static 'assets/plugins/bootstrap-4.3.1-dist/js/popper.min.js'%}"></script>
+<script src="{% static 'assets/plugins/bootstrap-4.3.1-dist/js/bootstrap.min.js'%}"></script>
+
+<!--JQuery Sparkline Js-->
+<script src="{% static 'assets/js/vendors/jquery.sparkline.min.js'%}"></script>
+
+<!-- Circle Progress Js-->
+<script src="{% static 'assets/js/vendors/circle-progress.min.js'%}"></script>
+
+<!-- Star Rating Js-->
+<script src="{% static 'assets/plugins/rating/jquery.rating-stars.js'%}"></script>
+
+<!--Counters -->
+<script src="{% static 'assets/plugins/counters/counterup.min.js'%}"></script>
+<script src="{% static 'assets/plugins/counters/waypoints.min.js'%}"></script>
+<script src="{% static 'assets/plugins/counters/numeric-counter.js'%}"></script>
+
+<!--Owl Carousel js -->
+<script src="{% static 'assets/plugins/owl-carousel/owl.carousel.js'%}"></script>
+
+<!--Horizontal Menu-->
+<script src="{% static 'assets/plugins/horizontal/horizontal-menu/horizontal.js'%}"></script>
+
+<!--JQuery TouchSwipe js-->
+<script src="{% static 'assets/js/jquery.touchSwipe.min.js'%}"></script>
+
+<!--Select2 js -->
+<script src="{% static 'assets/plugins/select2/select2.full.min.js'%}"></script>
+<script src="{% static 'assets/js/select2.js'%}"></script>
+
+<!-- sticky Js-->
+<script src="{% static 'assets/js/sticky.js'%}"></script>
+
+<!-- Ion.RangeSlider -->
+<script src="{% static 'assets/plugins/jquery-uislider/jquery-ui.js'%}"></script>
+
+<!--Showmore Js-->
+<script src="{% static 'assets/js/jquery.showmore.js'%}"></script>
+<script src="{% static 'assets/js/showmore.js'%}"></script>
+
+<!-- Cookie js -->
+<script src="{% static 'assets/plugins/cookie/jquery.ihavecookies.js'%}"></script>
+<script src="{% static 'assets/plugins/cookie/cookie.js'%}"></script>
+
+<!-- Custom scroll bar Js-->
+<script src="{% static 'assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js'%}"></script>
+
+<!-- Swipe Js-->
+<script src="{% static 'assets/js/swipe.js'%}"></script>
+
+<!-- Scripts Js-->
+<script src="{% static 'assets/js/scripts2.js'%}"></script>
+
+<!-- Custom Js-->
+<script src="{% static 'assets/js/custom.js'%}"></script>
+
+</body>
+</html>

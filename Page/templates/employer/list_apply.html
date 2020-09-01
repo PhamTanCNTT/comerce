@@ -1,0 +1,139 @@
+{% extends 'base_admin2.html' %}
+{% load static %}
+
+
+{% block mydash2 %}
+{#////////////////////////////////// ajax list CurriculumVitae \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+<script>
+    var URL_job_apply = "/employer/EmployerJobApply/";
+    var url_curr_apply = "/employee/GetCVetailView/";
+
+
+    function get_jobs_apply()
+    {
+        $.getJSON(URL_job_apply + {{ id_apply }} + "/",{},get_jobs_apply1);
+    }
+
+    var ID_sd = '';
+    var ID_curr = '';
+    var title_curr_apply = '';
+    var datetime_curr_apply = '';
+    var id_curr_apply = '';
+    var length_apply = '';
+    function get_jobs_apply1(apply) {
+        var apply_title = '';
+        var apply_career='';
+        var datetimeapply = '';
+
+        var j = 1;
+        length_apply = apply.length
+        for (var i = 0; i < length_apply; i++)
+        {
+            ID_sd = apply[i].id;
+            title_curr_apply = apply[i].Title;
+            datetime_curr_apply = apply[i].DatetimeApply;
+            id_curr_apply = apply[i].CurriculumVitaeIDJobApply
+
+            $("#mycvrow").append("<tr id='"+i+"apply_title_tr'>"+
+                "<td class='confirm_cv'>" + j + "</td>"+
+                "<td class='confirm_cv1'>" +
+                    '<label class="custom-control custom-checkbox">' +
+                        '<img src="" id="'+i+'img_comfim" alt="error">' +
+                    '</label>'
+                + "</td>" +
+                '<td>'+ title_curr_apply + '</td>'+
+                '<td>'+ datetime_curr_apply + '</td>'+
+                '<td>' +
+                    '<button onclick="show_curr(value)" value='+ID_sd+' id='+ID_sd+"id_apply"+' class="btn btn-secondary btn-sm text-white" data-toggle="tooltip" data-original-title="View">Confirm</button>' +
+                    '<button onclick="check_comfim(value)" id='+i+"id_view"+' class="btn btn-primary btn-sm text-white" data-toggle="tooltip" data-original-title="View">View</button>' +
+                '</td>' +
+                "</tr>"
+            )
+            if (apply[i].Confirm === true){
+                $("#"+i+"img_comfim").prop('src',"{% static "assets/images/icon/apply_true.png" %}")
+                $("#"+i+"id_view").val(2)
+            }
+            if (apply[i].Confirm === false){
+                $("#"+i+"img_comfim").prop('src',"{% static "assets/images/icon/apply_false.png" %}")
+                $("#"+i+"id_view").val(1)
+            }
+            if (apply[i].Confirm === null) {
+                $("#"+i+"img_comfim").prop('src',"{% static "assets/images/icon/apply_null.png" %}")
+                $("#"+i+"id_view").val(0)
+            }
+            j++
+        }
+    }
+
+    function check_comfim(id) {
+        if (id == 2){
+            alert("info")
+        }else {
+            alert("Please confirm CV!")
+        }
+    }
+
+    function show_curr(id) {
+        window.location.href = "/page/viewdetailjobapply/"+id+"/";
+    }
+
+    window.onload = get_jobs_apply();
+</script>
+{#//////////////////////////////////// end ajax list CurriculumVitae \\\\\\\\\\\\\\\\\\\\\\\\#}
+
+{#///////////////////////////////// html list CurriculumVitae \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+    <div class="col-xl-9 col-lg-12 col-md-12">
+        <div class="card" id="listmycv">
+            <div class="card-header ">
+                <h3 class="card-title">List Jobs</h3>
+                <div class="card-options">
+                    <button onclick="showform_job_add()" class="btn btn-light btn-sm" href="#"><i class="fa fa-plus"></i> Add Another</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="ads-tabs">
+                    <div class="tabs-menus">
+                        <!-- Tabs -->
+                        <ul class="nav panel-tabs">
+                            <li class=""><a href="#tab1" class="active" data-toggle="tab">All Ads (20)</a></li>
+                            <li><a href="#tab2" data-toggle="tab">Published (08)</a></li>
+                            <li><a href="#tab3" data-toggle="tab">Featured (05)</a></li>
+                            <li><a href="#tab4" data-toggle="tab">Sold (03)</a></li>
+                            <li><a href="#tab5" data-toggle="tab">Active (03)</a></li>
+                            <li><a href="#tab6" data-toggle="tab">Expired (01)</a></li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                    <div class="tab-pane active table-responsive border-top userprof-tab" id="tab1">
+                        <table class="table table-bordered table-hover mb-0 text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th class='confirm_cv2'>Stt</th>
+                                    <th>select</th>
+                                    <th class='confirm_cv4'>title_curr</th>
+                                    <th class='confirm_cv5'>Date_curr</th>
+                                    <th class='confirm_cv6'>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="mycvrow">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+{#//////////////////////////////////// end html list CurriculumVitae \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+{#////////////////////////////////// ajax add - detail - update CurriculumVitae \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+    <script>
+        function showform_job_add() {
+            window.location.href = "/page/jobs/"
+        }
+    </script>
+{#//////////////////////////////////// end ajax add - detail - update CurriculumVitae \\\\\\\\\\\\\\\\\\\\\\\\#}
+
+{% endblock %}

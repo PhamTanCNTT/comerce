@@ -1,0 +1,225 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Giá trị của GOJOCO</title>
+    <meta charset="utf-8">
+    <!-- border -->
+    <link rel="stylesheet" href="{% static 'baselogin/css/border.css' %}">
+    <!--/-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
+    <!-- register -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="{% static 'baselogin/css/Login_CSS.css' %}" rel="stylesheet">
+    {#<link href="{% static 'baselogin/css/w3container.css' %}" rel="stylesheet">#}
+    <script src="{% static 'baselogin/js/addJS.js' %}"></script>
+    <!--Chèn CSS vào Web-->
+    <link rel="stylesheet" type="text/css" href="{% static '/css/trangchu.css' %}">
+    <!-- Chèn bản đồ vào Form -->
+    <link rel="stylesheet" type="text/css" href="{% static '/css/Ex.css' %}">
+    <!--Chèn Javascript vào Web-->
+    {#<script language="javascript" src="{% static '/formlogin/src/trangchu.js' %}"></script>#}
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDeoAiUnXHPPa-s6y66SF806wEfDYRK85Q" async defer></script>
+    <!-- CSS_Base -->
+    <!-- Bootstrap Css -->
+<link href="{% static 'assets/plugins/bootstrap-4.3.1-dist/css/bootstrap.min.css' %}" rel="stylesheet" />
+<!-- Dashboard Css -->
+<link href="{% static 'assets/css/style.css'%}" rel="stylesheet"/>
+
+<!-- Font-awesome  Css -->
+<link href="{% static 'assets/css/icons.css'%}" rel="stylesheet"/>
+
+<!--Horizontal Menu-->
+<link href="{% static 'assets/plugins/horizontal/horizontal-menu/animation/fade-down.css'%}" rel="stylesheet"type="text/css" />
+<link href="{% static 'assets/plugins/horizontal/horizontal-menu/horizontal.css'%}" rel="stylesheet" type="text/css"/>
+
+<!--Select2 Plugin -->
+<link href="{% static 'assets/plugins/select2/select2.min.css'%}" rel="stylesheet" type="text/css" />
+
+<!-- Cookie css -->
+<link href="{% static 'assets/plugins/cookie/cookie.css'%}" rel="stylesheet" type="text/css"/>
+
+<!-- Owl Theme css-->
+<link href="{% static 'assets/plugins/owl-carousel/owl.carousel.css'%}" rel="stylesheet" type="text/css"/>
+
+<!-- Custom scroll bar css-->
+<link href="{% static 'assets/plugins/scroll-bar/jquery.mCustomScrollbar.css'%}" rel="stylesheet" type="text/css"/>
+
+<!-- COLOR-SKINS -->
+<link id="theme" rel="stylesheet" type="text/css" media="all" href="{% static 'assets/color-skins/color-skins/color10.css'%}" />
+
+    <!--/-->
+    <script>
+        function addMarker(location) {}
+
+function initMap() {
+    var latitude, longitude;
+    if (navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+                latitude = position.coords.latitude;
+                longitude = position.coords.longitude;
+                console.log(latitude)
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    center: new google.maps.LatLng(latitude, longitude),
+                    zoom: 18,
+                    //Chức năng Google Maps Bật hay Tắt
+                    //disableDefaultUI: true
+                    //zoomControl: false,
+                    //scaleControl: false,
+                    mapTypeControl: false,
+                    fullscreenControl: false,
+                    //gestureHandling: 'greedy',
+                    gestureHandling: 'none',
+                    zoomControl: false,
+                    //mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    //backgroundColor: '#FFFFFF'
+                });
+                var contentString = '<div id="content">' +
+                    '<div id="siteNotice">' +
+                    '</div>' +
+                    '<h1 id="firstHeading" class="firstHeading">GOOD JOB CONNECT</h1>' +
+                    '<div id="bodyContent">' +
+                    '<p><b>CÔNG TY TOÀN Á CHÂU</b>, is a large ' +
+                    'sandstone rock formation in the southern part of the ' +
+                    'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) ' +
+                    'south west of the nearest large town, Alice Springs; 450&#160;km ' +
+                    '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major ' +
+                    'features of the Uluru - Kata Tjuta National Park. Uluru is ' +
+                    'sacred to the Pitjantjatjara and Yankunytjatjara, the ' +
+                    'Aboriginal people of the area. It has many springs, waterholes, ' +
+                    'rock caves and ancient paintings. Uluru is listed as a World ' +
+                    'Heritage Site.</p>' +
+                    '<p>GOJOCO: <a href="http://gojoco.online">' +
+                    'http://gojoco.online</a> ' +
+                    '(Since April 20, 2010).</p>' +
+                    '</div>' +
+                    '</div>';
+
+                var infowindow = new google.maps.InfoWindow({
+                    content: contentString
+                });
+
+                var image = '{% static 'formlogin/icon/vitri.png' %}';
+                marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(latitude, longitude),
+                    map: map,
+                    title: 'GOOD JOB CONNECT<p><b>CÔNG TY TOÀN Á CHÂU</b></p>',
+                    {#label: 'GOJOCO',#}
+                    icon: image
+                });
+                marker.addListener('click', function() {
+                    infowindow.open(map, marker);
+                });
+
+            });
+    }
+
+}
+google.maps.event.addDomListener(window, 'load', initMap);
+    </script>
+</head>
+
+<body onload="initMap();">
+    <div id="content">
+     <div id="container">
+         <div id="map"></div>
+     </div>
+    </div>
+</body>
+<body>
+<div id="sidebar">
+<!-- Links (sit on top) -->
+
+{#<div class="w3-container">#}
+
+<div class="head">
+{#   <div class="container customerpage">#}
+{#				<div class="row">#}
+{#					<div class="single-page">#}
+{#						<div class="col-lg-5 col-xl-4 col-md-7 d-block mx-auto">#}
+{#							<div class="wrapper wrapper2">#}
+								<div class="p-4 mb-5">
+									<h4 class="text-left font-weight-semibold fs-16">Login With</h4>
+									<div class="btn-list d-sm-flex">
+										<a href="https://www.google.com/gmail/" class="btn btn-primary mb-sm-0"><i class="fa fa-google fa-1x mr-2"></i> Google</a>
+										<a href="https://twitter.com/" class="btn btn-secondary mb-sm-0"><i class="fa fa-twitter fa-1x mr-2"></i> Twitter</a>
+										<a href="https://www.facebook.com/" class="btn btn-info mb-0"><i class="fa fa-facebook fa-1x mr-2"></i> Facebook</a>
+									</div>
+								</div>
+								<hr class="divider">
+								<form id="login" class="card-body" tabindex="500">
+
+									<div class="mail">
+										<input type="email" name="mail">
+										<label>Mail or Username</label>
+									</div>
+									<div class="passwd">
+										<input type="password" name="password">
+										<label>Password</label>
+									</div>
+									<div class="submit">
+										<a class="btn btn-primary btn-block" href="/Page/index/">Login</a>
+									</div>
+									<p class="mb-2"><a href="/Page/forgot/">Forgot Password</a></p>
+									<p class="text-dark mb-0">Don't have account?<a href="/FormLogin/GJC_Register/" class="text-primary ml-1">Sign UP</a></p>
+								</form>
+{#							</div>#}
+{#						</div>#}
+{#					</div>#}
+{#				</div>#}
+{#			</div>#}
+{#      <div class="w3-row w3-padding w3-blue">#}
+{#    <div class="w3-col s3">#}
+{#      <a href="/FormLogin/GJC_Login/" class="w3-button w3-block w3-blue">LOGIN</a>#}
+{#    </div>#}
+{#    <div class="w3-col s3">#}
+{#      <a href="/FormLogin/GJC_Register/" class="w3-button w3-block w3-blue">REGISTER</a>#}
+{#    </div>#}
+{#    <div class="w3-col s3">#}
+{#      <a href="#" class="w3-button w3-block w3-blue">MENU</a>#}
+{#    </div>#}
+{#    <div class="w3-col s3">#}
+{#      <a href="#" class="w3-button w3-block w3-blue">WHERE</a>#}
+{#    </div>#}
+{#  </div>#}
+{#    </div>#}
+{#</div>#}
+
+{#<form action="#" style="max-width:500px;margin:auto" ;="">#}
+{##}
+{#  <h2 align="center">Login</h2>#}
+{##}
+{#  <div class="input-container">#}
+{#    <input class="input-field" type="text" placeholder="Tên Đăng Nhập" name="usrnm">#}
+{#  </div>#}
+{##}
+{#  <div class="input-container">#}
+{#    <input class="input-field" type="text" placeholder="Email" name="email">#}
+{#  </div>#}
+{##}
+{#  <div class="input-container">#}
+{#    <input class="input-field" type="password" placeholder="Mật Khẩu" name="psw">#}
+{#  </div>#}
+{#          <button type="submit" class="btn">Login</button>#}
+{#    </form>#}
+
+<!-- Footer -->
+{#<div class="foot-container">#}
+{#<footer class="w3-center w3-light-grey w3-padding-48 w3-large">#}
+{##}
+{#  <p>Chưa có tài khoản <a href="/FormLogin/GJC_Login/" title="base_register" target="_blank" class="w3-hover-text-blue">Đăng kí</a></p>#}
+{#  <p>Đăng nhập bằng <a href="http://facebook.com" title="facebook" target="_blank" class="w3-hover-text-blue">Facebook</a></p>#}
+{#  <p>Đăng nhập bằng <a href="http://gmail.com" title="google" target="_blank" class="w3-hover-text-blue">Google</a></p>#}
+{##}
+{#</footer>#}
+{#</div>#}
+    </div>
+</div>
+</body>
+
+</html>

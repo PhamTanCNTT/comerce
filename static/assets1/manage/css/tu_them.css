@@ -1,0 +1,37 @@
+.Facebook{
+    background: blue;
+}
+
+.Google{
+    background: red;
+    border: red;
+}
+
+#Sign_out{
+    background: #6851EA;
+    color: white;
+}
+
+.br_popup{
+    background-color: transparent;
+    border: transparent;
+}
+
+.field_remember{
+    color: red;
+    width: 4%;
+    height: 4%;
+}
+
+.radio_check_Worker{
+    margin: -140%;
+}
+
+.radio_check_Employer{
+    margin: -140%;
+}
+
+.size_radio{
+    width: 4%;
+    color: black;
+}

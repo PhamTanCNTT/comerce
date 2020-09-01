@@ -1,0 +1,1989 @@
+{% load static %}
+{% block base %}
+
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="Description" content="Job board html template">
+<meta name="Author" content="Spruko Technologies Private Limited">
+<meta name="keywords" content="bootstrap job board template, bootstrap job template, hr consultancy website template, job board bootstrap template, job board html template, job listing html template, job portal html template, job portal templates html5, job posting website template, job recruitment website template, job template bootstrap, job template html, simple html and css templates, simple html css templates, directory listing html template, classified website template, responsive css template, html5 responsive template, job posting template, simple bootstrap template, bootstrap 4 templates, job application template, html5 template, premium, recruitment, template, html, job alert, directory"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<link rel="icon" href="favicon.ico" type="image/x-icon"/>
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+
+
+<!-- Title -->
+
+<title>GOJOCO - Good Job Connect</title>
+<!-- Bootstrap Css -->
+{% block css %}
+   <!-- Bootstrap Css -->
+<link href="{% static 'assets/plugins/bootstrap-4.3.1-dist/css/bootstrap.min.css' %}" rel="stylesheet" />
+<!-- Dashboard Css -->
+<link href="{% static 'assets/css/style.css'%}" rel="stylesheet"/>
+
+<!-- Font-awesome  Css -->
+<link href="{% static 'assets/css/icons.css'%}" rel="stylesheet"/>
+
+<!--Horizontal Menu-->
+<link href="{% static 'assets/plugins/horizontal/horizontal-menu/animation/fade-down.css'%}" rel="stylesheet"type="text/css" />
+<link href="{% static 'assets/plugins/horizontal/horizontal-menu/horizontal.css'%}" rel="stylesheet" type="text/css"/>
+
+<!--Select2 Plugin -->
+<link href="{% static 'assets/plugins/select2/select2.min.css'%}" rel="stylesheet" type="text/css" />
+
+<!-- Cookie css -->
+<link href="{% static 'assets/plugins/cookie/cookie.css'%}" rel="stylesheet" type="text/css"/>
+
+<!-- Owl Theme css-->
+<link href="{% static 'assets/plugins/owl-carousel/owl.carousel.css'%}" rel="stylesheet" type="text/css"/>
+
+<!-- Custom scroll bar css-->
+<link href="{% static 'assets/plugins/scroll-bar/jquery.mCustomScrollbar.css'%}" rel="stylesheet" type="text/css"/>
+
+<!-- COLOR-SKINS -->
+<link id="theme" rel="stylesheet" type="text/css" media="all" href="{% static 'assets/color-skins/color-skins/color10.css'%}" />
+
+<!--    css tu them-->
+<link rel="stylesheet" href="{% static 'assets/css/tu_them.css'%}">
+<style>
+    .tieude{
+        font-weight: bold
+    }
+    .info_curr{
+        text-align: right;
+        width: 200px;
+    }
+    .info_cv_detail{
+        font-weight: bold;
+    }
+    .confirm_cv{
+        text-align: center;
+    }
+    .confirm_cv2{
+        align-content: center;
+        margin: auto;
+    }
+
+    .confirm_cv2{
+        width: 3%;
+        align-content: center;
+    }
+    .confirm_cv3{
+        width: 5%;
+    }
+    .confirm_cv4{
+        width: 40%;
+    }
+    .confirm_cv5{
+        width: 40%;
+    }
+    .confirm_cv6{
+        width: 10%;
+    }
+    .imagecmnd{
+        width: auto;
+        height: 180px;
+        align-items: center;
+    }
+</style>
+<!--    js tu them-->
+    {% block jstuthem %}
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+    {% block ajax_create_resume %}{% endblock %}
+<!--    2 cai block ajax nay cua Page/mydash2.html-->
+    {% block ajax_edit_profile %}
+        <script type="text/javascript">
+            var url_get_id_profile = "/connectdata/ProfileUserViewSet/";
+
+            function get_id_profile() {
+                $.getJSON(url_get_id_profile,{},get_profile);
+            }
+
+            var URL_profile2 = "/connectdata/ProfileUserViewSet/";
+            function readCookie(name) {
+                var nameEQ = name + "=";
+                var ca = document.cookie.split(';');
+                for(var i=0;i < ca.length;i++) {
+                    var c = ca[i];
+                    while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+                }
+                return null;
+            }
+
+            var csrftoken = readCookie('csrftoken');
+            function return_id_profile()
+            {
+                $.getJSON(url_get_id_profile,{},return_id_profile1);
+            }
+
+            function return_id_profile1(profile) {
+                console.log(profile[0].id)
+                return profile[0].id
+            }
+            window.onload = return_id_profile()
+
+            window.onload = get_id_profile()
+            function get_profile(profile)
+            {
+                $.getJSON(URL_profile2 + profile[0].id + "/",{},edit_profile);
+            }
+
+            var url_address_province = "/address/provincecity/";
+
+            function edit_profile(profile) {
+                $("#userfirtname").val(profile.UserFirstName);
+                $("#usermiddlename").val(profile.UserMiddleName);
+                $("#userlastname").val(profile.UserLastName);
+                $("#userfullname").val(profile.UserFullName);
+                $("#userbirthday").val(profile.UserBirthDay);
+                $("#usersex").val(profile.UserSex);
+                $("#userphone").val(profile.UserPhone);
+                $("#email").val(profile.Email);
+                $("#useridcard").val(profile.UserIDCard);
+                $("#idcardplaceofissue").val(profile.IDCardPlaceOfIssue);
+                $("#userapplydate").val(profile.UserApplyDate);
+                $("#usernationality").val(profile.UserNationality);
+                $("#maritalstatus").val(profile.MaritalStatus);
+
+
+                $("#upload_cmnd1").val(profile.id);
+                 $("#upload_cmnd2").val(profile.id);
+
+
+                $("#userfullname1").text(profile.UserFullName);
+                $("#userfirtname1").text(profile.UserFirstName);
+                $("#usermiddlename1").text(profile.UserMiddleName);
+                $("#userlastname1").text(profile.UserLastName);
+                $("#userfullname1").text(profile.UserFullName);
+                $("#userbirthday1").text(profile.UserBirthDay);
+                $("#usersex1").text(profile.UserSex);
+                $("#userphone1").text(profile.UserPhone);
+                $("#email1").text(profile.Email);
+                $("#useridcard1").text(profile.UserIDCard);
+
+                $("#idcardplaceofissue1").text(profile.IDCardPlaceOfIssue);
+                $("#userapplydate1").text(profile.UserApplyDate);
+                $("#usernationality1").text(profile.UserNationality);
+
+                $("#maritalstatus1").text(profile.MaritalStatus);
+
+                $("#upload_img1").text(profile.id);
+                $("#addressfull").val(profile.AddressIDProfile);
+                $("#address1").text(profile.AddressIDProfile);
+
+                // alert(profile.AddressIDProfile)
+
+                address_ful_profile()
+
+                //list profile
+                {#$("#select_address_full1").val(profile.AddressLine);#}
+            }
+
+            function upload_profile() {
+                $.getJSON(url_get_id_profile,{},upload_profile1);
+            }
+            function upload_profile1(profile) {
+                var jsonarr = {
+                        "UserFirstName": $("#userfirtname").val(),
+                        "UserMiddleName": $("#usermiddlename").val(),
+                        "UserLastName": $("#userlastname").val(),
+                        "UserBirthDay": $("#userbirthday").val(),
+                        "UserSex": $("#usersex").val(),
+                        "UserPhone": $("#userphone").val(),
+                        "Email": $("#email").val(),
+                        "UserIDCard": $("#useridcard").val(),
+                        "UserApplyDate": $("#userapplydate").val(),
+                        "IDCardPlaceOfIssue": $("#idcardplaceofissue").val(),
+                        "UserNationality": $("#usernationality").val(),
+                        "MaritalStatus": $("#maritalstatus").val(),
+                        "AddressIDProfile": $("#select_address_full").val()
+
+                    };
+                console.log(JSON.stringify(jsonarr));
+
+                $.ajax({
+                    "url": URL_profile2 + profile[0].id + "/",
+                    "data": JSON.stringify(jsonarr),
+                    "headers":{"X-CSRFToken": csrftoken},
+                    "processData": false,
+                    "contentType": 'application/json',
+                    "type": "PUT",
+                    "success": update_profile_success,
+                    "error": update_profile_error
+                });
+            }
+
+            function update_profile_success()
+            {
+                get_id_profile()
+                $("#edit_profile").hide();
+                $("#show_profile").show();
+                alert("update profile success!")
+            }
+
+            function update_profile_error()
+            {
+                $("#edit_profile").hide();
+                $("#show_profile").show();
+                alert("update profile error!");
+            }
+            URL_create_resume = "/connectdata/CVViewSet/";
+
+            function create_resume() {
+                var jsonarr_create_resume = {"cvemployeeeducationserializer": [],"cvemployeeexperiences": []}
+                console.log(JSON.stringify(jsonarr_create_resume));
+
+                $.ajax({
+                    "url": URL_create_resume,
+                    "data": JSON.stringify(jsonarr_create_resume),
+                    "headers":{"X-CSRFToken": csrftoken},
+                    "processData": false,
+                    "contentType": 'application/json',
+                    "type": "POST",
+                    "success": add_resume_success,
+                    "error": add_resume_error
+                });
+            }
+
+            function add_resume_success() {
+                alert("create resume success")
+                window.location.href = "/page/create_resume/"
+            }
+
+            function add_resume_error() {
+                alert("create resume error")
+            }
+
+            //get id CurriculumVitae
+            function showform_CurriculumVitae_update(id) {
+                window.location.href = "/page/update_resume/"+id+"/";
+            }
+
+            function showform_job_update(id) {
+                window.location.href = "/page/update_job/"+id+"/";
+            }
+
+            var url_get_img = "/connectdata/ProfileUserViewSetToken/"
+            function get_img() {
+                 $.getJSON(url_get_img,{},get_img1);
+            }
+            function get_img1(profile) {
+                $("#id_img").prop('src',profile[0].UserImage)
+                $("#imageavata").prop('src',profile[0].UserImage)
+                $("#id_img1").prop('src',profile[0].UserImage)
+            }
+            window.onload = get_img()
+
+            //CMND1 Load
+            var url_get_cmnd1 = "/connectdata/profilecmnd1/"
+            function get_cmnd1() {
+                 $.getJSON(url_get_cmnd1,{},get_img_cmnd1);
+            }
+            function get_img_cmnd1(profile) {
+                $("#imgcmnd1").prop('src',profile[0].CMND1)
+            }
+            window.onload = get_cmnd1()
+            //CMND1 End
+
+             //CMND2 Load
+            var url_get_cmnd2 = "/connectdata/profilecmnd2/"
+            function get_cmnd2() {
+                 $.getJSON(url_get_cmnd2,{},get_img_cmnd2);
+            }
+            function get_img_cmnd2(profile) {
+                $("#imgcmnd2").prop('src',profile[0].CMND2)
+            }
+            window.onload = get_cmnd2()
+            //CMND2 End
+
+            // ajax create address2
+            $(document).ready(
+                function() {
+                    $("#add_address").hide()
+                    $("#upload_address").hide()
+                    // $("#select_address_full").hide();
+                }
+            );
+
+            var url_address_full = "/connectdata/address/"
+            var url_nation = "/address/country/1/";
+            var url_address_province = "/address/provincecity/";
+            var url_address_district = "/address/district/";
+            var url_address_ward = "/address/ward/";
+            var id_province = '';
+            var id_district = '';
+            var id_ward = '';
+
+            function address_ful_profile() {
+                $.getJSON(url_get_id_profile,{},address_ful_profile1);
+            }
+            function address_ful_profile1(profile) {
+                $.getJSON(url_address_full + profile[0].AddressIDProfile + "/",{},address_ful_profile2);
+            }
+            var selected = '';
+            function address_ful_profile2(address) {
+                $("#select_address_full2").text(address.AddressLine);
+                $("#select_address_full1").text(address.AddressLine);
+                $("#select_address_full2").val(address.id);
+                selected = address.id
+                console.log(selected)
+                var value_option = '';
+
+                var a1 = document.createElement("option");
+                    a1.setAttribute("value", address.id);
+                    a1.setAttribute("class", "form-control");
+                    a1.setAttribute("selected", "selected");
+                    var ta1 = document.createTextNode(address.AddressLine);
+                    a1.appendChild(ta1);
+                    document.getElementById("select_address_full").appendChild(a1);
+            }
+
+            function address_ful() {
+                $.getJSON(url_address_full,{},address_ful1);
+            }
+            function address_ful1(address) {
+                for (var i = 0; i < address.length; i++){
+                    var a1 = document.createElement("option");
+                        a1.setAttribute("id", i+"option_addr_full");
+                        a1.setAttribute("value", address[i].id);
+                        if (address[i].id = 30){
+                            a1.setAttribute("selected", "selected");
+                        }
+                        a1.setAttribute("class", "form-control option_addr_full");
+                        var ta1 = document.createTextNode(address[i].AddressLine);
+                        a1.appendChild(ta1);
+                        document.getElementById("select_address_full").appendChild(a1);
+                }
+            }
+
+            function show_form_add_address() {
+                $("#add_address").show();
+                $("#upload_address").hide();
+                $("#list_address").hide();
+                $("#btn_save").hide();
+                $("#select_address_full").show();
+            }
+
+            function show_form_update_address() {
+                $("#add_address").show();
+                $("#upload_address").hide();
+                $("#list_address").hide();
+                $("#btn_add").hide();
+            }
+
+            function add_address() {
+                var jsonarr_add_address = {
+                    "CountryIDAddress": parseInt($("#Select_Nation").val()),
+                    "ProvinceCityIDAddress": parseInt($("#Select_Province").val()),
+                    "DistrictIDAddress": parseInt($("#Select_District").val()),
+                    "WardIDAddress": parseInt($("#Select_Ward").val()),
+                    "NameStreet": $("#NameStreet").val(),
+                    "NoLoad": $("#NoLoad").val(),
+                };
+                console.log(JSON.stringify(jsonarr_add_address));
+
+                $.ajax({
+                    "url": url_address_full,
+                    "data": JSON.stringify(jsonarr_add_address),
+                    "headers":{"X-CSRFToken": csrftoken},
+                    "processData": false,
+                    "contentType": 'application/json',
+                    "type": "POST",
+                    "success": add_address_success,
+                    "error": add_address_error
+                });
+            }
+            function add_address_success() {
+                $.getJSON(url_address_full,{},function (address) {
+                    for (var i = 0; i < address.length - 1; i++){
+                        document.getElementById(i+"option_addr_full").remove()
+                    }
+                    // ocument.getElementById("select_address_full").remove()
+                    address_ful();
+
+                    $("#upload_address").hide();
+                    $("#add_address").hide();
+                    $("#list_address").show();
+
+                    alert("add address success")
+                });
+            }
+            function add_address_error() {
+                $("#upload_address").hide();
+                $("#add_address").hide();
+                $("#list_address").show();
+
+                alert("add address error")
+            }
+
+            function update_address() {
+                var jsonarr_update_address = {
+                    "Nation": parseInt($("#Select_Nation").val()),
+                    "Province": parseInt($("#Select_Province").val()),
+                    "District": parseInt($("#Select_District").val()),
+                    "Ward": parseInt($("#Select_Ward").val()),
+                    "Place": $("#place").val(),
+                };
+                console.log(JSON.stringify(jsonarr_update_address));
+
+                var a = document.getElementById("select_address_full").value;
+                $.ajax({
+                    "url": url_address_full + a + "/",
+                    "data": JSON.stringify(jsonarr_update_address),
+                    "headers":{"X-CSRFToken": csrftoken},
+                    "processData": false,
+                    "contentType": 'application/json',
+                    "type": "PUT",
+                    "success": update_address_success,
+                    "error": update_address_error
+                });
+            }
+            function update_address_success() {
+                $.getJSON(url_address_full,{},function (address) {
+                    for (var i = 0; i < address.length ; i++){
+                        document.getElementById(i+"option_addr_full").remove()
+                    }
+                    address_ful();
+
+                    $("#upload_address").hide();
+                    $("#add_address").hide();
+                    $("#list_address").show();
+                    alert("update address success")
+                });
+            }
+            function update_address_error() {
+                $("#upload_address").hide();
+                $("#add_address").hide();
+                $("#list_address").show();
+
+                alert("update address error!")
+            }
+
+            <!-- ####################### Add Country ####################### -->
+
+            function nation()
+            {
+                $.getJSON(url_nation,{},nation1);
+            }
+            function nation1(nation) {
+                var a = document.createElement("option");
+                    a.setAttribute("value", nation.id);
+                    var ta = document.createTextNode("Choose Nation");
+                    a.appendChild(ta);
+                    document.getElementById("Select_Nation").appendChild(a);
+
+                var a1 = document.createElement("option");
+                    a1.setAttribute("value", nation.id);
+                    var ta1 = document.createTextNode(nation.NameCountry);
+                    a1.appendChild(ta1);
+                    document.getElementById("Select_Nation").appendChild(a1);
+            }
+            // window.onload = nation()
+
+            <!-- ####################### Add Country ####################### -->
+
+            function province_dedtail() {
+                $.getJSON(url_get_id_profile,{},province1);
+            }
+
+            function province1(profile)
+            {
+                alert(profile[0].AddressIDProfile)
+                $.getJSON(url_address_full + parseInt(profile[0].AddressIDProfile) + "/",{},province2);
+            }
+            function province2(province) {
+                alert(province.Province)
+                $.getJSON(url_address_province + province.id + "/",{},province3);
+            }
+            function province3(province2) {
+                // alert(province2.name)
+                var b = document.createElement("option");
+                    b.setAttribute("id", "option_firts");
+                    b.setAttribute("value", province2.id);
+                    var tb = document.createTextNode(province2.NameProvinceCity);
+                    b.appendChild(tb);
+                    document.getElementById("Select_Province").appendChild(b);
+            }
+            // window.onload = province()
+
+            <!-- ####################### Add Country ####################### -->
+
+            function listprovince() {
+                $.getJSON(url_nation,{},listprovince1);
+            }
+            function listprovince1(nation) {
+                var a = document.createElement("option");
+                    a.setAttribute("value", 0);
+                    var ta = document.createTextNode("Choose Province");
+                    a.appendChild(ta);
+                    document.getElementById("Select_Province").appendChild(a);
+
+               for (var i = 0; i < nation.ProvinceCityIDAddress.length; i++)
+               {
+                    var b = document.createElement("option");
+                    b.setAttribute("id", "option_province");
+                    b.setAttribute("class", "option_province");
+                    b.setAttribute("value", nation.ProvinceCityIDAddress[i].id);
+                    b.onchange = function () {
+                        if (document.getElementById("Select_Province")){
+                            document.getElementById("Select_Province").remove()
+                        }
+                        district()
+                    }
+                    var tb = document.createTextNode(nation.ProvinceCityIDAddress[i].NameProvinceCity);
+                    b.appendChild(tb);
+                    document.getElementById("Select_Province").appendChild(b);
+               }
+            }
+
+            function district() {
+                id_province = $("#Select_Province").val();
+                // alert(id_province)
+                $.getJSON(url_address_province + id_province + '',{},district1);
+            }
+
+            function district1(profile)
+            {
+                var a = document.createElement("option");
+                    a.setAttribute("value", 0);
+                    var ta = document.createTextNode("Choose District");
+                    a.appendChild(ta);
+                    document.getElementById("Select_District").appendChild(a);
+
+               for (var i = 0; i < profile.district.length; i++)
+               {
+                    var b = document.createElement("option");
+                    b.setAttribute("id", "option_district");
+                    b.setAttribute("class", "option_district");
+                    b.setAttribute("value", profile.district[i].id);
+                    b.onchange = function () {
+                        if (document.getElementById("option_district")){
+                            document.getElementById("option_district").remove()
+                        }
+                    }
+                    var tb = document.createTextNode(profile.district[i].name);
+                    b.appendChild(tb);
+                    document.getElementById("Select_District").appendChild(b);
+               }
+            }
+
+            function ward() {
+                id_province = $("#Select_District").val();
+                $.getJSON(url_address_district + id_province +"/",{},ward1);
+            }
+
+            function ward1(profile)
+            {
+                var a = document.createElement("option");
+                    a.setAttribute("value", 0);
+                    var ta = document.createTextNode("Choose Ward");
+                    a.appendChild(ta);
+                    document.getElementById("Select_Ward").appendChild(a);
+
+               for (var i = 0; i < profile.ward.length; i++)
+               {
+                    var b = document.createElement("option");
+                    b.setAttribute("id", "option_district");
+                    b.setAttribute("class", "option_district");
+                    b.setAttribute("value", profile.ward[i].id);
+                    b.onchange = function () {
+                        if (document.getElementById("option_district")){
+                            document.getElementById("option_district").remove()
+                        }
+                    }
+                    var tb = document.createTextNode(profile.ward[i].name);
+                    b.appendChild(tb);
+                    document.getElementById("Select_Ward").appendChild(b);
+               }
+            }
+            // window.onload = ward()
+
+            function list_province(){
+                $.getJSON(url_nation,{},list_province1);
+            }
+
+            function list_province1(profile){
+                for(var i = 0; i < profile.province.length ;i++)
+                {
+                    var z = document.createElement("option");
+                    z.setAttribute("value", profile.province[i].id);
+                    var t = document.createTextNode(profile.province[i].name);
+                    z.appendChild(t);
+                    document.getElementById("Select_Province").appendChild(z);
+                }
+            }
+
+            function list_district(){
+                id_province = document.getElementById("Select_Province").value;
+                $.getJSON(url_address_province + id_province +"/",{},list_district1);
+            }
+            function list_district1(profile){
+                for(var i = 0; i < profile.district.length ;i++)
+                {
+                    var z = document.createElement("option");
+                    z.setAttribute("value", profile.district[i].id);
+                    var t = document.createTextNode(profile.district[i].name);
+                    z.appendChild(t);
+                    document.getElementById("Select_District").appendChild(z);
+                }
+            }
+
+            function list_ward(){
+                id_district = document.getElementById("Select_District").value;
+                $.getJSON(url_address_district + id_district +"/",{},list_ward1);
+            }
+            function list_ward1(profile){
+                for(var i = 0; i < profile.ward.length ;i++)
+                {
+                    var z = document.createElement("option");
+                    z.setAttribute("value", profile.ward[i].id);
+                    var t = document.createTextNode(profile.ward[i].name);
+                    z.appendChild(t);
+                    document.getElementById("Select_Ward").appendChild(z);
+                }
+            }
+
+
+            window.onload = address_ful()
+            window.onload = nation()
+            // window.addEventListener('load',address_ful_profile(), true);
+            // window.addEventListener('load',address_ful(), true);
+            // window.addEventListener('load',nation(), true);
+            // window.addEventListener('load',province(), true);
+            // window.addEventListener('load',district(), true);
+            // window.addEventListener('load',ward(), true);
+            // window.addEventListener('load',list_province(), true);
+            // window.addEventListener('load',list_district(), true);
+
+            //end ajax create address2
+
+            //AJAX VALIDATE MYDASH2
+
+            function setErrorFor(input, message) {
+                const formControl = input.parentElement;
+                const small = formControl.querySelector('small');
+                formControl.className = 'form-control error';
+                small.innerText = message;
+            }
+
+            function setSuccessFor(input) {
+                const formControl = input.parentElement;
+                formControl.className = 'form-control success';
+            }
+
+            function isEmail(email) {
+                return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
+            }
+
+            function Validate_phone(phone) {
+                return /^(\+84-|\+84|0)?\d{10}$/.test(phone)
+            }
+
+
+            function validation_employeedash() {
+                var value_firtname = document.getElementById("userfirtname").value;
+                var value_lastname = document.getElementById("userlastname").value;
+                var value_middname = document.getElementById("usermiddlename").value;
+                var value_birthday = document.getElementById("userbirthday").value;
+                var value_sex = document.getElementById("usersex").value;
+                var value_phone = document.getElementById("userphone").value;
+                var value_email = document.getElementById("email").value;
+                var value_useridcard = document.getElementById("useridcard").value;
+                var value_idcardplaceofissue = document.getElementById("idcardplaceofissue").value;
+                var value_userapplydate = document.getElementById("userapplydate").value;
+                var value_usernationality = document.getElementById("usernationality").value;
+                var value_maritalstatus = document.getElementById("maritalstatus").value;
+                var value_address = document.getElementById("select_address_full").value;
+                var Check_true_false = true;
+
+                if (value_firtname==null || value_firtname===""){
+                    document.getElementById("error_firtname").innerHTML = "Firt name can't be blank";
+                    Check_true_false = false
+                }else{
+                    document.getElementById("error_firtname").innerHTML = " ";
+                }
+
+                if (value_lastname==null || value_lastname===""){
+                    document.getElementById("error_lastname").innerHTML = "Last name can't be blank";
+                    Check_true_false = false
+                }else{
+                    document.getElementById("error_lastname").innerHTML = " ";
+                }
+
+                if (value_middname==null || value_middname===""){
+                    document.getElementById("error_middname").innerHTML = "Middle name can't be blank";
+                    Check_true_false = false
+                }else{
+                    document.getElementById("error_middname").innerHTML = " ";
+                }
+
+                if (value_birthday==null || value_birthday==="" ){
+                    document.getElementById("error_birthday").innerHTML = "Birthday can't be blank";
+                    Check_true_false = false
+                }else{
+                    document.getElementById("error_birthday").innerHTML = " ";
+                }
+
+                if (value_sex==null || value_sex==="" ){
+                    document.getElementById("error_sex").innerHTML = "User sex can't be blank";
+                    Check_true_false = false
+                }else{
+                    document.getElementById("error_sex").innerHTML = " ";
+                }
+
+                if (value_phone==null || value_phone==="" ){
+                    document.getElementById("error_phone").innerHTML = "Phone can't be blank";
+                    Check_true_false = false
+                }else{
+                    document.getElementById("error_phone").innerHTML = " ";
+                }
+
+                if (value_email==null || value_email==="" ){
+                    document.getElementById("error_email").innerHTML = "Email can't be blank";
+                    Check_true_false = false
+                }else{
+                    document.getElementById("error_email").innerHTML = " ";
+                }
+                if (value_useridcard==null || value_useridcard==="" ){
+                    document.getElementById("error_useridcard").innerHTML = "CMND can't be blank";
+                    Check_true_false = false
+                }else{
+                    document.getElementById("error_useridcard").innerHTML = " ";
+                }
+
+                if (value_idcardplaceofissue==null || value_idcardplaceofissue==="" ){
+                    document.getElementById("error_idcardplaceofissue").innerHTML = "Nơi cấp can't be blank";
+                    Check_true_false = false
+                }else{
+                    document.getElementById("error_idcardplaceofissue").innerHTML = " ";
+                }
+                if (value_userapplydate==null || value_userapplydate==="" ){
+                    document.getElementById("error_userapplydate").innerHTML = "Ngày cấp can't be blank";
+                    Check_true_false = false
+                }else{
+                    document.getElementById("error_userapplydate").innerHTML = " ";
+                }
+                 if (value_usernationality==null || value_usernationality==="" ){
+                    document.getElementById("error_usernationality").innerHTML = "Quốc tịch can't be blank";
+                    Check_true_false = false
+                }else{
+                    document.getElementById("error_usernationality").innerHTML = " ";
+                }
+                 if (value_maritalstatus==null || value_maritalstatus==="" ){
+                    document.getElementById("error_maritalstatus").innerHTML = "Tình trạng hôn nhân can't be blank";
+                    Check_true_false = false
+                }else{
+                    document.getElementById("error_usernationality").innerHTML = " ";
+                }
+
+                if ( value_address==null || value_address===""){
+                    document.getElementById("error_address").innerHTML = "Address can't be blank";
+                    Check_true_false = false
+                }else{
+                    document.getElementById("error_address").innerHTML = " ";
+                }
+
+                if (!isEmail(value_email)){
+                    document.getElementById("error_email2").innerHTML = "Not a valid email";
+                    Check_true_false = false
+                }else {
+                    document.getElementById("error_email2").innerHTML = "";
+                }
+
+                if (!Validate_phone(value_phone)){
+                    document.getElementById("error_phone2").innerHTML = "Not a valid phone number";
+                    Check_true_false = false
+                }else {
+                    document.getElementById("error_phone2").innerHTML = " ";
+                }
+
+                if (Check_true_false == true){
+                    upload_profile()
+                }
+            }
+
+
+        </script>
+    {% endblock %}
+    <!--  end  2 cai block ajax nay cua Page/mydash2.html-->
+<!--    <script src="{% static 'account/ajax_sigup.js'%}" type="text/javascript"></script>-->
+    <script type="text/javascript">
+        var URL = "/jwtauth/register/";
+
+        function readCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    }
+
+    var csrftoken = readCookie('csrftoken');
+
+    function profileSerializer() {
+       var profile = {}
+
+        if ($(".check_radio_isEmployer:checked").val() == "True"){
+            profile = {"isEmployer":"True", "isEmployee" : "False"}
+        }else {
+            profile = {"isEmployer":"False", "isEmployee" : "True"}
+        }
+        return profile
+    }
+
+    function validattion_register() {
+        var value_username = document.getElementById("username").value;
+        var value_email = document.getElementById("email").value;
+        var value_password1 = document.getElementById("password1").value;
+        var value_password2 = document.getElementById("password2").value;
+
+        console.log(value_username)
+        console.log(value_email)
+        console.log(value_password1)
+        console.log(value_password2)
+    }
+    
+    function userregister()
+    {
+        var jsonarr = {
+            "username": $("#username").val(),
+            "email": $("#email").val(),
+            "password": $("#password1").val(),
+            "password2" : $("#password2").val(),
+            "profileserializer": profileSerializer()
+        }
+
+        console.log(JSON.stringify(jsonarr));
+       $.ajax(
+          { "url": URL,
+              "processData": false,
+              "contentType" : "application/json;charset=utf-8",
+              "dataType": "json",
+              "data": JSON.stringify(jsonarr),
+              "type": "POST",
+              // "headers": {"X-CSRFToken": csrftoken},
+              "success": register_success,
+              "error": register_error
+          }
+      ); // ajax()
+    }
+
+    function register_success()
+    {
+        alert("Đăng ký thành công!");
+        window.location.href = "/account/login/";
+    }
+
+    function register_error()
+    {
+        alert("Tài khoản hoặc mật khẩu không hợp lệ!");
+        window.location.href = "/account/signup/";
+    }
+
+    // {#show password#}
+    function show_password() {
+        var pw1 = document.getElementById("password");
+        var pw2 = document.getElementById("password2");
+        if (pw1.type === "password") {
+            pw1.type = "text";
+        } else {
+            pw1.type = "password";
+        }
+        if (pw2.type === "password") {
+            pw2.type = "text";
+        } else {
+            pw2.type = "password";
+        }
+    }
+    // {#end show password#}
+    </script>
+    {% endblock %}
+{% endblock %}
+<body>
+
+<!--Loader-->
+<div id="global-loader">
+    <img src="{% static 'assets/images/loader.svg'%}" class="loader-img" alt="">
+</div>
+
+<!--Header Main-->
+<div class="header-main">
+    <!--Top Bar-->
+    <div class="top-bar">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-7 col-lg-7 col-sm-4 col-7">
+                    <div class="top-bar-left d-flex">
+                        <div class="clearfix">
+                            <ul class="socials">
+                                <li>
+                                    <a class="social-icon" href="#"><i class="fa fa-facebook"></i></a>
+                                </li>
+                                <li>
+                                    <a class="social-icon" href="#"><i class="fa fa-twitter"></i></a>
+                                </li>
+                                <li>
+                                    <a class="social-icon" href="#"><i class="fa fa-linkedin"></i></a>
+                                </li>
+                                <li>
+                                    <a class="social-icon" href="#"><i class="fa fa-google-plus"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="clearfix">
+                            <ul class="contact border-left">
+                                <li class="d-lg-none">
+                                    <a href="#" class="callnumber"><span><i class="fa fa-phone mr-1"></i>: +425 345 8765</span></a>
+                                </li>
+                                <li class="select-country">
+                                    <select class="form-control select2-flag-search" data-placeholder="Select Country">
+                                        <option value="UM">United States of America</option>
+                                        <option value="AF">Afghanistan</option>
+                                        <option value="AL">Albania</option>
+                                        <option value="AD">Andorra</option>
+                                        <option value="AG">Antigua and Barbuda</option>
+                                        <option value="AU">Australia</option>
+                                        <option value="AM">Armenia</option>
+                                        <option value="AO">Angola</option>
+                                        <option value="AR">Argentina</option>
+                                        <option value="AT">Austria</option>
+                                        <option value="AZ">Azerbaijan</option>
+                                        <option value="BA">Bosnia and Herzegovina</option>
+                                        <option value="BB">Barbados</option>
+                                        <option value="BD">Bangladesh</option>
+                                        <option value="BE">Belgium</option>
+                                        <option value="BF">Burkina Faso</option>
+                                        <option value="BG">Bulgaria</option>
+                                        <option value="BH">Bahrain</option>
+                                        <option value="BJ">Benin</option>
+                                        <option value="BN">Brunei</option>
+                                        <option value="BO">Bolivia</option>
+                                        <option value="BT">Bhutan</option>
+                                        <option value="BY">Belarus</option>
+                                        <option value="CD">Congo</option>
+                                        <option value="CA">Canada</option>
+                                        <option value="CF">Central African Republic</option>
+                                        <option value="CI">Cote d'Ivoire</option>
+                                        <option value="CL">Chile</option>
+                                        <option value="CM">Cameroon</option>
+                                        <option value="CN">China</option>
+                                        <option value="CO">Colombia</option>
+                                        <option value="CU">Cuba</option>
+                                        <option value="CV">Cabo Verde</option>
+                                        <option value="CY">Cyprus</option>
+                                        <option value="DJ">Djibouti</option>
+                                        <option value="DK">Denmark</option>
+                                        <option value="DM">Dominica</option>
+                                        <option value="DO">Dominican Republic</option>
+                                        <option value="EC">Ecuador</option>
+                                        <option value="EE">Estonia</option>
+                                        <option value="ER">Eritrea</option>
+                                        <option value="ET">Ethiopia</option>
+                                        <option value="FI">Finland</option>
+                                        <option value="FJ">Fiji</option>
+                                        <option value="FR">France</option>
+                                        <option value="GA">Gabon</option>
+                                        <option value="GD">Grenada</option>
+                                        <option value="GE">Georgia</option>
+                                        <option value="GH">Ghana</option>
+                                        <option value="GH">Ghana</option>
+                                        <option value="HN">Honduras</option>
+                                        <option value="HT">Haiti</option>
+                                        <option value="HU">Hungary</option>
+                                        <option value="ID">Indonesia</option>
+                                        <option value="IE">Ireland</option>
+                                        <option value="IL">Israel</option>
+                                        <option value="IN">India</option>
+                                        <option value="IQ">Iraq</option>
+                                        <option value="IR">Iran</option>
+                                        <option value="IS">Iceland</option>
+                                        <option value="IT">Italy</option>
+                                        <option value="JM">Jamaica</option>
+                                        <option value="JO">Jordan</option>
+                                        <option value="JP">Japan</option>
+                                        <option value="KE">Kenya</option>
+                                        <option value="KG">Kyrgyzstan</option>
+                                        <option value="KI">Kiribati</option>
+                                        <option value="KW">Kuwait</option>
+                                        <option value="KZ">Kazakhstan</option>
+                                        <option value="LA">Laos</option>
+                                        <option value="LB">Lebanons</option>
+                                        <option value="LI">Liechtenstein</option>
+                                        <option value="LR">Liberia</option>
+                                        <option value="LS">Lesotho</option>
+                                        <option value="LT">Lithuania</option>
+                                        <option value="LU">Luxembourg</option>
+                                        <option value="LV">Latvia</option>
+                                        <option value="LY">Libya</option>
+                                        <option value="MA">Morocco</option>
+                                        <option value="MC">Monaco</option>
+                                        <option value="MD">Moldova</option>
+                                        <option value="ME">Montenegro</option>
+                                        <option value="MG">Madagascar</option>
+                                        <option value="MH">Marshall Islands</option>
+                                        <option value="MK">Macedonia (FYROM)</option>
+                                        <option value="ML">Mali</option>
+                                        <option value="MM">Myanmar (formerly Burma)</option>
+                                        <option value="MN">Mongolia</option>
+                                        <option value="MR">Mauritania</option>
+                                        <option value="MT">Malta</option>
+                                        <option value="MV">Maldives</option>
+                                        <option value="MW">Malawi</option>
+                                        <option value="MX">Mexico</option>
+                                        <option value="MZ">Mozambique</option>
+                                        <option value="NA">Namibia</option>
+                                        <option value="NG">Nigeria</option>
+                                        <option value="NO">Norway</option>
+                                        <option value="NP">Nepal</option>
+                                        <option value="NR">Nauru</option>
+                                        <option value="NZ">New Zealand</option>
+                                        <option value="OM">Oman</option>
+                                        <option value="PA">Panama</option>
+                                        <option value="PF">Paraguay</option>
+                                        <option value="PG">Papua New Guinea</option>
+                                        <option value="PH">Philippines</option>
+                                        <option value="PK">Pakistan</option>
+                                        <option value="PL">Poland</option>
+                                        <option value="QA">Qatar</option>
+                                        <option value="RO">Romania</option>
+                                        <option value="RU">Russia</option>
+                                        <option value="RW">Rwanda</option>
+                                        <option value="SA">Saudi Arabia</option>
+                                        <option value="SB">Solomon Islands</option>
+                                        <option value="SC">Seychelles</option>
+                                        <option value="SD">Sudan</option>
+                                        <option value="SE">Sweden</option>
+                                        <option value="SG">Singapore</option>
+                                        <option value="TG">Togo</option>
+                                        <option value="TH">Thailand</option>
+                                        <option value="TJ">Tajikistan</option>
+                                        <option value="TL">Timor-Leste</option>
+                                        <option value="TM">Turkmenistan</option>
+                                        <option value="TN">Tunisia</option>
+                                        <option value="TO">Tonga</option>
+                                        <option value="TR">Turkey</option>
+                                        <option value="TT">Trinidad and Tobago</option>
+                                        <option value="TW">Taiwan</option>
+                                        <option value="UA">Ukraine</option>
+                                        <option value="UG">Uganda</option>
+                                        <option value="UY">Uruguay</option>
+                                        <option value="UZ">Uzbekistan</option>
+                                        <option value="VA">Vatican City (Holy See)</option>
+                                        <option value="VE">Venezuela</option>
+                                        <option value="VN">Vietnam</option>
+                                        <option value="VU">Vanuatu</option>
+                                        <option value="YE">Yemen</option>
+                                        <option value="ZM">Zambia</option>
+                                        <option value="ZW">Zimbabwe</option>
+                                    </select>
+                                </li>
+                                <li class="dropdown d-none d-xl-inline-block">
+                                    <a href="#" class="" data-toggle="dropdown"><span> Language <i class="fa fa-caret-down"></i></span> </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                        <a href="#" class="dropdown-item" >
+                                            English
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            Arabic
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            German
+                                        </a>
+                                        <a href="#" class="dropdown-item" >
+                                            Greek
+                                        </a>
+                                        <a href="#" class="dropdown-item" >
+                                            Spanish
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="dropdown d-none d-xl-inline-block">
+                                    <a href="#" class="" data-toggle="dropdown"><span>Currency <i class="fa fa-caret-down"></i></span></a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                        <a href="#" class="dropdown-item" >
+                                            USD
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            EUR
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            INR
+                                        </a>
+                                        <a href="#" class="dropdown-item" >
+                                            GBP
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-5 col-lg-5 col-sm-8 col-5">
+                    <div class="top-bar-right">
+                        <ul class="custom">
+                            <li>
+                                <!--base cũ-->
+<!--                            {% block body %}-->
+
+<!--                            {% if messages %}-->
+<!--                            <div>-->
+<!--                              <strong>Messages:</strong>-->
+<!--                              <ul>-->
+<!--                                {% for message in messages %}-->
+<!--                                <li>{{message}}</li>-->
+<!--                                {% endfor %}-->
+<!--                              </ul>-->
+<!--                            </div>-->
+<!--                            {% endif %}-->
+
+                            {% if user.is_authenticated %}
+                                <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
+                                <li><a href="{% url 'account_logout' %}">Log Out</a></li>
+<!--                                <li>-->
+<!--                                    <form method="post" action="{% url 'account_logout' %}">-->
+<!--                                        {% csrf_token %}-->
+<!--                                        {% if redirect_field_value %}-->
+<!--                                            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>-->
+<!--                                        {% endif %}-->
+<!--                                            <button type="submit" id="Sign_out" style="background: #6851EA;color: white;">Sign Out</button>-->
+<!--                                    </form>-->
+<!--                                </li>-->
+
+                            {% else %}
+                                <li><a href="{% url 'account_signup' %}"><i class="fa fa-user mr-1"></i>Sign Up</a></li>
+                                <li><a href="{% url 'account_login' %}"><i class="fa fa-sign-in mr-1"></i>Sign In</a></li>
+                            {% endif %}
+
+<!--                            {% block content %}-->
+<!--                            {% endblock %}-->
+<!--                            {% endblock %}-->
+<!--                            {% block extra_body %}-->
+<!--                            {% endblock %}-->
+
+                            <!--end base cũ-->
+                            </li>
+
+<!--                            <li>-->
+<!--                                <a href="/Page/register/" class=""><i class="fa fa-user mr-1"></i> <span>Register</span></a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="/Page/login/" class=""><i class="fa fa-sign-in mr-1"></i> <span>Login</span></a>-->
+<!--                            </li>-->
+                            <li class="dropdown">
+                                <a href="#" class="" data-toggle="dropdown"><i class="fa fa-home mr-1"></i><span> My Dashboard</span></a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                    <a href="/Page/mydash/" class="dropdown-item" >
+                                        <i class="dropdown-icon icon icon-user"></i> My Profile
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="dropdown-icon icon icon-speech"></i> Inbox
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="dropdown-icon icon icon-bell"></i> Notifications
+                                    </a>
+
+                                    <a href="/Page/mydash/" class="dropdown-item" >
+                                        <i class="dropdown-icon  icon icon-settings"></i> Account Settings
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="dropdown-icon icon icon-power"></i> Log out
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="/Page/login/" class=""><i class="fa fa-black-tie mr-1"></i> <span>For Employer</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Top Bar-->
+
+    <!-- Mobile Header -->
+        <div class="sticky">
+             <div class="horizontal-header clearfix ">
+                <div class="container">
+                    <a id="horizontal-navtoggle" class="animated-arrow"><span></span></a>
+                    <span class="smllogo"><img src="{% static 'assets/images/brand/logo.png'%}" width="120" alt="img"/></span>
+                    <a href="#" class="callusbtn bg-light"><i class="fa fa-bell text-body" aria-hidden="true"></i></a></div></div>
+                </div>
+            </div>
+        </div>
+    <!-- /Mobile Header -->
+
+    <!--Horizontal-main-->
+    <div class="horizontal-main clearfix">
+        <div class="horizontal-mainwrapper container clearfix">
+            <div class="desktoplogo">
+                <a href="/page/index/"><img src="{% static 'assets/images/brand/logo.png'%}" alt=""></a>
+            </div>
+            <div class="desktoplogo-1">
+                <a href="/page/index/"><img src="{% static 'assets/images/brand/logo.png'%}" alt=""></a>
+            </div>
+            <!--Nav-->
+            <nav class="horizontalMenu clearfix d-md-flex">
+                <ul class="horizontalMenu-list">
+                    <li><a href="/page/index/">Home <span class="fa fa-caret-down m-0"></span></a>
+<!--                        <ul class="sub-menu">-->
+<!--                            <li><a href="/page/index/">Home Deafult</a></li>-->
+<!--                            <li><a href="/Page/index2/">Home Style 02</a></li>-->
+<!--                            <li><a href="/Page/index3/">Home Style 03</a></li>-->
+<!--                            <li><a href="/Page/index4/">Home Style 04</a></li>-->
+<!--                            <li><a href="/Page/index5/">Home Style 05</a></li>-->
+<!--                            <li><a href="/Page/index6/">Home Style 06</a></li>-->
+<!--                            <li><a href="/Page/index7/">Home Style 07</a></li>-->
+<!--                            <li><a href="/Page/intro-page/">Home Intro Page</a></li>-->
+<!--                            <li><a href="/Page/popup-login/">Home Pop-up login</a></li>-->
+<!--                        </ul>-->
+                    </li>
+                    <li><a href="#">About Us </a></li>
+<!--                    <li><a href="#">Pages <span class="fa fa-caret-down m-0"></span></a>-->
+<!--                        <div class="horizontal-megamenu clearfix">-->
+<!--                            <div class="container">-->
+<!--                                <div class="megamenu-content">-->
+<!--                                    <div class="row">-->
+<!--                                        <ul class="col link-list">-->
+<!--                                            <li class="title">Job List pages</li>-->
+<!--                                            <li><a href="/Page/jobs-list/">Jobs List</a></li>-->
+<!--                                            <li><a href="/Page/jobs-list-right/">Jobs List Right</a></li>-->
+<!--                                            <li><a href="/Page/jobs-list-map/">Jobs Map list</a></li>-->
+<!--                                            <li><a href="/Page/jobs-list-map2/">Jobs Map list 02</a></li>-->
+<!--                                            <li><a href="/Page/jobs-list-map3/">Jobs Map style 03</a></li>-->
+<!--                                            <li><a href="/Page/jobs/">Jobs Left</a></li>-->
+<!--                                            <li><a href="/Page/jobs-right/">Jobs Rights </a></li>-->
+<!--                                            <li class="title mt-4">Candidate list Pages</li>-->
+<!--                                            <li><a href="/Page/candidate-listing/">Candidate Listing</a></li>-->
+<!--                                            <li><a href="/Page/candidate-listing2/">Candidate Listing Style2</a></li>-->
+<!--                                            <li><a href="/Page/candidate-profile/">Candidate Profile</a></li>-->
+<!--                                        </ul>-->
+<!--                                        <ul class="col link-list">-->
+<!--                                            <li class="title">Candidate pages</li>-->
+<!--                                            <li><a href="/Page/advanced-search/">Advanced Search</a></li>-->
+<!--                                            <li><a href="/page/create_resume/">Create Resume </a></li>-->
+<!--                                            <li class="title mt-4">Company List Pages</li>-->
+<!--                                            <li><a href="/Page/company-list/">Company Listing</a></li>-->
+<!--                                            <li><a href="/Page/company-list2/">Company Listing Style2</a></li>-->
+<!--                                            <li><a href="/Page/company-details/">Company Details</a></li>-->
+<!--                                            <li><a href="/Page/company-reviews/l">Company Reviews</a></li>-->
+<!--                                            <li><a href="/Page/company-list-map/">Company Map list</a></li>-->
+<!--                                            <li><a href="/Page/company-list-map2/">Company Map list 02</a></li>-->
+<!--                                            <li><a href="/Page/company-list-map3/">Company Map style 03</a></li>-->
+<!--                                            <li><a href="/Page/my-jobs/">My Jobs</a></li>-->
+<!--                                        </ul>-->
+<!--                                        <ul class="col link-list">-->
+<!--                                            <li class="title">Widgets</li>-->
+<!--                                            <li><a href="/Page/widgets/">Custom Widgets</a></li>-->
+<!--                                            <li><a href="/Page/widgetscarousel/">Owl Carousel Widgets</a></li>-->
+<!--                                            <li><a href="/Page/widgets-verticalscroll/">Vertical Scroll Widgets</a></li>-->
+<!--                                            <li class="title mt-4">Pages</li>-->
+<!--                                            <li><a href="/Page/categories/">Categories</a></li>-->
+<!--                                            <li><a href="/Page/ad-post/">Ad Posts</a></li>-->
+<!--                                            <li><a href="/Page/ad-post2/">Ad Posts2</a></li>-->
+<!--                                            <li><a href="/Page/pricing/">Pricing Tables</a></li>-->
+<!--                                            <li><a href="/Page/profile/">Profile Page</a></li>-->
+<!--                                            <li><a href="/Page/userprofileadpost/"> User Profile</a></li>-->
+<!--                                            <li><a href="/Page/usersall/">User Lists</a></li>-->
+
+<!--                                        </ul>-->
+<!--                                        <ul class="col link-list">-->
+<!--                                            <li class="title">User Pages</li>-->
+<!--                                            <li><a href="/Page/inovice/">Invoice</a></li>-->
+<!--                                            <li><a href="/Page/typography/">Typography</a></li>-->
+<!--                                            <li><a href="/Page/underconstruction/">Under Constructions</a></li>-->
+
+<!--        &lt;!&ndash;{#                                            <li><a href="400.html">400 Error</a></li>#}&ndash;&gt;-->
+<!--        &lt;!&ndash;{#                                            <li><a href="404.html">404 Error</a></li>#}&ndash;&gt;-->
+<!--        &lt;!&ndash;{#                                            <li><a href="500.html">500 Error</a></li>#}&ndash;&gt;-->
+<!--        &lt;!&ndash;{#                                            <li><a href="404-inline.html">Inline Error</a></li>#}&ndash;&gt;-->
+
+<!--                                            <li><a href="/Page/register/">Register</a></li>-->
+<!--                                            <li><a href="/Page/login/">Login</a></li>-->
+<!--                                            <li><a href="/Page/login-2/">Login 02</a></li>-->
+<!--                                            <li><a href="/Page/forgot/">Forgot Password</a></li>-->
+<!--                                            <li><a href="/Page/lockscreen/">Lock Screen</a></li>-->
+<!--                                            <li><a href="/Page/faq/">Faq</a></li>-->
+<!--                                        </ul>-->
+<!--                                        <ul class="col link-list">-->
+<!--                                            <li class="title">Headers & Footers</li>-->
+<!--                                            <li><a href="/Page/header-style1/">Header Style 01</a></li>-->
+<!--                                            <li><a href="/Page/header-style2/">Header Style 02</a></li>-->
+<!--                                            <li><a href="/Page/header-style3/">Header Style 03</a></li>-->
+<!--                                            <li><a href="/Page/header-style4/">Header Style 04</a></li>-->
+<!--                                            <li><a href="/Page/footer-style1/">Footer Style 01</a></li>-->
+<!--                                            <li><a href="/Page/footer-style2/">Footer Style 02</a></li>-->
+<!--                                            <li><a href="/Page/footer-style3/">Footer Style 03</a></li>-->
+<!--                                            <li><a href="/Page/footer-style4/">Footer Style 04</a></li>-->
+<!--                                        </ul>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </li>-->
+                    <li><a href="#">Blog <span class="fa fa-caret-down m-0"></span></a>
+<!--                        <ul class="sub-menu">-->
+<!--                            <li><a href="#">Blog Grid <i class="fa fa-angle-right float-right mt-1 d-none d-lg-block"></i></a>-->
+<!--                                 <ul class="sub-menu">-->
+<!--                                    <li><a href="/Page/blog-grid/">Blog Grid Left</a></li>-->
+<!--                                    <li><a href="/Page/blog-grid-right/">Blog Grid Right</a></li>-->
+<!--                                    <li><a href="/Page/blog-grid-center/">Blog Grid Center</a></li>-->
+<!--                                </ul>-->
+<!--                            </li>-->
+<!--                            <li><a href="#">Blog List <i class="fa fa-angle-right float-right mt-1 d-none d-lg-block"></i></a>-->
+<!--                                 <ul class="sub-menu">-->
+<!--                                    <li><a href="/Page/blog-list/">Blog List Left</a></li>-->
+<!--                                    <li><a href="/Page/blog-list-right/">Blog List Right</a></li>-->
+<!--                                    <li><a href="/Page/blog-list-center/">Blog List Center</a></li>-->
+<!--                                </ul>-->
+<!--                            </li>-->
+<!--                            <li><a href="#">Blog Details <i class="fa fa-angle-right float-right mt-1 d-none d-lg-block"></i></a>-->
+<!--                                <ul class="sub-menu">-->
+<!--                                    <li><a href="/Page/blog-details/">Blog Details Left</a></li>-->
+<!--                                    <li><a href="/Page/blog-details-right/">Blog Details Right</a></li>-->
+<!--                                    <li><a href="/Page/blog-details-center/">Blog Details Center</a></li>-->
+<!--                                </ul>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+                    </li>
+                    <li><a href="#">My Dashboard <span class="fa fa-caret-down m-0"></span></a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a href="/page/mydash/">My Dashboard</a>
+                            </li>
+                            {% if user.employer.isEmployer == True %}
+                                <li>
+                                    <a href="/page/myjobs/">My Jobs</a>
+                                </li>
+                                <li>
+                                    <a href="#">My Company</a>
+                                </li>
+                                 <li>
+                                    <a href="/page/listschedule/">My Schedule</a>
+                                </li>
+                            {% endif %}
+                            {% if user.employee.isEmployee == True %}
+                                <li>
+                                    <a href="/page/mycv/">My CV</a>
+                                </li>
+                            {% endif %}
+<!--                            <li>-->
+<!--                                <a href="/Page/manged/">Manged Jobs</a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="/Page/payments/">Payments</a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="/Page/orders/"> Orders</a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="/Page/settings/"> Settings</a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="/Page/tips/">Tips</a>-->
+<!--                            </li>-->
+                        </ul>
+                    </li>
+
+
+<!--                {#2 button Submit a Job và create resume không hiển thị trên web #}-->
+
+                    <li><a href="#">  <span class="horizontal-arrow">Contact Us</span></a></li>
+                    <li class="d-lg-none pt-5 pb-2 mt-lg-0">
+								<span><a class="btn btn-secondary ad-post mt-1" href="/Page/ad-posts/"><i class="fa fa-briefcase"></i>Submit a Job</a></span>
+							</li>
+                    <li class="d-lg-none mt-0 pb-5 mt-lg-0">
+                        <span><a class="btn btn-info ad-post mt-1" href="/page/create_resume/" ><i class="fa fa-edit"></i>Create Resume</a></span>
+                    </li>
+                </ul>
+                {% if user.employer.isEmployer == True %}
+
+                    <ul class="mb-0 pr-2">
+                        <li class="d-none d-lg-flex">
+                            <span><a class="btn btn-secondary ad-post mt-1" href="/page/jobs/"><i class="fa fa-briefcase"></i>Submit a Job</a></span>
+                        </li>
+                    </ul>
+                {% else %}
+                    <ul class="mb-0 pl-2 create-resume-btn">
+                        <li class="d-none d-lg-flex">
+    <!--                        <span><a class="btn btn-info ad-post mt-1" onclick="create_resume()"><i class="fa fa-edit"></i> Create Resume</a></span>-->
+                            <span><a class="btn btn-info ad-post mt-1" href="/page/create_resume/"><i class="fa fa-edit"></i> Create Resume</a></span>
+                        </li>
+                    </ul>
+                {% endif %}
+                {#----------------------------------------------------------------------------------------------------#}
+            </nav>
+            <!--/Nav-->
+        </div>
+    </div>
+    <!--/Horizontal-main-->
+</div>
+<!--/Header Main-->
+<!-- Main -->
+
+
+<!--block createcv-->
+{% block createcv %}
+{% endblock %}
+
+<!--block base allauth-->
+{#{% block base %}#}
+{#{% endblock %}#}
+
+<!--block timekeeping-->
+{% block timekeeping %}
+{% endblock %}
+
+<!--block calendar2-->
+{% block calendar2 %}
+{% endblock %}
+
+<!--block list_job_categories-->
+{% block list_job_categories %}
+{% endblock %}
+
+<!--block detail_resume-->
+{% block detail_resume %}
+{% endblock %}
+
+<!--block jobs_employer-->
+{% block jobs_employer %}
+{% endblock %}
+
+<!--block index-->
+{% block index_a %}
+{% endblock %}
+
+<!--block allauth-->
+{% block loginabc %}
+{% endblock %}
+
+{% block checkfunc %}
+{% endblock %}
+
+<!--block view_detail_jobapply-->
+{% block view_detail_jobapply %}
+{% endblock %}
+
+<!--{% block login_popup %}-->
+<!--{% endblock %}-->
+
+<!--block list_schedule-->
+{% block list_schedule %}
+{% endblock %}
+
+<!--block ListInOut-->
+{% block ListInOut %}
+{% endblock %}
+
+{% block logout %}
+{% endblock %}
+
+{% block Sign_Up %}
+{% endblock %}
+
+{% block sigup_closed %}
+{% endblock %}
+
+{% block email %}
+{% endblock %}
+
+{% block email_popup %}
+{% endblock %}
+
+{% block Change_Password %}
+{% endblock %}
+
+{% block Password_Reset %}
+{% endblock %}
+
+{% block Password_Reset_done %}
+{% endblock %}
+
+{% block password_reset_from_key %}
+{% endblock %}
+
+{% block password_reset_from_key_done %}
+{% endblock %}
+
+{% block password_set %}
+{% endblock %}
+
+{% block verification_sent %}
+{% endblock %}
+
+{% block verified_email_required %}
+{% endblock %}
+
+<!--end block allauth-->
+
+<!--base_admin-->
+{% block base_admin %}
+{% endblock %}
+<!--end base_admin-->
+
+<!--cretae resum-->
+{% block create_resume %}
+{% endblock %}
+<!--end cretae resum-->
+
+<!--cretae job-->
+{% block create_job %}
+{% endblock %}
+<!--end cretae job-->
+
+<!--cretae resum profile-->
+<!--{% block edit_profile %}-->
+<!--{% endblock %}-->
+<!--cretae resum profile-->
+
+{#about#}
+{% block about %}
+    {% endblock %}
+
+<!--{#jobs-list#}-->
+<!--{% block jobs-list %}-->
+<!--    {% endblock %}-->
+
+{#ad-post#}
+{% block ad-posts %}
+    {% endblock %}
+
+{#ad-post#}
+{% block ad-posts2 %}
+    {% endblock %}
+
+{#advanced-search#}
+{% block advanced-search %}
+    {% endblock %}
+
+{#blog-details#}
+{% block blog-details %}
+    {% endblock %}
+
+{#register    #}
+{% block register %}
+    {% endblock %}
+
+{#blog-detaila-center#}
+{% block blog-details-center %}
+    {% endblock %}
+
+{#blog-details-right#}
+{% block blog-details-right %}
+    {% endblock %}
+
+{#blog-grid#}
+{% block blog-grid %}
+    {% endblock %}
+
+{#mydash#}
+{% block mydash %}
+    {% endblock %}
+
+{#contact#}
+{% block contact %}
+    {% endblock %}
+
+{#blog-grid-center#}
+{% block blog-grid-center %}
+    {% endblock %}
+
+{#myfavorite#}
+{% block myfavorite %}
+     {% endblock %}
+
+{#blog-list#}
+{% block blog-list %}
+    {% endblock %}
+
+{% block blog-list-center %}
+    {% endblock %}
+
+{% block blog-list-right %}
+    {% endblock %}
+
+{% block candidate-listing %}
+    {% endblock %}
+
+{% block candidate-listing2 %}
+    {% endblock %}
+
+{% block candidate-profile %}
+    {% endblock %}
+
+{% block categories %}
+    {% endblock %}
+
+{% block company-list %}
+    {% endblock %}
+
+{% block company-list2 %}
+    {% endblock %}
+
+{% block company-list-map %}
+    {% endblock %}
+
+{% block company-list-map2 %}
+    {% endblock %}
+
+{% block company-list-map3 %}
+    {% endblock %}
+
+{% block company-reviews %}
+    {% endblock %}
+
+{% block create-resume %}
+    {% endblock %}
+
+{% block faq %}
+    {% endblock %}
+
+{% block footer-style1 %}
+    {% endblock %}
+
+{% block footer-style2 %}
+    {% endblock %}
+
+{% block footer-style3 %}
+    {% endblock %}
+
+{% block footer-style4 %}
+    {% endblock %}
+
+{% block fogot %}
+    {% endblock %}
+
+{% block header-style1 %}
+    {% endblock %}
+
+{% block header-style2 %}
+    {% endblock %}
+
+{% block header-style3 %}
+    {% endblock %}
+
+{% block header-style4 %}
+    {% endblock %}
+
+<!--{#index#}-->
+<!--{% block index %}-->
+<!--    {% endblock %}-->
+
+{% block index2 %}
+    {% endblock %}
+
+{% block index3 %}
+    {% endblock %}
+
+{% block index4 %}
+    {% endblock %}
+
+{% block index5 %}
+    {% endblock %}
+
+{% block index6 %}
+    {% endblock %}
+
+{% block index7 %}
+    {% endblock %}
+
+{% block inovice %}
+    {% endblock %}
+
+{% block intro-page %}
+    {% endblock %}
+
+{% block jobs %}
+    {% endblock %}
+
+{% block jobs-list-map %}
+    {% endblock %}
+
+{% block jobs-list-map2 %}
+    {% endblock %}
+
+{% block jobs-list-map3 %}
+    {% endblock %}
+
+{% block jobs-list-right %}
+    {% endblock %}
+
+{% block jobs-right %}
+    {% endblock %}
+
+{% block lockscreen %}
+    {% endblock %}
+
+{% block login %}
+    {% endblock %}
+
+{% block login-2 %}
+    {% endblock %}
+
+{% block manged %}
+    {% endblock %}
+
+{% block my-jobs %}
+    {% endblock %}
+
+{% block myjobs %}
+    {% endblock %}
+
+{% block orders %}
+    {% endblock %}
+
+{% block payments %}
+    {% endblock %}
+
+{% block popup-login %}
+    {% endblock %}
+
+{% block pricing %}
+    {% endblock %}
+
+{% block profile %}
+    {% endblock %}
+
+{% block settings %}
+    {% endblock %}
+
+{% block tips %}
+    {% endblock %}
+
+{% block typography %}
+    {% endblock %}
+
+{% block underconstruction %}
+    {% endblock %}
+
+{% block userprofile %}
+    {% endblock %}
+
+{% block userall %}
+    {% endblock %}
+
+{% block widgets %}
+    {% endblock %}
+
+{% block widgets-carousel %}
+    {% endblock %}
+
+{% block widgets-verticalscroll %}
+    {% endblock %}
+
+    {% block baseadmin %}
+        {% endblock %}
+<!--Footer Section-->
+<section>
+    <footer class="bg-dark text-white cover-image" data-image-src="{% static 'assets/images/banners/banner3.jpg'%}">
+        <div class="footer-main">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-2 col-md-12">
+                        <h6>Job Categories</h6>
+                        <hr class="deep-purple  accent-2 mb-4 mt-0 d-inline-block mx-auto">
+                        <ul class="list-unstyled mb-0">
+                            <li><a href="#">Developement</a></li>
+                            <li><a href="#">Designing</a></li>
+                            <li><a href="#">Marketing</a></li>
+                            <li><a href="#">Others</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 col-md-12">
+                        <h6>Job Type</h6>
+                        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto">
+                        <ul class="list-unstyled mb-0">
+                            <li><a href="#">Work from home</a></li>
+                            <li><a href="#">Internship</a></li>
+                            <li><a href="#">Part time</a></li>
+                            <li><a href="#">Full time</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 col-md-12">
+                        <h6>Resources</h6>
+                        <hr class="deep-purple  accent-2 mb-4 mt-0 d-inline-block mx-auto">
+                        <ul class="list-unstyled mb-0">
+                            <li><a href="#">Support</a></li>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                            <li><a href="#">Contact Details</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <h6>Popular Ads</h6>
+                        <hr class="deep-purple  accent-2 mb-4 mt-0 d-inline-block mx-auto">
+                        <ul class="list-unstyled mb-0">
+                            <li><a href="#"><i class="fa fa-caret-right text-white-50"></i> Educational college Ads</a></li>
+                            <li><a href="#"><i class="fa fa-caret-right text-white-50"></i> Free Lancer for Web Developer</a></li>
+                            <li><a href="#"><i class="fa fa-caret-right text-white-50"></i> Searching for Developer</a></li>
+                            <li><a href="#"><i class="fa fa-caret-right text-white-50"></i> BPO Online In Bangalore</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <h6 class="mb-2">Subscribe</h6>
+                        <hr class="deep-purple  accent-2 mb-4 mt-0 d-inline-block mx-auto">
+                        <div class="input-group w-100">
+                            <input type="text" class="form-control  border" placeholder="Email">
+                            <div class="input-group-append ">
+                                <button type="button" class="btn btn-primary "> Subscribe </button>
+                            </div>
+                        </div>
+                        <h6 class="mb-2 mt-5">Payments</h6>
+                        <hr class="deep-purple  accent-2 mb-4 mt-0 d-inline-block mx-auto">
+                        <ul class="payments mb-0">
+                            <li>
+                                <a href="javascript:;" class="payments-icon"><i class="fa fa-cc-amex" aria-hidden="true"></i></a>
+                            </li>
+                            <li>
+                                <a href="javascript:;" class="payments-icon"><i class="fa fa-cc-visa" aria-hidden="true"></i></a>
+                            </li>
+                            <li>
+                                <a href="javascript:;" class="payments-icon"><i class="fa fa-credit-card-alt" aria-hidden="true"></i></a>
+                            </li>
+                            <li>
+                                <a href="javascript:;" class="payments-icon"><i class="fa fa-cc-mastercard" aria-hidden="true"></i></a>
+                            </li>
+                            <li>
+                                <a href="javascript:;" class="payments-icon"><i class="fa fa-cc-paypal" aria-hidden="true"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-white-50 border-top p-0">
+            <div class="container">
+                <div class="row d-flex">
+                    <div class="col-lg-8 col-sm-12  mt-2 mb-2 text-left ">
+                        Copyright © 2019 <a href="{% url 'account_login' %}" class="fs-14 text-white">rejoin</a>. Designed by <a href="spruko.com" class="fs-14 text-white">Spruko</a> All rights reserved.
+                    </div>
+                    <div class="col-lg-4 col-sm-12 ml-auto mb-2 mt-2 d-none d-lg-block">
+                        <ul class="social mb-0">
+                            <li>
+                                <a class="social-icon" href=""><i class="fa fa-facebook"></i></a>
+                            </li>
+                            <li>
+                                <a class="social-icon" href=""><i class="fa fa-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a class="social-icon" href=""><i class="fa fa-rss"></i></a>
+                            </li>
+                            <li>
+                                <a class="social-icon" href=""><i class="fa fa-youtube"></i></a>
+                            </li>
+                            <li>
+                                <a class="social-icon" href=""><i class="fa fa-linkedin"></i></a>
+                            </li>
+                            <li>
+                                <a class="social-icon" href=""><i class="fa fa-google-plus"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-white p-0 border-top">
+            <div class="container">
+                <div class="p-2 text-center footer-links">
+                    <a href="#" class="btn btn-link">How It Works</a>
+                    <a href="#" class="btn btn-link">About Us</a>
+                    <a href="#" class="btn btn-link">Pricing</a>
+                    <a href="#" class="btn btn-link">Ads Categories</a>
+                    <a href="#" class="btn btn-link">Privacy Policy</a>
+                    <a href="#" class="btn btn-link">Terms Of Conditions</a>
+                    <a href="#" class="btn btn-link">Blog</a>
+                    <a href="#" class="btn btn-link">Contact Us</a>
+                    <a href="#" class="btn btn-link">Premium Ad</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</section>
+<!--Footer Section-->
+{% endblock %}
+<!-- Notification -->
+<a href="http://127.0.0.1:8000/Page/advanced-search/" id="notification" ><span class="notification-text">Create Job Alert</span><i class="fa fa-bell"></i></a>
+
+<!-- Back to top -->
+<a href="#top" id="back-to-top" ><i class="fa fa-arrow-up"></i></a>
+
+<!-- JQuery js-->
+{% block js %}
+<!-- JQuery js-->
+<script src="{% static 'assets/js/vendors/jquery-3.2.1.min.js'%}"></script>
+
+<!-- Bootstrap js -->
+<script src="{% static 'assets/plugins/bootstrap-4.3.1-dist/js/popper.min.js'%}"></script>
+<script src="{% static 'assets/plugins/bootstrap-4.3.1-dist/js/bootstrap.min.js'%}"></script>
+
+<!--JQuery Sparkline Js-->
+<script src="{% static 'assets/js/vendors/jquery.sparkline.min.js'%}"></script>
+
+<!-- Circle Progress Js-->
+<script src="{% static 'assets/js/vendors/circle-progress.min.js'%}"></script>
+
+<!-- Star Rating Js-->
+<script src="{% static 'assets/plugins/rating/jquery.rating-stars.js'%}"></script>
+
+<!--Counters -->
+<script src="{% static 'assets/plugins/counters/counterup.min.js'%}"></script>
+<script src="{% static 'assets/plugins/counters/waypoints.min.js'%}"></script>
+<script src="{% static 'assets/plugins/counters/numeric-counter.js'%}"></script>
+
+<!--Owl Carousel js -->
+<script src="{% static 'assets/plugins/owl-carousel/owl.carousel.js'%}"></script>
+
+<!--Horizontal Menu-->
+<script src="{% static 'assets/plugins/horizontal/horizontal-menu/horizontal.js'%}"></script>
+
+<!--JQuery TouchSwipe js-->
+<script src="{% static 'assets/js/jquery.touchSwipe.min.js'%}"></script>
+
+<!--Select2 js -->
+<script src="{% static 'assets/plugins/select2/select2.full.min.js'%}"></script>
+<script src="{% static 'assets/js/select2.js'%}"></script>
+
+<!-- sticky Js-->
+<script src="{% static 'assets/js/sticky.js'%}"></script>
+
+<!-- Ion.RangeSlider -->
+<script src="{% static 'assets/plugins/jquery-uislider/jquery-ui.js'%}"></script>
+
+<!--Showmore Js-->
+<script src="{% static 'assets/js/jquery.showmore.js'%}"></script>
+<script src="{% static 'assets/js/showmore.js'%}"></script>
+
+<!-- Cookie js -->
+<script src="{% static 'assets/plugins/cookie/jquery.ihavecookies.js'%}"></script>
+<script src="{% static 'assets/plugins/cookie/cookie.js'%}"></script>
+
+<!-- Custom scroll bar Js-->
+<script src="{% static 'assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js'%}"></script>
+
+<!-- Swipe Js-->
+<script src="{% static 'assets/js/swipe.js'%}"></script>
+
+<!-- Scripts Js-->
+<script src="{% static 'assets/js/scripts2.js'%}"></script>
+
+<!-- Custom Js-->
+<script src="{% static 'assets/js/custom.js'%}"></script>
+{% endblock %}
+</body>
+</head>
+</html>
+
+

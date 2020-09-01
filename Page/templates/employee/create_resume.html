@@ -1,0 +1,1369 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{#    {% block ajax_create_resume %}#}
+{#        <script src="{% static 'Page/create_resume.js' %}"></script>#}
+{#    {% endblock %}#}
+    {% block create_resume %}
+		<!--/Header Main-->
+        <div>{% csrf_token %}</div>
+            {% if user.is_authenticated %}
+                <script> window.onload = get_profile()</script>
+                {% if not user.employee %}
+                    <script> window.location.href = "/jwtauth/checkfunc/"</script>
+                {% endif %}
+            {% else %}
+                <script> window.location.href = "/account/login/"</script>
+            {% endif %}
+		<!--Sliders Section-->
+		<section>
+			<div class="bannerimg cover-image bg-background3" data-image-src="../assets/images/banners/banner2.jpg">
+				<div class="header-text mb-0">
+					<div class="container">
+						<div class="text-center text-white">
+							<h1>Create Resume</h1>
+							<ol class="breadcrumb text-center">
+								<li class="breadcrumb-item"><a href="#">Home</a></li>
+								<li class="breadcrumb-item"><a href="#">Pages</a></li>
+								<li class="breadcrumb-item active text-white" aria-current="page">Create Resume</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--/Sliders Section-->
+
+        {% block edit_profile_resume %}
+		<!--Job posts-section-->
+		<section class="sptb">
+			<div class="container">
+				<div class="row ">
+                    {#show profile#}
+                    {% block show_profile %}
+					<div class="col-lg-8 col-md-12 col-md-12">
+						<div class="card dropify-image-avatar" id="show_profile">
+							<div class="card-header ">
+								<h3 class="card-title">Personal Data</h3>
+                                    <div class="card-options">
+                                        <button  id="show_hide_profile" class="btn btn-light btn-sm" href="#"><i class="fa fa-edit"></i> Edit</button>
+                                    </div>
+							</div>
+							<div class="card-body" id="show_profile">
+								<div class="row">
+									<div class="col-lg-3 mb-4 mb-lg-0">
+{#										<input type="file" class="dropify" data-default-file="../assets/images/users/avatar.png" data-height="180"/>#}
+                                        <img src="{{ user.profile.UserImage.url }}" alt="error">
+									</div>
+									<div class="col-lg-9">
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="form-label text-dark">User Full Name: </label>
+													<input type="text" class="form-control" placeholder="User Full Name" required id="userfullname1">
+												</div>
+												<div class="form-group">
+													<label class="form-label text-dark">Phone Number</label>
+													<input type="number" class="form-control" placeholder="Job Profession" required id="phonenumber1">
+												</div>
+												<div class="form-group mb-md-0">
+													<label class="form-label text-dark">City</label>
+													<input type="text" class="form-control" placeholder="Email" required id="city1">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="form-label text-dark">Address</label>
+													<input type="text" class="form-control" placeholder="last Name" required id="address1">
+												</div>
+                                                <div class="form-group">
+													<label class="form-label text-dark">Postal Code</label>
+													<input type="text" class="form-control" placeholder="Postal Code" required id="postalcode1">
+												</div>
+                                                <div class="form-group">
+													<label class="form-label text-dark">Description</label>
+													<input type="text" class="form-control" placeholder="Description" required id="desctiption1">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+                        {# edit profile #}
+{#                            <div class="card dropify-image-avatar" id="edit_profile">#}
+                            <div class="card dropify-image-avatar" id="edit_profile">
+							<div class="card-header">
+								<h3 class="card-title">Edit Profile</h3>
+							</div>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-6 col-md-6">
+                                        <label id="error_firtname" style="color: red"></label>
+										<div class="form-group">
+											<label class="form  -label">User First Name</label>
+											<input type="text" class="form-control" placeholder="First Name" id="userfirtname">
+										</div>
+									</div>
+									<div class="col-sm-6 col-md-6">
+                                        <label id="error_middname" style="color: red"></label>
+										<div class="form-group">
+											<label class="form-label">User Middle Name</label>
+											<input type="text" class="form-control" placeholder="Middle Name" id="usermiddlename">
+										</div>
+									</div>
+									<div class="col-sm-6 col-md-6">
+                                        <label id="error_middname" style="color: red"></label>
+										<div class="form-group">
+											<label class="form-label">User Last Name</label>
+											<input type="text" class="form-control" placeholder="Last Name" id="userlastname">
+										</div>
+									</div>
+                                    <div class="col-sm-6 col-md-6">
+                                        <label id="error_fullname" style="color: red"></label>
+										<div class="form-group">
+											<label class="form-label">User Full Name</label>
+											<input type="text" class="form-control" placeholder="Full Name" id="userfullname">
+										</div>
+									</div>
+									<div class="col-sm-6 col-md-6">
+                                        <label id="error_phone" style="color: red"></label><br>
+										<div class="form-group">
+											<label class="form-label">Phone Number</label>
+											<input type="number" class="form-control" placeholder="Number" id="phonenumber">
+										</div>
+									</div>
+									<div class="col-md-12">
+                                        <label id="error_address" style="color: red"></label>
+										<div class="form-group">
+											<label class="form-label">Address</label>
+											<input type="text" class="form-control" placeholder="Home Address" id="address">
+										</div>
+									</div>
+									<div class="col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="form-label">City</label>
+											<input type="text" class="form-control" placeholder="City" id="city">
+										</div>
+									</div>
+									<div class="col-sm-6 col-md-3">
+										<div class="form-group">
+											<label class="form-label">Postal Code</label>
+											<input type="number" class="form-control" placeholder="ZIP Code" id="postalcode">
+										</div>
+									</div>
+                                    <div class="col-sm-6 col-md-3">
+										<div class="form-group">
+											<label class="form-label">Description</label>
+											<input type="text" class="form-control" placeholder="Description" id="desctiption">
+										</div>
+									</div>
+{#                                    upload image#}
+                                    <div class="col-sm-6 col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label">User Image: </label>
+                                            {% if user.profile.UserImage %}
+                                            <p class="file-upload">Currently:  <a href="{{ user.profile.UserImage.url }}">{{ user.profile.UserImage }}</a>
+                                            <span class="clearable-file-input">
+                                                <input type="checkbox" name="picture-clear" id="picture-clear_id">
+                                                <label for="picture-clear_id">Clear</label></span><br>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                   <form id="avatar_form">
+                                        <div >
+                                            <label for="id_avatar">Choose an image for your avatar</label>
+                                            <input type="file" class="form-control-file" id="id_avatar"/>
+                                        </div>
+                                        <button type="submit">Upload</button>
+                                   </form>
+                                    {#///////////////////////////////////////  ajax upload image \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                                    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+                                    <script>
+                                        $(document).ready(
+                                                function() {
+                                                    $("#edit_profile").hide();
+                                                }
+                                            );
+
+                                        $(document).ready(function(){
+                                            $("#show_hide_profile").click(function(){
+                                                $("#edit_profile").show();
+                                                $("#show_profile").hide();
+                                            });
+                                        });
+
+
+                                        var URL_profile = "/connectdata/ProfileUserViewSet/";
+
+                                        function readCookie(name) {
+                                            var nameEQ = name + "=";
+                                            var ca = document.cookie.split(';');
+                                            for(var i=0;i < ca.length;i++) {
+                                                var c = ca[i];
+                                                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                                                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+                                            }
+                                            return null;
+                                        }
+
+                                        var csrftoken = readCookie('csrftoken');
+
+
+                                        document.getElementById('avatar_form').addEventListener('submit', function(event) {
+                                            event.preventDefault();
+                                            let input = document.getElementById('id_avatar');
+                                            let data = new FormData();
+                                            data.append('UserImage', input.files[0]);
+                                            console.log(data)
+                                            fetch('https://localhost:8000/connectdata/ProfileUserViewSetToken/{{ user.profile.id }}/', {
+                                                method: 'PUT',
+                                                headers: {
+                                                    "X-CSRFToken": csrftoken
+                                                },
+                                                body: data
+
+                                                }).then(response => {
+                                                    return response.json();
+                                                }).then(data => {
+                                                    console.log(data);
+                                                }).catch((error) => {
+                                                    console.error('Error:', error);
+                                                });
+                                        });
+                                    </script>
+                                    {#/////////////////////////////////////// end ajax upload image \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+								</div>
+							</div>
+							<div class="card-footer">
+                                <button type="submit" class="btn btn-primary" onclick="validation_mydash2()" id="upload_show_profile">Updated Profile</button>
+							</div>
+						</div>
+                            {# end edit profile #}
+                        {#\\\\\\\\ CurriculumVitae ///////#}
+                        {#//////////////////////////////////// html update CurriculumVitae \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                        <div class="card" id="uploadCurriculumVitae">
+							<div class="card-header ">
+								<h3 class="card-title">CurriculumVitae</h3>
+                                <i class="card-options">(*)thông tin bắc buộc nhập</i>
+							</div>
+							<div class="card-body">
+								<div class="form-group">
+									<label class="form-label text-dark">DesiredPosition</label>
+									<input type="text" class="form-control" placeholder="DesiredPosition" id="DesiredPosition" required>
+								</div>
+								<div class="form-group">
+									<label class="form-label text-dark">CurrentPosition</label>
+									<input type="text" class="form-control" placeholder="CurrentPosition" id="CurrentPosition" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">DesiredLevel</label>
+									<input type="text" class="form-control" placeholder="DesiredLevel" id="DesiredLevel" required>
+								</div>
+								<div class="form-group">
+									<label class="form-label text-dark">FormOfWork</label>
+									<input type="text" class="form-control" placeholder="FormOfWork" id="FormOfWork" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">DesiredSalary</label>
+									<input type="text" class="form-control" placeholder="DesiredSalary" id="DesiredSalary" required>
+								</div>
+							</div>
+{#                            <div class="card-footer ">#}
+{#								<button onclick="update_bank()">POST</button>#}
+{#							</div>#}
+						</div>
+                        {#//////////////////////////////////// end html update CurriculumVitae \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+                        {#//////////////////////////////////// ajax add - detail - update CurriculumVitae \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                        <script>
+                            var URL_update_CurriculumVitae = "/connectdata/CVFinishViewSet/";
+
+                            function update_CurriculumVitae() {
+                                var jsonarr_update_CurriculumVitae = {
+                                        "DesiredPosition": $("#DesiredPosition").val(),
+                                        "CurrentPosition": $("#CurrentPosition").val(),
+                                        "DesiredLevel": $("#DesiredLevel").val(),
+                                        "FormOfWork": $("#FormOfWork").val(),
+                                        "DesiredSalary": $("#DesiredSalary").val(),
+                                        "isFinishCV": "True",
+                                    };
+                                console.log(JSON.stringify(jsonarr_update_CurriculumVitae));
+
+                                $.ajax({
+                                    "url": URL_update_CurriculumVitae +parseInt(id_CurriculumVitae) +"/",
+                                    "data": JSON.stringify(jsonarr_update_CurriculumVitae),
+                                    "headers":{"X-CSRFToken": csrftoken},
+                                    "processData": false,
+                                    "contentType": 'application/json',
+                                    "type": "PUT",
+                                    "success": update_CurriculumVitae_success,
+                                    "error": update_CurriculumVitae_error
+                                });
+                            }
+
+                            function update_CurriculumVitae_success()
+                            {
+                                alert("CurriculumVitae update success!")
+                                window.location.href = "page/mycv/";
+                            }
+
+                            function update_CurriculumVitae_error()
+                            {
+                                alert("CurriculumVitae update error!");
+                                location.reload()
+                            }
+                        </script>
+                        {#//////////////////////////////////// end ajax add - detail - update CurriculumVitae \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+                        {#\\\\\\\\ Bank ///////#}
+                        {#////////////////////////////////// ajax list Bank \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                        <script>
+                            var URL_Bank = "/employee/EmployeeBankVSView/";
+
+                            function select_checkbox() {
+                                alert("aaaaaaa")
+                            }
+
+                            function get_bank()
+                            {
+                                $.getJSON(URL_Bank,{},list_bank);
+                            }
+
+                            function list_bank(employee) {
+                                var j = 0;
+                                var id1 = '';
+                                var idtk1='';
+                                var owntk1='';
+                                var bankname1='';
+                                var branchname1='';
+                                for (var i = 0; i < employee[j].employeebank.length; i++)
+                                {
+                                    id1 = employee[0].employeebank[i].id;
+                                    idtk1 = employee[0].employeebank[i].idTK;
+                                    owntk1 = employee[0].employeebank[i].ownTK;
+                                    bankname1 = employee[0].employeebank[i].BankName;
+                                    branchname1 = employee[0].employeebank[i].BranchName;
+
+                                    $.each(employee,
+                                    function(){
+                                        $("#bankrow").append("<tr>"+
+                                            "<td>" +
+                                                '<label class="custom-control custom-checkbox">' +
+                                                    '<input type="checkbox" class="custom-control-input select_checkbox" onclick="select_checkbox()" name="checkbox" value='+id1+' id="checkbox_getid">'+
+                                                    '<span class="custom-control-label"></span>'+
+                                                '</label>'
+                                            + "</td>" +
+                                            "<td>" + idtk1 + "</td>" +
+                                            "<td>" + owntk1 + "</td>" +
+                                            "<td>" + bankname1 + "</td>" +
+                                            "<td>" + branchname1 + "</td>" +
+
+                                            '<td>' +
+                                                '<button onclick="get_detail_bank(id)" id='+id1+' class="btn btn-success btn-sm text-white" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i></button>' +
+                                                '<button onclick="show_hide_bank()" id='+id1+' class="btn btn-danger btn-sm text-white" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash-o"></i></button>' +
+                                                '<button onclick="show_hide_bank()" id='+id1+' class="btn btn-primary btn-sm text-white" data-toggle="tooltip" data-original-title="View"><i class="fa fa-eye"></i></button>' +
+                                            '</td>' +
+
+                                            "</tr>")}
+                                );
+                                }
+                            }
+
+                            window.onload = get_bank()
+                        </script>
+                        {#//////////////////////////////////// end ajax list Bank \\\\\\\\\\\\\\\\\\\\\\\\#}
+
+                        {#///////////////////////////////// html list bank \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                        <div class="card" id="listbank">
+                            <div class="card-header ">
+								<h3 class="card-title">Bank</h3>
+								<div class="card-options">
+									<a onclick="showform_add()" class="btn btn-light btn-sm" href="#"><i class="fa fa-plus"></i> Add Another</a>
+								</div>
+							</div>
+                            <div class="card-body pt-0 pt-md-5">
+                                <div class="tab-content">
+                                    <div class="tab-pane active table-responsive border-top userprof-tab" id="tab1">
+                                        <table class="table table-bordered table-hover mb-0 text-nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th>select</th>
+                                                    <th>id TK</th>
+                                                    <th>own TK</th>
+                                                    <th>Bank Name</th>
+                                                    <th>Branch Name</th>
+                                                    <th >Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="bankrow">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {#//////////////////////////////////// end html list bank \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+                        {#//////////////////////////////////// html add bank \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                        <div class="card" id="addbank">
+							<div class="card-header ">
+								<h3 class="card-title">Add Bank</h3>
+							</div>
+							<div class="card-body">
+								<div class="form-group">
+									<label class="form-label text-dark">id TK</label>
+									<input type="text" class="form-control" placeholder="School Name" id="idtk" required>
+								</div>
+								<div class="form-group">
+									<label class="form-label text-dark">own TK</label>
+									<input type="text" class="form-control" placeholder="Qualification" id="owntk" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">Bank Name</label>
+									<input type="text" class="form-control" placeholder="School Name" id="bankname" required>
+								</div>
+								<div class="form-group">
+									<label class="form-label text-dark">Branch Name</label>
+									<input type="text" class="form-control" placeholder="Qualification" id="branchname" required>
+								</div>
+							</div>
+                            <div class="card-footer ">
+								<button onclick="add_bank()">POST</button>
+							</div>
+						</div>
+                        {#//////////////////////////////////// end html add bank \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+                        {#//////////////////////////////////// html update bank \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                        <div class="card" id="uploadbank">
+							<div class="card-header ">
+								<h3 class="card-title">Upload Bank</h3>
+							</div>
+							<div class="card-body">
+								<div class="form-group">
+									<label class="form-label text-dark">id TK</label>
+									<input type="text" class="form-control" placeholder="School Name" id="idtk_update" required>
+								</div>
+								<div class="form-group">
+									<label class="form-label text-dark">own TK</label>
+									<input type="text" class="form-control" placeholder="Qualification" id="owntk_update" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">Bank Name</label>
+									<input type="text" class="form-control" placeholder="School Name" id="bankname_update" required>
+								</div>
+								<div class="form-group">
+									<label class="form-label text-dark">Branch Name</label>
+									<input type="text" class="form-control" placeholder="Qualification" id="branchname_update" required>
+								</div>
+							</div>
+                            <div class="card-footer ">
+								<button onclick="update_bank()">Save</button>
+							</div>
+						</div>
+                        {#//////////////////////////////////// end html update bank \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+                        {#//////////////////////////////////// ajax add - detail - update bank \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                        <script>
+                            var URL_detail_update_bank = "/connectdata/UserBankFullViewSet/";
+                            var URL_Add_Bank = "/connectdata/UserBankFullViewSet/";
+
+
+                            function get_detail_bank(id)
+                            {
+                                $("#uploadbank").show();
+                                $("#listbank").hide();
+                                $.getJSON(URL_detail_update_bank = URL_detail_update_bank + id + "/",{},detail_bank);
+                            }
+
+                            function detail_bank(userbank) {
+                                $("#idtk_update").val(userbank.idTK);
+                                $("#owntk_update").val(userbank.ownTK);
+                                $("#bankname_update").val(userbank.BankName);
+                                $("#branchname_update").val(userbank.BankName);
+                            }
+
+                            function showform_add() {
+                                $("#addbank").show();
+                                $("#listbank").hide();
+                            }
+
+                            function add_bank() {
+
+                                var jsonarr = {
+                                        "idTK": $("#idtk").val(),
+                                        "ownTK": $("#owntk").val(),
+                                        "BankName": $("#bankname").val(),
+                                        "BranchName": $("#branchname").val(),
+                                    };
+                                console.log(JSON.stringify(jsonarr));
+
+                                $.ajax({
+                                    "url": URL_Add_Bank,
+                                    "data": JSON.stringify(jsonarr),
+                                    "headers":{"X-CSRFToken": csrftoken},
+                                    "processData": false,
+                                    "contentType": 'application/json',
+                                    "type": "POST",
+                                    "success": add_bank_success,
+                                    "error": add_bank_error
+                                });
+                            }
+
+                            function add_bank_success()
+                            {
+                                {#$("#addbank").hide();#}
+                                {#$("#listbank").show();#}
+                                alert("add success");
+                                location.reload()
+                            }
+
+                            function add_bank_error()
+                            {
+                              alert("add error!");
+                              location.reload()
+                            }
+
+                            function update_bank() {
+                                var jsonarr = {
+                                        "idTK": $("#idtk_update").val(),
+                                        "ownTK": $("#owntk_update").val(),
+                                        "BankName": $("#bankname_update").val(),
+                                        "BranchName": $("#branchname_update").val(),
+                                    };
+                                console.log(JSON.stringify(jsonarr));
+
+                                $.ajax({
+                                    "url": URL_detail_update_bank,
+                                    "data": JSON.stringify(jsonarr),
+                                    "headers":{"X-CSRFToken": csrftoken},
+                                    "processData": false,
+                                    "contentType": 'application/json',
+                                    "type": "PUT",
+                                    "success": update_bank_success,
+                                    "error": update_bank_error
+                                });
+                            }
+
+                            function update_bank_success()
+                            {
+                                alert("Bank update success!");
+                                location.reload()
+                            }
+
+                            function update_bank_error()
+                            {
+                                alert("Bank update error!");
+                                location.reload()
+                            }
+                        </script>
+                        {#//////////////////////////////////// end ajax add - detail - update bank \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+                        {#\\\\\\\\\\ Educate ////////////#}
+                        {#////////////////////////////////// ajax list Educate \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                        <script>
+                            var URL_Educate = "/connectdata/CVEmployeeEducationViewSet/";
+
+                            var URL_get_id_CurriculumVitae = "/connectdata/FinishCVAPIView/"
+
+                            function get_id_CurriculumVitae(){
+                                $.getJSON(URL_get_id_CurriculumVitae,{},get_id_CurriculumVitae1);
+                            }
+
+                            var id_CurriculumVitae = '';
+                            function get_id_CurriculumVitae1(curriculumVitae){
+                                id_CurriculumVitae = curriculumVitae.id;
+                            }
+
+                            $(document).ready(
+                                function() {
+                                    $("#addbank").hide();
+                                    $("#uploadbank").hide();
+                                }
+                            );
+
+
+                            function readCookie(name) {
+                                var nameEQ = name + "=";
+                                var ca = document.cookie.split(';');
+                                for(var i=0;i < ca.length;i++) {
+                                    var c = ca[i];
+                                    while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                                    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+                                }
+                                return null;
+                            }
+
+                            var csrftoken = readCookie('csrftoken');
+
+                            function get_Educate()
+                            {
+                                $.getJSON(URL_Educate,{},list_Educate);
+                            }
+
+                            var ID_Education = '';
+                            function list_Educate(employee) {
+                                var Degree1 ='';
+
+                                for (var i = 0; i < employee.length; i++)
+                                {
+                                    ID_Education = employee[i].id;
+                                    Degree1 = employee[i].Degree;
+
+                                    $("#eduacterow").append("<tr>"+
+                                        "<td>" +
+                                            '<label class="custom-control custom-checkbox">' +
+                                                '<input type="checkbox" class="custom-control-input checkbox_education" onclick="select_education(value)" name="checkbox" value='+ID_Education+' id='+ID_Education+"checkbox_education"+'>'+
+                                                '<span class="custom-control-label"></span>'+
+                                            '</label>'
+                                        + "</td>" +
+                                        "<td>" + Degree1 + "</td>" +
+                                        '<td>' +
+                                            '<button onclick="get_detail_Education(id)" id='+ID_Education+' class="btn btn-success btn-sm text-white" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i></button>' +
+                                            '<button onclick="show_hide_bank()" id='+ID_Education+' class="btn btn-danger btn-sm text-white" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash-o"></i></button>' +
+                                            '<button onclick="show_hide_bank()" id='+ID_Education+' class="btn btn-primary btn-sm text-white" data-toggle="tooltip" data-original-title="View"><i class="fa fa-eye"></i></button>' +
+                                        '</td>' +"</tr>")
+                                }
+                            }
+
+                            //check box education
+                            var URL_select_education = "/connectdata/CVEducationViewSet/";
+
+                            function select_education(id) {
+                                var jsonarr_select_education = {"CurriculumVitaeIDEducation": [parseInt(id_CurriculumVitae)]}
+                                console.log(JSON.stringify(jsonarr_select_education));
+
+                                $.ajax({
+                                    "url": URL_select_education + id + "/",
+                                    "data": JSON.stringify(jsonarr_select_education),
+                                    "headers":{"X-CSRFToken": csrftoken},
+                                    "processData": false,
+                                    "contentType": 'application/json',
+                                    "type": "PUT",
+                                    "success": get_id_checkbox_success,
+                                    "error": get_id_checkbox_error
+                                });
+                            }
+
+                            function get_id_checkbox_success(){
+                            }
+
+                            function get_id_checkbox_error(){
+                                alert("get id checkbox error")
+                            }
+
+                            window.onload = get_Educate()
+                        </script>
+{#                        //////////////////////////////////// end ajax list Educate \\\\\\\\\\\\\\\\\\\\\\\\#}
+
+{#                        ///////////////////////////////// html list Educate \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                        <div class="card" id="listEducate">
+                            <div class="card-header ">
+								<h3 class="card-title">Educate</h3>
+								<div class="card-options">
+									<a onclick="showform_Education_add()" class="btn btn-light btn-sm" href="#"><i class="fa fa-plus"></i> Add Another</a>
+								</div>
+							</div>
+                            <div class="card-body pt-0 pt-md-5">
+                                <div class="tab-content">
+                                    <div class="tab-pane active table-responsive border-top userprof-tab" id="tab1">
+                                        <table class="table table-bordered table-hover mb-0 text-nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th>Select</th>
+                                                    <th>Degree</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="eduacterow">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+{#                        //////////////////////////////////// end html list Educate \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+{#                        //////////////////////////////////// html add Educate \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                        <div class="card" id="addEducate">
+							<div class="card-header ">
+								<h3 class="card-title">Add Educate</h3>
+							</div>
+							<div class="card-body">
+								<div class="form-group">
+									<label class="form-label text-dark">Degree</label>
+									<input type="text" class="form-control" placeholder="School Name" id="Degree1" required>
+								</div>
+							</div>
+                            <div class="card-footer ">
+								<button onclick="add_Education()">POST</button>
+							</div>
+						</div>
+{#                        //////////////////////////////////// end html add Educate \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+{#                        //////////////////////////////////// html update Educate \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                        <div class="card" id="uploadEducation">
+							<div class="card-header ">
+								<h3 class="card-title">Upload Education</h3>
+							</div>
+							<div class="card-body">
+								<div class="form-group">
+									<label class="form-label text-dark">Degree</label>
+									<input type="text" class="form-control" placeholder="School Name" id="Degree2" required>
+								</div>
+							</div>
+                            <div class="card-footer ">
+								<button onclick="update_Education()">Save</button>
+							</div>
+						</div>
+{#                        //////////////////////////////////// end html update Educate \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+{#                        //////////////////////////////////// ajax add - detail - update Educate \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                        <script>
+                            {#var URL_detail_Education = "/connectdata/UserBankFullViewSet/";#}
+                            {#var URL_Add_Education = "/connectdata/CVEmployeeEducationViewSet/";#}
+                            // Education sai 1 link URL_Educate cho list - add - update
+
+                            $(document).ready(
+                                function() {
+                                    $("#addEducate").hide();
+                                    $("#uploadEducation").hide();
+                                }
+                            );
+
+                            function get_detail_Education(id)
+                            {
+                                $("#uploadEducation").show();
+                                $("#listEducate").hide();
+                                $.getJSON(URL_Educate = URL_Educate + id + "/",{},detail_Education);
+                            }
+
+                            function detail_Education(employee) {
+                                $("#Degree2").val(employee.Degree);
+                            }
+
+                            function showform_Education_add() {
+                                $("#addEducate").show();
+                                $("#listEducate").hide();
+                            }
+
+                            function add_Education() {
+
+                                var jsonarr_Education = {
+                                        "Degree": $("#Degree2").val(),
+                                    };
+                                console.log(JSON.stringify(jsonarr_Education));
+
+                                $.ajax({
+                                    "url": URL_Educate,
+                                    "data": JSON.stringify(jsonarr_Education),
+                                    "headers":{"X-CSRFToken": csrftoken},
+                                    "processData": false,
+                                    "contentType": 'application/json',
+                                    "type": "POST",
+                                    "success": add_Education_success,
+                                    "error": add_Education_error
+                                });
+                            }
+
+                            function add_Education_success()
+                            {
+                                $("#addbank").hide();
+                                $("#listbank").show();
+                                alert("add Education success");
+                                location.reload()
+                            }
+
+                            function add_Education_error()
+                            {
+                              alert("add Education error!");
+                              location.reload()
+                            }
+
+                            function update_Education() {
+                                var jsonarr = {
+                                        "Degree": $("#Degree2").val()
+                                    };
+                                console.log(JSON.stringify(jsonarr));
+
+                                $.ajax({
+                                    "url": URL_Educate,
+                                    "data": JSON.stringify(jsonarr),
+                                    "headers":{"X-CSRFToken": csrftoken},
+                                    "processData": false,
+                                    "contentType": 'application/json',
+                                    "type": "PUT",
+                                    "success": update_Education_success,
+                                    "error": update_Education_error
+                                });
+                            }
+
+                            function update_Education_success()
+                            {
+                                alert("Education update success!");
+                                location.reload()
+                            }
+
+                            function update_Education_error()
+                            {
+                                alert("Education update error!");
+                                location.reload()
+                            }
+
+                            window.onload = get_id_CurriculumVitae()
+                        </script>
+                        {#//////////////////////////////////// end ajax add - detail - update Education \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+                        {# \\\\\\\\\ Experiences //////////////////#}
+                        {#////////////////////////////////// ajax list Experiences \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                        <script>
+                            var URL_Experiences = "/connectdata/EmployeeExperiencesFullViewSet/";
+
+                            var URL_get_id_CurriculumVitae = "/connectdata/FinishCVAPIView/"
+
+                            function get_id_CurriculumVitae(){
+                                $.getJSON(URL_get_id_CurriculumVitae,{},get_id_CurriculumVitae1);
+                            }
+
+                            var id_CurriculumVitae = '';
+                            function get_id_CurriculumVitae1(curriculumVitae){
+                                id_CurriculumVitae = curriculumVitae.id;
+                            }
+
+                            {#$(document).ready(#}
+                            {#    function() {#}
+                            {#        $("#addExperiences").hide();#}
+                            {#        $("#uploadExperiences").hide();#}
+                            {#    }#}
+                            {#);#}
+
+
+                            function readCookie(name) {
+                                var nameEQ = name + "=";
+                                var ca = document.cookie.split(';');
+                                for(var i=0;i < ca.length;i++) {
+                                    var c = ca[i];
+                                    while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                                    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+                                }
+                                return null;
+                            }
+
+                            var csrftoken = readCookie('csrftoken');
+
+                            function get_Experiences()
+                            {
+                                $.getJSON(URL_Experiences,{},list_Experiences);
+                            }
+
+                            var ID_Experiences = '';
+                            function list_Experiences(employee) {
+                                var UserIDExperiences ='';
+                                var EmployeeIDExperiences ='';
+                                var ExperiencesName ='';
+                                var Position ='';
+                                var TimeSince ='';
+                                var TimeUntill ='';
+
+                                for (var i = 0; i < employee.length; i++)
+                                {
+                                    ID_Experiences = employee[i].id;
+                                    UserIDExperiences = employee[i].UserIDExperiences;
+                                    EmployeeIDExperiences = employee[i].EmployeeIDExperiences;
+                                    ExperiencesName = employee[i].ExperiencesName;
+                                    Position = employee[i].Position;
+                                    TimeSince = employee[i].TimeSince;
+                                    TimeUntill = employee[i].TimeUntill;
+
+                                    $("#Experiencesrow").append("<tr>"+
+                                        "<td>" +
+                                            '<label class="custom-control custom-checkbox">' +
+                                                '<input type="checkbox" class="custom-control-input checkbox_education" onclick="select_education(value)" name="checkbox" value='+ID_Experiences+' id='+ID_Experiences+"checkbox_education"+'>'+
+                                                '<span class="custom-control-label"></span>'+
+                                            '</label>'
+                                        + "</td>" +
+                                            "<td>" + ExperiencesName + "</td>" +
+                                            "<td>" + Position + "</td>" +
+                                            "<td>" + TimeSince + "</td>" +
+                                            "<td>" + TimeUntill + "</td>" +
+                                        '<td>' +
+                                            '<button onclick="get_detail_Experiences(id)" id='+ID_Experiences+' class="btn btn-success btn-sm text-white" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i></button>' +
+                                            '<button onclick="show_hide_bank()" id='+ID_Experiences+' class="btn btn-danger btn-sm text-white" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash-o"></i></button>' +
+                                            '<button onclick="show_hide_bank()" id='+ID_Experiences+' class="btn btn-primary btn-sm text-white" data-toggle="tooltip" data-original-title="View"><i class="fa fa-eye"></i></button>' +
+                                        '</td>' +"</tr>")
+                                }
+                            }
+
+                            //check box education
+                            var URL_select_education = "/connectdata/CVEducationViewSet/";
+
+                            function select_education(id) {
+                                var jsonarr_select_education = {"CurriculumVitaeIDEducation": [parseInt(id_CurriculumVitae)]}
+                                console.log(JSON.stringify(jsonarr_select_education));
+
+                                $.ajax({
+                                    "url": URL_select_education + id + "/",
+                                    "data": JSON.stringify(jsonarr_select_education),
+                                    "headers":{"X-CSRFToken": csrftoken},
+                                    "processData": false,
+                                    "contentType": 'application/json',
+                                    "type": "PUT",
+                                    "success": get_id_checkbox_success,
+                                    "error": get_id_checkbox_error
+                                });
+                            }
+
+                            function get_id_checkbox_success(){
+                            }
+
+                            function get_id_checkbox_error(){
+                                alert("get id checkbox error")
+                            }
+
+                            window.onload = get_Experiences()
+                        </script>
+{#                        //////////////////////////////////// end ajax list Experiences \\\\\\\\\\\\\\\\\\\\\\\\#}
+
+{#                        ///////////////////////////////// html list Experiences \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                        <div class="card" id="listExperiences">
+                            <div class="card-header ">
+								<h3 class="card-title">Experiences</h3>
+								<div class="card-options">
+									<a onclick="showform_Experiences_add()" class="btn btn-light btn-sm" href="#"><i class="fa fa-plus"></i> Add Another</a>
+								</div>
+							</div>
+                            <div class="card-body pt-0 pt-md-5">
+                                <div class="tab-content">
+                                    <div class="tab-pane active table-responsive border-top userprof-tab" id="tab1">
+                                        <table class="table table-bordered table-hover mb-0 text-nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th>Select</th>
+                                                    <th>ExperiencesName</th>
+                                                    <th>Position</th>
+                                                    <th>TimeSince</th>
+                                                    <th>TimeUntill</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="Experiencesrow">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+{#                        //////////////////////////////////// end html list Experiences \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+{#                        //////////////////////////////////// html add Experiences \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                        <div class="card" id="addExperiences">
+							<div class="card-header ">
+								<h3 class="card-title">Add Experiences</h3>
+							</div>
+							<div class="card-body">
+								<div class="form-group">
+									<label class="form-label text-dark">ExperiencesName</label>
+									<input type="text" class="form-control" placeholder="ExperiencesName" id="ExperiencesName" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">Position</label>
+									<input type="text" class="form-control" placeholder="Position" id="Position" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">TimeSince</label>
+									<input type="text" class="form-control" placeholder="TimeSince" id="TimeSince" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">TimeUntill</label>
+									<input type="text" class="form-control" placeholder="TimeUntill" id="TimeUntill" required>
+								</div>
+							</div>
+                            <div class="card-footer ">
+								<button onclick="add_Experiences()">POST</button>
+							</div>
+						</div>
+{#                        //////////////////////////////////// end html add Experiences \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+{#                        //////////////////////////////////// html update Experiences \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                        <div class="card" id="uploadExperiences">
+							<div class="card-header ">
+								<h3 class="card-title">Upload Experiences</h3>
+							</div>
+							<div class="card-body">
+								<div class="form-group">
+									<label class="form-label text-dark">ExperiencesName</label>
+									<input type="text" class="form-control" placeholder="ExperiencesName" id="ExperiencesName_update" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">Position</label>
+									<input type="text" class="form-control" placeholder="Position" id="Position_update" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">TimeSince</label>
+									<input type="text" class="form-control" placeholder="TimeSince" id="TimeSince_update" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">TimeUntill</label>
+									<input type="text" class="form-control" placeholder="TimeUntill" id="TimeUntill_update" required>
+								</div>
+							</div>
+                            <div class="card-footer">
+								<button onclick="update_Experiences()">Save</button>
+							</div>
+						</div>
+{#                        //////////////////////////////////// end html update Experiences \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+{#                        //////////////////////////////////// ajax add - detail - update Experiences \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                        <script>
+                            // Experiences sai 1 link URL_Experiences cho list - add - update
+
+                            $(document).ready(
+                                function() {
+                                    $("#addExperiences").hide();
+                                    $("#uploadExperiences").hide();
+                                }
+                            );
+
+                            function showform_Experiences_add() {
+                                $("#addExperiences").show();
+                                $("#listExperiences").hide();
+                            }
+
+                            function add_Experiences() {
+
+                                var jsonarr_Experiences = {
+                                    "ExperiencesName": $("#ExperiencesName").val(),
+                                    "Position": $("#Position").val(),
+                                    "TimeSince": $("#TimeSince").val(),
+                                    "TimeUntill": $("#TimeUntill").val(),
+                                };
+                                console.log(JSON.stringify(jsonarr_Experiences));
+
+                                $.ajax({
+                                    "url": URL_Experiences,
+                                    "data": JSON.stringify(jsonarr_Experiences),
+                                    "headers":{"X-CSRFToken": csrftoken},
+                                    "processData": false,
+                                    "contentType": 'application/json',
+                                    "type": "POST",
+                                    "success": add_Experiences_success,
+                                    "error": add_Experiences_error
+                                });
+                            }
+
+                            function add_Experiences_success()
+                            {
+                                $("#addExperiences").hide();
+                                $("#listExperiences").show();
+                                alert("add Experiences success");
+                                location.reload()
+                            }
+
+                            function add_Experiences_error()
+                            {
+                              alert("add Experiences error!");
+                              location.reload()
+                            }
+
+                            function get_detail_Experiences(id)
+                            {
+                                $("#uploadExperiences").show();
+                                $("#listExperiences").hide();
+                                $.getJSON(URL_Experiences = URL_Experiences + id + "/",{},detail_Experiences);
+                            }
+
+                            function detail_Experiences(employee) {
+                                $("#ExperiencesName_update").val(employee.ExperiencesName);
+                                $("#Position_update").val(employee.Position);
+                                $("#TimeSince_update").val(employee.TimeSince);
+                                $("#TimeUntill_update").val(employee.TimeUntill);
+                            }
+
+                            function update_Experiences() {
+                                var jsonarr_update_Experiences = {
+                                    "ExperiencesName": $("#ExperiencesName_update").val(),
+                                    "Position": $("#Position_update").val(),
+                                    "TimeSince": $("#TimeSince_update").val(),
+                                    "TimeUntill": $("#TimeUntill_update").val(),
+                                    };
+                                console.log(JSON.stringify(jsonarr_update_Experiences));
+
+                                $.ajax({
+                                    "url": URL_Experiences,
+                                    "data": JSON.stringify(jsonarr_update_Experiences),
+                                    "headers":{"X-CSRFToken": csrftoken},
+                                    "processData": false,
+                                    "contentType": 'application/json',
+                                    "type": "PUT",
+                                    "success": update_Experiences_success,
+                                    "error": update_Experiences_error
+                                });
+                            }
+
+                            function update_Experiences_success()
+                            {
+                                alert("Experiences update success!");
+                                location.reload()
+                            }
+
+                            function update_Experiences_error()
+                            {
+                                alert("Experiences update error!");
+                                location.reload()
+                            }
+
+                            window.onload = get_id_CurriculumVitae()
+                        </script>
+                        {#//////////////////////////////////// end ajax add - detail - update Experiences \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+
+						<div class="card">
+							<div class="card-header ">
+								<h3 class="card-title">Professional Skills</h3>
+								<div class="card-options">
+									<a class="btn btn-light btn-sm" href="#"><i class="fa fa-plus"></i> Add Another</a>
+								</div>
+							</div>
+							<div class="card-body">
+								<div class="form-group">
+									<label class="form-label">Professional Skills</label>
+									<select class="form-control select2-no-search" data-placeholder="Choose Browser" multiple>
+										<option value="Java">Java</option>
+										<option value="C">C</option>
+										<option value="C++">C++</option>
+										<option value="Core Java">Core Java</option>
+										<option value="Advanced Java">Advanced Java</option>
+										<option value="Bootstrap">Bootstrap</option>
+										<option value="HTML" selected>HTML</option>
+										<option value="CSS">CSS</option>
+										<option value="Jquery">Jquery</option>
+										<option value="Angular">Angular</option>
+										<option value=".net">.net</option>
+										<option value="php">php</option>
+										<option value="phython">phython</option>
+										<option value="React js">React js</option>
+										<option value="Wordpress">Wordpress</option>
+										<option value="Angular js">Angular js</option>
+										<option value="Sap">Sap</option>
+										<option value="Java Script">Java Script</option>
+										<option value="HTML 5">HTML 5</option>
+										<option value="CSS 3">CSS 3</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="card">
+							<div class="card-header ">
+								<h3 class="card-title">Personal Skills</h3>
+							</div>
+							<div class="card-body">
+								<div class="form-group">
+									<label class="form-label">Write Personal Skills <span class="form-label-small">56/100</span></label>
+									<textarea class="form-control" name="example-textarea-input" rows="6" placeholder="text here.."></textarea>
+								</div>
+							</div>
+						</div>
+						<div class="card">
+							<div class="card-header ">
+								<h3 class="card-title">Upload Resume</h3>
+							</div>
+							<div class="card-body">
+								<div class="form-group mb-0 resume-upload">
+									<form class="d-flex">
+										<input type="file" id="file-upload" multiple required />
+										<label for="file-upload" class="file-upload mb-0">Upload Resume</label>
+										<div id="file-upload-filename"></div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="float-right mb-4 mb-lg-0">
+							<button class="btn btn-success w-150" href="#" onclick="update_CurriculumVitae()">Finish</button>
+						</div>
+					</div>
+                    {% endblock %}
+                    {#end show profile#}
+
+					<div class="col-lg-4 col-md-12">
+						<div class="card">
+							<div class="card-header">
+								<h3 class="card-title">Terms And Conditions</h3>
+							</div>
+							<div class="card-body">
+								<ul class="list-unstyled widget-spec  mb-0">
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Money Not Refundable
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>You can renew your Premium ad after experted.
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium ads are active for depend on package.
+									</li>
+									<li class="ml-5 mb-0">
+										<a href="tips.html"> View more..</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="card">
+							<div class="card-header">
+								<h3 class="card-title">Benefits Of Premium Ad</h3>
+							</div>
+							<div class="card-body pb-2">
+								<ul class="list-unstyled widget-spec vertical-scroll mb-0">
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium Ads Active
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium ads are displayed on top
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium ads will be Show in Google results
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium Ads Active
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium ads are displayed on top
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium ads will be Show in Google results
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium Ads Active
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium ads are displayed on top
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium ads will be Show in Google results
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium Ads Active
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium ads are displayed on top
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium ads will be Show in Google results
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium Ads Active
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium ads are displayed on top
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium ads will be Show in Google results
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="card mb-0">
+							<div class="card-header">
+								<h3 class="card-title">Safety Tips For Buyers</h3>
+							</div>
+							<div class="card-body">
+								<ul class="list-unstyled widget-spec  mb-0">
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i> Meet Seller at public Place
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i> Check item before you buy
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i> Pay only after collecting item
+									</li>
+									<li class="ml-5 mb-0">
+										<a href="tips.html"> View more..</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--/Job posts-section-->
+        {% endblock %}
+		<!--Blogs-->
+		<section class="sptb bg-white">
+			<div class="container">
+				<div class="section-title center-block text-center">
+					<h2>How It Works?</h2>
+					<p>Mauris ut cursus nunc. Morbi eleifend, ligula at consectetur vehicula</p>
+				</div>
+				<div class="row">
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<div class="">
+							<div class="mb-lg-0 mb-4">
+								<div class="service-card text-center">
+									<div class="bg-light icon-bg  icon-service text-purple">
+										<img src="#" alt="img">
+									</div>
+									<div class="servic-data mt-3">
+										<h4 class="font-weight-semibold mb-2">Find Candidates</h4>
+										<p class="text-muted mb-0">Nam libero tempore, cum soluta nobis est eligendi cumque facere possimus</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<div class="">
+							<div class="mb-lg-0 mb-4">
+								<div class="service-card text-center">
+									<div class="bg-light icon-bg icon-service text-purple">
+										<img src="#" alt="img">
+									</div>
+									<div class="servic-data mt-3">
+										<h4 class="font-weight-semibold mb-2">Pay Online</h4>
+										<p class="text-muted mb-0">Nam libero tempore, cum soluta nobis est eligendi cumque facere possimus</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<div class="">
+							<div class="mb-lg-0 mb-4">
+								<div class="service-card text-center">
+									<div class="bg-light icon-bg  icon-service text-purple">
+										<img src="#" alt="img">
+									</div>
+									<div class="servic-data mt-3">
+										<h4 class="font-weight-semibold mb-2">Hire Candidate</h4>
+										<p class="text-muted mb-0">Nam libero tempore, cum soluta nobis est eligendi cumque facere possimus</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<div class="">
+							<div class="">
+								<div class="service-card text-center">
+									<div class="bg-light icon-bg  icon-service text-purple">
+										<img src="#" alt="img">
+									</div>
+									<div class="servic-data mt-3">
+										<h4 class="font-weight-semibold mb-2">Work</h4>
+										<p class="text-muted mb-0">Nam libero tempore, cum soluta nobis est eligendi cumque facere possimus</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+{% endblock %}
+		<!--Blogs-->
+
+		<!--Footer Section-->
+
+		<!--Footer Section-->
+
+		<!-- Notification -->

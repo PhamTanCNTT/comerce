@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+{% block ListInOut %}
+    <script>
+        {#var url_get_day = "/employer/ScheduleDateTime/" + {{ id_detail_sche }} +"/";#}
+        var url_get_day = "/employer/ScheduleDateTimeNested/" + {{ id_detail_sche }}+"/";
+        var url_get_InOut = "/employer/InOutViewSet/";
+        function list_day() {
+            $.getJSON(url_get_day,[],list_day1);
+        }
+        var ID_day = "";
+        function list_day1(day) {
+            var dateinout = "";
+
+            for (var i = 0; i < day.dateinoutschedule.length; i++){
+                ID_day = day.dateinoutschedule[i].id
+                dateinout = day.dateinoutschedule[i].DateIDInOut
+
+                $("#day1").append(
+                    '<tr id='+ID_day+"tra"+'>'+
+                        '<td id='+ID_day+"tda"+'>'+
+                            dateinout +
+                        '</td>' +
+                        '<td id='+ID_day+"td_name"+'>'+ID_day+
+                        '</td>'+
+                        '<td id='+ID_day+"td_in"+'>'+ID_day+
+                        '</td>'+
+                        '<td id='+ID_day+"td_out"+'>'+ID_day+
+                        '</td>'+
+                    '</tr>'
+                )
+
+
+                $("#day").append(
+                       ' <tr>'+
+                            '<td>'+
+                                dateinout +
+                            '</td>' +
+                            '<td>'+
+                               ' <table>'+
+                                   ' <tr>'+
+                                        '<td>CA1</td>'+
+                                       ' <td>Time In</td>'+
+                                       ' <td>Time Out</td>'+
+                                  '  </tr>'+
+                                  '  <tr>'+
+                                       ' <td>CA1</td>'+
+                                        '<td>Time In</td>'+
+                                        '<td>Time Out</td>'+
+                                   ' </tr>'+
+                                '</table>'+
+                            '</td>'+
+
+                           ' <td>'+
+                                '<table>'+
+                                    '<tr>'+
+                                      '  <td>Time CheckInOut 1 </td>'+
+                                       ' <td>Time CheckInOut 2</td>'+
+                                       ' <td>Time CheckInOut 3 </td>'+
+                                        '<td>Time CheckInOut 4</td>'+
+                                    '</tr>'+
+                                '</table>'+
+                            '</td>'+
+                        '</tr>'
+                )
+
+            }
+            {#time();#}
+        }
+
+        function timeinout() {
+            $.getJSON(url_get_day,{},timeinout1);
+        }
+
+        function timeinout1(day) {
+            var j = 0;
+            for (var i = 0; i < day.dateinoutschedule.length; i++){
+                $.getJSON(url_get_InOut + day.dateinoutschedule[i].id,{},timeinout2);
+            }
+        }
+
+        function timeinout2(inout){
+            var inoutname = "";
+            var timein = "";
+            var timeout = "";
+            var id_day = inout.DateInOutIDInOut;
+                inoutname = inout.InOutName
+                timein = inout.TimeIn
+                timeout = inout.TimeOut
+                console.log(id_day)
+
+                for (var i = 0; i <= ID_day; i++){
+                    if (document.getElementById(i + "td_name")){
+                        document.getElementById(i + "td_name").textContent = inoutname
+                    }
+                }
+            }
+
+        function time(){
+            for (var i = 0; i <= ID_day; i++){
+                if (document.getElementById(i+"td_name")){
+                    var a = document.getElementById(i+"td_name").innerText;
+                    $.getJSON(url_get_InOut + a +"/",{},time1);
+                }
+            }
+        }
+        function time1(time){
+            for (var a = 0; a <= ID_day; a++){
+                if (document.getElementById(a+"td_name")){
+                    console.log(time.InOutName)
+                    document.getElementById(a+"td_name").textContent = time.InOutName;
+                }
+            }
+        }
+
+        window.onload = list_day();
+        {#window.onload = time();#}
+        {#window.onload = timeinout();#}
+    </script>
+
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Border Table</h3>
+        </div>
+        <table id="day" class="table table-bordered border-top mb-0" >
+        </table>
+        <div id="day1"> </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered border-top mb-0" >
+                    <thead >
+                        <tr>
+                            <td>Ngày Tháng Năm</td>
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td>CA1</td>
+                                        <td>Time In</td>
+                                        <td>Time Out</td>
+                                    </tr>
+                                    <tr>
+                                        <td>CA1</td>
+                                        <td>Time In</td>
+                                        <td>Time Out</td>
+                                    </tr>
+                                </table>
+                            </td>
+
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td>Time CheckInOut 1 </td>
+                                        <td>Time CheckInOut 2</td>
+                                        <td>Time CheckInOut 3 </td>
+                                        <td>Time CheckInOut 4</td>
+                                    </tr>
+                                </table>
+                            </td>
+
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

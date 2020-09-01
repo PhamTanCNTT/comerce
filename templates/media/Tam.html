@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Avatar Upload</title>
+</head>
+<body>
+<div >
+    <div >
+
+            <form id="login_form">
+                <div>
+                    <label for="id_email">UserName</label>
+                    <input type="text"  id="id_email"
+                           placeholder="UserName"/>
+                </div>
+                <div >
+                    <label for="id_password">Password</label>
+                    <input type="password" id="id_password" placeholder="Password"/>
+                </div>
+                <button type="submit">Log in</button>
+            </form>
+
+    </div>
+    <div>
+        <h1 class="my-3">2. Upload an avatar</h1>
+            <form id="avatar_form">
+                <div >
+                    <label for="id_avatar">Choose an image for your avatar</label>
+                    <input type="file" class="form-control-file" id="id_avatar"/>
+                </div>
+                <button type="submit" >Upload</button>
+            </form>
+            {% if profile.UserImage %}
+                <img src="{{ profile.UserImage.url}}" alt="profile">
+            {% else %}
+                <img src="../media/pictures/2020/07/22/BaMa.jpg" alt="error">
+            {% endif %}
+    <img src="../media/pictures/2020/07/13/BackEnd.jpg" alt="error">
+    <img src="../media/pictures/2020/07/22/BaMa.jpg" alt="error">
+
+    </div>
+</div>
+<script>
+    let userToken;
+
+    document.getElementById('login_form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    let username = document.getElementById('id_email').value;
+    let password = document.getElementById('id_password').value;
+
+    fetch('https://localhost:8000/jwtauth/signin/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            "username": username,
+            "password": password,
+        })
+    }).then( response => {
+        return response.json();
+    }).then(data => {
+
+        console.log(data);
+        console.log(data.access)
+
+        {#data ={#}
+        {#        access: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTk1MzgxMzcwLCJqdGkiOiIyZjZkYzhlYzY3ZDY0MThhOWZmYjdiNTM2ZWQ0MTM4YyIsInVzZXJfaWQiOjR9.8E9WtuPborV9JOiPnI3iHQadYEUr9fOkZ2VtdIKC7mE"#}
+        {#        refresh: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTU5NTQ2NzcxMCwianRpIjoiZDM0Yzc2YzQ5OTAzNGM1ODg1MDNhM2JkMmYxNmI5YzgiLCJ1c2VyX2lkIjo0fQ.HEgC1Lw5c2PxWqXHwQ6v7CGZAM7Ff6nUzKIT-_0XIi8"#}
+        {##}
+        userToken = data.access;
+        {#console.log(userToken);#}
+        console.log('Logged in. Got the token.');
+    }).catch((error) => {
+        console.error('Error:', error);
+    });
+});
+
+document.getElementById('avatar_form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    let input = document.getElementById('id_avatar');
+    let data = new FormData();
+    data.append('avatar', input.files[0]);
+
+    fetch('https://localhost:8000/connectdata/ProfileImageAPIView/', {
+        method: 'POST',
+        headers: {
+            {#'Authorization': 'Bearer' + JSON.stringify(userToken),  {#`Token ${userToken}` #}
+            {#'Authorization': 'Bearer ' + generateKey(token)#}
+            {##}
+            {#'Authorization': 'Bearer' + {userToken}#}
+            'Authorization': `Bearer ${userToken}`
+
+        },
+        body: data
+
+    }).then(response => {
+        return response.json();
+        console.log(userToken)
+    }).then(data => {
+        console.log(data);
+         console.log(userToken)
+    }).catch((error) => {
+        console.error('Error:', error);
+         console.log(userToken)
+    });
+});
+</script>
+</body>
+</html>

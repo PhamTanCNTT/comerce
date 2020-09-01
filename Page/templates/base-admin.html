@@ -1,0 +1,938 @@
+{% load static %}
+{% block base %}
+
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="Description" content="Job board html template">
+<meta name="Author" content="Spruko Technologies Private Limited">
+<meta name="keywords" content="bootstrap job board template, bootstrap job template, hr consultancy website template, job board bootstrap template, job board html template, job listing html template, job portal html template, job portal templates html5, job posting website template, job recruitment website template, job template bootstrap, job template html, simple html and css templates, simple html css templates, directory listing html template, classified website template, responsive css template, html5 responsive template, job posting template, simple bootstrap template, bootstrap 4 templates, job application template, html5 template, premium, recruitment, template, html, job alert, directory"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<link rel="icon" href="favicon.ico" type="image/x-icon"/>
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+
+
+
+<!-- Title -->
+
+<title>rejoin - Job board html template</title>
+<!-- Bootstrap Css -->
+{% block css %}
+   <!-- Bootstrap Css -->
+<link href="{% static 'assets/plugins/bootstrap-4.3.1-dist/css/bootstrap.min.css' %}" rel="stylesheet" />
+<!-- Dashboard Css -->
+<link href="{% static 'assets/css/style.css'%}" rel="stylesheet"/>
+
+<!-- Font-awesome  Css -->
+<link href="{% static 'assets/css/icons.css'%}" rel="stylesheet"/>
+
+<!--Horizontal Menu-->
+<link href="{% static 'assets/plugins/horizontal/horizontal-menu/animation/fade-down.css'%}" rel="stylesheet"type="text/css" />
+<link href="{% static 'assets/plugins/horizontal/horizontal-menu/horizontal.css'%}" rel="stylesheet" type="text/css"/>
+
+<!--Select2 Plugin -->
+<link href="{% static 'assets/plugins/select2/select2.min.css'%}" rel="stylesheet" type="text/css" />
+
+<!-- Cookie css -->
+<link href="{% static 'assets/plugins/cookie/cookie.css'%}" rel="stylesheet" type="text/css"/>
+
+<!-- Owl Theme css-->
+<link href="{% static 'assets/plugins/owl-carousel/owl.carousel.css'%}" rel="stylesheet" type="text/css"/>
+
+<!-- Custom scroll bar css-->
+<link href="{% static 'assets/plugins/scroll-bar/jquery.mCustomScrollbar.css'%}" rel="stylesheet" type="text/css"/>
+
+<!-- COLOR-SKINS -->
+<link id="theme" rel="stylesheet" type="text/css" media="all" href="{% static 'assets/color-skins/color-skins/color10.css'%}" />
+
+<!--    css tu them-->
+<link rel="stylesheet" href="{% static 'assets/css/tu_them.css'%}">
+<style>
+    .tieude{
+        font-weight: bold
+    }
+    .info_curr{
+        text-align: right;
+        width: 200px;
+    }
+    .info_cv_detail{
+        font-weight: bold;
+    }
+    .confirm_cv{
+        text-align: center;
+    }
+    .confirm_cv2{
+        align-content: center;
+        margin: auto;
+    }
+
+    .confirm_cv2{
+        width: 3%;
+        align-content: center;
+    }
+    .confirm_cv3{
+        width: 5%;
+    }
+    .confirm_cv4{
+        width: 40%;
+    }
+    .confirm_cv5{
+        width: 40%;
+    }
+    .confirm_cv6{
+        width: 10%;
+    }
+</style>
+<!--    js tu them-->
+    {% block jstuthem %}
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+    {% block ajax_create_resume %}{% endblock %}
+<!--    2 cai block ajax nay cua Page/mydash2.html-->
+    {% block ajax_edit_profile %}
+        <script type="text/javascript">
+            var url_get_id_profile = "/jwtauth/ProfileViewSet/";
+
+            function get_id_profile() {
+                $.getJSON(url_get_id_profile,{},get_profile);
+            }
+
+            var URL_profile2 = "/jwtauth/ProfileViewSet/";
+            function readCookie(name) {
+                var nameEQ = name + "=";
+                var ca = document.cookie.split(';');
+                for(var i=0;i < ca.length;i++) {
+                    var c = ca[i];
+                    while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+                }
+                return null;
+            }
+
+            var csrftoken = readCookie('csrftoken');
+            function return_id_profile()
+            {
+                $.getJSON(url_get_id_profile,{},return_id_profile1);
+            }
+
+            function return_id_profile1(profile) {
+                console.log(profile[0].id)
+                return profile[0].id
+            }
+            window.onload = return_id_profile()
+
+            window.onload = get_id_profile()
+            function get_profile(profile)
+            {
+                $.getJSON(URL_profile2 + profile[0].id + "/",{},edit_profile);
+            }
+
+            var url_address_province = "/connectdata/NationProView/";
+            function edit_profile(profile) {
+                $("#userfirtname").val(profile.UserFirstName);
+                $("#usermiddlename").val(profile.UserMiddleName);
+                $("#userlastname").val(profile.UserLastName);
+                $("#userfullname").val(profile.UserFullName);
+                $("#userbirtday").val(profile.UserBirthDay);
+                $("#usersex").val(profile.UserSex);
+                $("#userphone").val(profile.UserPhone);
+                $("#email").val(profile.Email);
+                $("#upload_img").val(profile.id);
+                $("#userfirtname1").text(profile.UserFirstName);
+                $("#usermiddlename1").text(profile.UserMiddleName);
+                $("#userlastname1").text(profile.UserLastName);
+                $("#userfullname1").text(profile.UserFullName);
+                $("#userbirthday1").text(profile.UserBirthDay);
+                $("#usersex1").text(profile.UserSex);
+                $("#userphone1").text(profile.UserPhone);
+                $("#email1").text(profile.Email);
+                $("#upload_img1").text(profile.id);
+                $("#addressfull").val(profile.AddressIDProfile);
+                $("#address1").text(profile.AddressIDProfile);
+
+                // alert(profile.AddressIDProfile)
+
+                address_ful_profile()
+
+                //edit address
+                // $("#Select_Nation").val(profile.address[0].Nation);
+                // $("#Select_Province").val(profile.address[0].Province);
+                // $("#Select_District").val(profile.address[0].District);
+                // $("#Select_Ward").val(profile.address[0].Ward);
+                // $("#place").val(profile.address[0].Place);
+            }
+
+            function upload_profile() {
+                $.getJSON(url_get_id_profile,{},upload_profile1);
+            }
+            function upload_profile1(profile) {
+                var jsonarr = {
+                        "UserFirstName": $("#userfirtname").val(),
+                        "UserMiddleName": $("#usermiddlename").val(),
+                        "UserLastName": $("#userlastname").val(),
+                        "UserFullName": $("#userfullname").val(),
+                        "UserBirthDay": $("#userbirtday").val(),
+                        "UserSex": $("#usersex").val(),
+                        "UserPhone": $("#userphone").val(),
+                        "Email": $("#email").val(),
+                        "AddressIDProfile": $("#select_address_full").val()
+                    };
+                console.log(JSON.stringify(jsonarr));
+
+                $.ajax({
+                    "url": URL_profile2 + profile[0].id + "/",
+                    "data": JSON.stringify(jsonarr),
+                    "headers":{"X-CSRFToken": csrftoken},
+                    "processData": false,
+                    "contentType": 'application/json',
+                    "type": "PUT",
+                    "success": update_profile_success,
+                    "error": update_profile_error
+                });
+            }
+
+            function update_profile_success()
+            {
+                get_id_profile()
+                $("#edit_profile").hide();
+                $("#show_profile").show();
+                // $("#show_profile").load("#show_profile");
+                alert("update profile success!")
+            }
+
+            function update_profile_error()
+            {
+                $("#edit_profile").hide();
+                $("#show_profile").show();
+                alert("update profile error!");
+            }
+            URL_create_resume = "/connectdata/CVViewSet/";
+
+            function create_resume() {
+                var jsonarr_create_resume = {"cvemployeeeducationserializer": [],"cvemployeeexperiences": []}
+                console.log(JSON.stringify(jsonarr_create_resume));
+
+                $.ajax({
+                    "url": URL_create_resume,
+                    "data": JSON.stringify(jsonarr_create_resume),
+                    "headers":{"X-CSRFToken": csrftoken},
+                    "processData": false,
+                    "contentType": 'application/json',
+                    "type": "POST",
+                    "success": add_resume_success,
+                    "error": add_resume_error
+                });
+            }
+
+            function add_resume_success() {
+                alert("create resume success")
+                window.location.href = "/page/create_resume/"
+            }
+
+            function add_resume_error() {
+                alert("create resume error")
+            }
+
+            //get id CurriculumVitae
+            function showform_CurriculumVitae_update(id) {
+                window.location.href = "/page/update_resume/"+id+"/";
+            }
+
+            function showform_job_update(id) {
+                window.location.href = "/page/update_job/"+id+"/";
+            }
+
+            var url_get_img = "/jwtauth/ProfileFullViewSet_img/"
+            function get_img() {
+                 $.getJSON(url_get_img,{},get_img1);
+            }
+            function get_img1(profile) {
+                $("#id_img").prop('src',profile[0].UserImage)
+                $("#id_img1").prop('src',profile[0].UserImage)
+            }
+            window.onload = get_img()
+
+            // ajax create address2
+            $(document).ready(
+                function() {
+                    $("#add_address").hide()
+                    $("#upload_address").hide()
+                    // $("#select_address_full").hide();
+                }
+            );
+
+            var url_address_full = "/jwtauth/AddressViewSet/"
+            var url_nation = "/connectdata/NationProView/84/";
+            var url_address_province = "/connectdata/ProDisView/";
+            var url_address_district = "/connectdata/DisWardView/";
+            var url_address_ward = "/connectdata/WardView/";
+            var id_province = '';
+            var id_district = '';
+            var id_ward = '';
+
+            // function address_ful_profile() {
+            //     $.getJSON(url_address_full,{},address_ful_profile1);
+            // }
+            // function address_ful_profile1() {
+            //     $.getJSON(url_address_full,{},address_ful_profile1);
+            // }
+
+            function address_ful_profile() {
+                $.getJSON(url_get_id_profile,{},address_ful_profile1);
+            }
+            function address_ful_profile1(profile) {
+                // alert(profile[0].AddressIDProfile)
+                $.getJSON(url_address_full + profile[0].AddressIDProfile + "/",{},address_ful_profile2);
+            }
+            var selected = '';
+            function address_ful_profile2(address) {
+                // alert(address.AddressFull)
+                // var i = document.createElement("option");
+                //     i.setAttribute("value", address.id);
+                //     i.setAttribute("class", "form-control");
+                //     var ti = document.createTextNode(address.AddressFull);
+                //     i.appendChild(ti);
+                //     document.getElementById("select_address_full").appendChild(i);
+
+                $("#select_address_full2").text(address.AddressFull);
+                $("#select_address_full2").val(address.id);
+                selected = address.id
+                console.log(selected)
+                var value_option = '';
+
+                var a1 = document.createElement("option");
+                    a1.setAttribute("value", address.id);
+                    a1.setAttribute("class", "form-control");
+                    a1.setAttribute("selected", "selected");
+                    var ta1 = document.createTextNode(address.AddressFull);
+                    a1.appendChild(ta1);
+                    document.getElementById("select_address_full").appendChild(a1);
+
+                // alert(address.length)
+                // for (var i = 0; i < 100;i++){
+                //     // $("#"+i+"option_addr_full").setAttribute("selected",selected);
+                //    value_option = document.getElementById(i+"option_addr_full").value;
+                //    console.log(value_option)
+                //     if (selected = value_option){
+                //         document.getElementById(i+"option_addr_full").selected = "true";
+                //     }
+                // }
+
+            }
+
+            function address_ful() {
+                $.getJSON(url_address_full,{},address_ful1);
+            }
+            function address_ful1(address) {
+                for (var i = 0; i < address.length; i++){
+                    var a1 = document.createElement("option");
+                        a1.setAttribute("id", i+"option_addr_full");
+                        a1.setAttribute("value", address[i].id);
+                        if (address[i].id = 30){
+                            a1.setAttribute("selected", "selected");
+                        }
+                        a1.setAttribute("class", "form-control option_addr_full");
+                        var ta1 = document.createTextNode(address[i].AddressFull);
+                        a1.appendChild(ta1);
+                        document.getElementById("select_address_full").appendChild(a1);
+                }
+            }
+
+            function show_form_add_address() {
+                $("#add_address").show();
+                $("#upload_address").hide();
+                $("#list_address").hide();
+                $("#btn_save").hide();
+                $("#select_address_full").show();
+            }
+
+            function show_form_update_address() {
+                $("#add_address").show();
+                $("#upload_address").hide();
+                $("#list_address").hide();
+                $("#btn_add").hide();
+            }
+
+            function add_address() {
+                var jsonarr_add_address = {
+                    "Nation": parseInt($("#Select_Nation").val()),
+                    "Province": parseInt($("#Select_Province").val()),
+                    "District": parseInt($("#Select_District").val()),
+                    "Ward": parseInt($("#Select_Ward").val()),
+                    "Place": $("#place").val(),
+                };
+                console.log(JSON.stringify(jsonarr_add_address));
+
+                $.ajax({
+                    "url": url_address_full,
+                    "data": JSON.stringify(jsonarr_add_address),
+                    "headers":{"X-CSRFToken": csrftoken},
+                    "processData": false,
+                    "contentType": 'application/json',
+                    "type": "POST",
+                    "success": add_address_success,
+                    "error": add_address_error
+                });
+            }
+            function add_address_success() {
+                $.getJSON(url_address_full,{},function (address) {
+                    for (var i = 0; i < address.length - 1; i++){
+                        document.getElementById(i+"option_addr_full").remove()
+                    }
+                    // ocument.getElementById("select_address_full").remove()
+                    address_ful();
+
+                    $("#upload_address").hide();
+                    $("#add_address").hide();
+                    $("#list_address").show();
+
+                    alert("add address success")
+                });
+            }
+            function add_address_error() {
+                $("#upload_address").hide();
+                $("#add_address").hide();
+                $("#list_address").show();
+
+                alert("add address error")
+            }
+
+            function update_address() {
+                var jsonarr_update_address = {
+                    "Nation": parseInt($("#Select_Nation").val()),
+                    "Province": parseInt($("#Select_Province").val()),
+                    "District": parseInt($("#Select_District").val()),
+                    "Ward": parseInt($("#Select_Ward").val()),
+                    "Place": $("#place").val(),
+                };
+                console.log(JSON.stringify(jsonarr_update_address));
+
+                var a = document.getElementById("select_address_full").value;
+                $.ajax({
+                    "url": url_address_full + a + "/",
+                    "data": JSON.stringify(jsonarr_update_address),
+                    "headers":{"X-CSRFToken": csrftoken},
+                    "processData": false,
+                    "contentType": 'application/json',
+                    "type": "PUT",
+                    "success": update_address_success,
+                    "error": update_address_error
+                });
+            }
+            function update_address_success() {
+                $.getJSON(url_address_full,{},function (address) {
+                    for (var i = 0; i < address.length ; i++){
+                        document.getElementById(i+"option_addr_full").remove()
+                    }
+                    address_ful();
+
+                    $("#upload_address").hide();
+                    $("#add_address").hide();
+                    $("#list_address").show();
+
+                    alert("update address success")
+                });
+            }
+            function update_address_error() {
+                $("#upload_address").hide();
+                $("#add_address").hide();
+                $("#list_address").show();
+
+                alert("update address error!")
+            }
+
+            function nation()
+            {
+                $.getJSON(url_nation,{},nation1);
+            }
+            function nation1(nation) {
+                var a = document.createElement("option");
+                    a.setAttribute("value", nation.id);
+                    var ta = document.createTextNode("Choose Nation");
+                    a.appendChild(ta);
+                    document.getElementById("Select_Nation").appendChild(a);
+
+                var a1 = document.createElement("option");
+                    a1.setAttribute("value", nation.id);
+                    var ta1 = document.createTextNode(nation.name);
+                    a1.appendChild(ta1);
+                    document.getElementById("Select_Nation").appendChild(a1);
+            }
+            // window.onload = nation()
+
+            function province_dedtail() {
+                $.getJSON(url_get_id_profile,{},province1);
+            }
+
+            function province1(profile)
+            {
+                // alert(profile[0].AddressIDProfile)
+                $.getJSON(url_address_full + parseInt(profile[0].AddressIDProfile) + "/",{},province2);
+            }
+            function province2(province) {
+                // alert(province.Province)
+                $.getJSON(url_address_province + province.Province + "/",{},province3);
+            }
+            function province3(province2) {
+                // alert(province2.name)
+                var b = document.createElement("option");
+                    b.setAttribute("id", "option_firts");
+                    b.setAttribute("value", province2.id);
+                    var tb = document.createTextNode(province2.name);
+                    b.appendChild(tb);
+                    document.getElementById("Select_Province").appendChild(b);
+            }
+            // window.onload = province()
+
+            function listprovince() {
+                $.getJSON(url_nation,{},listprovince1);
+            }
+            function listprovince1(nation) {
+                var a = document.createElement("option");
+                    a.setAttribute("value", 0);
+                    var ta = document.createTextNode("Choose Province");
+                    a.appendChild(ta);
+                    document.getElementById("Select_Province").appendChild(a);
+
+               for (var i = 0; i < nation.province.length; i++)
+               {
+                    var b = document.createElement("option");
+                    b.setAttribute("id", "option_province");
+                    b.setAttribute("class", "option_province");
+                    b.setAttribute("value", nation.province[i].id);
+                    b.onchange = function () {
+                        if (document.getElementById("Select_Province")){
+                            document.getElementById("Select_Province").remove()
+                        }
+                        district()
+                    }
+                    var tb = document.createTextNode(nation.province[i].name);
+                    b.appendChild(tb);
+                    document.getElementById("Select_Province").appendChild(b);
+               }
+            }
+
+            function district() {
+                id_province = $("#Select_Province").val();
+                // alert(id_province)
+                $.getJSON(url_address_province + id_province + '',{},district1);
+            }
+
+            function district1(profile)
+            {
+                var a = document.createElement("option");
+                    a.setAttribute("value", 0);
+                    var ta = document.createTextNode("Choose District");
+                    a.appendChild(ta);
+                    document.getElementById("Select_District").appendChild(a);
+
+               for (var i = 0; i < profile.district.length; i++)
+               {
+                    var b = document.createElement("option");
+                    b.setAttribute("id", "option_district");
+                    b.setAttribute("class", "option_district");
+                    b.setAttribute("value", profile.district[i].id);
+                    b.onchange = function () {
+                        if (document.getElementById("option_district")){
+                            document.getElementById("option_district").remove()
+                        }
+                    }
+                    var tb = document.createTextNode(profile.district[i].name);
+                    b.appendChild(tb);
+                    document.getElementById("Select_District").appendChild(b);
+               }
+            }
+
+            function ward() {
+                id_province = $("#Select_District").val();
+                $.getJSON(url_address_district + id_province +"/",{},ward1);
+            }
+
+            function ward1(profile)
+            {
+                var a = document.createElement("option");
+                    a.setAttribute("value", 0);
+                    var ta = document.createTextNode("Choose Ward");
+                    a.appendChild(ta);
+                    document.getElementById("Select_Ward").appendChild(a);
+
+               for (var i = 0; i < profile.ward.length; i++)
+               {
+                    var b = document.createElement("option");
+                    b.setAttribute("id", "option_district");
+                    b.setAttribute("class", "option_district");
+                    b.setAttribute("value", profile.ward[i].id);
+                    b.onchange = function () {
+                        if (document.getElementById("option_district")){
+                            document.getElementById("option_district").remove()
+                        }
+                    }
+                    var tb = document.createTextNode(profile.ward[i].name);
+                    b.appendChild(tb);
+                    document.getElementById("Select_Ward").appendChild(b);
+               }
+            }
+            // window.onload = ward()
+
+            function list_province(){
+                $.getJSON(url_nation,{},list_province1);
+            }
+
+            function list_province1(profile){
+                for(var i = 0; i < profile.province.length ;i++)
+                {
+                    var z = document.createElement("option");
+                    z.setAttribute("value", profile.province[i].id);
+                    var t = document.createTextNode(profile.province[i].name);
+                    z.appendChild(t);
+                    document.getElementById("Select_Province").appendChild(z);
+                }
+            }
+
+            // $(document).ready(
+            //     function() {
+            //         // nation();
+            //         // province();
+            //         // district();
+            //         // ward();
+            //
+            //         // list_province();
+            //         // list_district();
+            //         $("#select_address_full").click(address_ful());
+            //         // $("#select_district").click(list_ward());
+            //     }
+            // );
+
+            function list_district(){
+                id_province = document.getElementById("Select_Province").value;
+                $.getJSON(url_address_province + id_province +"/",{},list_district1);
+            }
+            function list_district1(profile){
+                for(var i = 0; i < profile.district.length ;i++)
+                {
+                    var z = document.createElement("option");
+                    z.setAttribute("value", profile.district[i].id);
+                    var t = document.createTextNode(profile.district[i].name);
+                    z.appendChild(t);
+                    document.getElementById("Select_District").appendChild(z);
+                }
+            }
+
+            function list_ward(){
+                id_district = document.getElementById("Select_District").value;
+                $.getJSON(url_address_district + id_district +"/",{},list_ward1);
+            }
+            function list_ward1(profile){
+                for(var i = 0; i < profile.ward.length ;i++)
+                {
+                    var z = document.createElement("option");
+                    z.setAttribute("value", profile.ward[i].id);
+                    var t = document.createTextNode(profile.ward[i].name);
+                    z.appendChild(t);
+                    document.getElementById("Select_Ward").appendChild(z);
+                }
+            }
+
+            // window.addEventListener('load',address_ful_profile(), true);
+            window.addEventListener('load',address_ful(), true);
+            window.addEventListener('load',nation(), true);
+            // window.addEventListener('load',province(), true);
+            // window.addEventListener('load',district(), true);
+            // window.addEventListener('load',ward(), true);
+            // window.addEventListener('load',list_province(), true);
+            // window.addEventListener('load',list_district(), true);
+
+            //end ajax create address2
+
+            //AJAX VALIDATE MYDASH2
+
+            function setErrorFor(input, message) {
+                const formControl = input.parentElement;
+                const small = formControl.querySelector('small');
+                formControl.className = 'form-control error';
+                small.innerText = message;
+            }
+
+            function setSuccessFor(input) {
+                const formControl = input.parentElement;
+                formControl.className = 'form-control success';
+            }
+
+            function isEmail(email) {
+                return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
+            }
+
+            function Validate_phone(phone) {
+                return /^(\+84-|\+84|0)?\d{10}$/.test(phone)
+            }
+
+
+            function validation_mydash2() {
+                var value_firtname = document.getElementById("userfirtname").value;
+                var value_lastname = document.getElementById("userlastname").value;
+                var value_middname = document.getElementById("usermiddlename").value;
+                var value_fullname = document.getElementById("userfullname").value;
+                var value_birtday = document.getElementById("userbirtday").value;
+                var value_sex = document.getElementById("usersex").value;
+                var value_phone = document.getElementById("userphone").value;
+                var value_email = document.getElementById("email").value;
+                var value_address = document.getElementById("select_address_full").value;
+                var Check_true_false = true;
+
+                if (value_firtname==null || value_firtname==""){
+                    document.getElementById("error_firtname").innerHTML = "Firt name can't be blank";
+                    Check_true_false = false
+                }else{
+                    document.getElementById("error_firtname").innerHTML = " ";
+                }
+
+                if (value_lastname==null || value_lastname==""){
+                    document.getElementById("error_lastname").innerHTML = "Last name can't be blank";
+                    Check_true_false = false
+                }else{
+                    document.getElementById("error_lastname").innerHTML = " ";
+                }
+
+                if (value_middname==null || value_middname==""){
+                    document.getElementById("error_middname").innerHTML = "Middle name can't be blank";
+                    Check_true_false = false
+                }else{
+                    document.getElementById("error_middname").innerHTML = " ";
+                }
+
+                if (value_fullname==null || value_fullname=="" ){
+                    document.getElementById("error_fullname").innerHTML = "Full name can't be blank";
+                    Check_true_false = false
+                }else{
+                    document.getElementById("error_fullname").innerHTML = " ";
+                }
+
+                if (value_birtday==null || value_birtday=="" ){
+                    document.getElementById("error_birthday").innerHTML = "Birtday can't be blank";
+                    Check_true_false = false
+                }else{
+                    document.getElementById("error_birthday").innerHTML = " ";
+                }
+
+                if (value_sex==null || value_sex=="" ){
+                    document.getElementById("error_sex").innerHTML = "User sex can't be blank";
+                    Check_true_false = false
+                }else{
+                    document.getElementById("error_sex").innerHTML = " ";
+                }
+
+                if (value_phone==null || value_phone=="" ){
+                    document.getElementById("error_phone").innerHTML = "Phone can't be blank";
+                    Check_true_false = false
+                }else{
+                    document.getElementById("error_phone").innerHTML = " ";
+                }
+
+                if (value_email==null || value_email=="" ){
+                    document.getElementById("error_email").innerHTML = "Email can't be blank";
+                    Check_true_false = false
+                }else{
+                    document.getElementById("error_email").innerHTML = " ";
+                }
+
+                if ( value_address==null || value_address==""){
+                    document.getElementById("error_address").innerHTML = "Address can't be blank";
+                    Check_true_false = false
+                }else{
+                    document.getElementById("error_address").innerHTML = " ";
+                }
+
+                if (!isEmail(value_email)){
+                    document.getElementById("error_email2").innerHTML = "Not a valid email";
+                    Check_true_false = false
+                }else {
+                    document.getElementById("error_email2").innerHTML = "";
+                }
+
+                if (!Validate_phone(value_phone)){
+                    document.getElementById("error_phone2").innerHTML = "Not a valid phone number";
+                    Check_true_false = false
+                }else {
+                    document.getElementById("error_phone2").innerHTML = " ";
+                }
+
+                if (Check_true_false == true){
+                    upload_profile()
+                }
+            }
+
+
+        </script>
+    {% endblock %}
+    <!--  end  2 cai block ajax nay cua Page/mydash2.html-->
+<!--    <script src="{% static 'account/ajax_sigup.js'%}" type="text/javascript"></script>-->
+    <script type="text/javascript">
+        var URL = "/jwtauth/register/";
+
+        function readCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    }
+
+    var csrftoken = readCookie('csrftoken');
+
+    function profileSerializer() {
+       var profile = {}
+
+        if ($(".check_radio_isEmployer:checked").val() == "True"){
+            profile = {"isEmployer":"True", "isEmployee" : "False"}
+        }else {
+            profile = {"isEmployer":"False", "isEmployee" : "True"}
+        }
+        return profile
+    }
+
+    function validattion_register() {
+        var value_username = document.getElementById("username").value;
+        var value_email = document.getElementById("email").value;
+        var value_password1 = document.getElementById("password1").value;
+        var value_password2 = document.getElementById("password2").value;
+
+        console.log(value_username)
+        console.log(value_email)
+        console.log(value_password1)
+        console.log(value_password2)
+    }
+
+    function userregister()
+    {
+        var jsonarr = {
+            "username": $("#username").val(),
+            "email": $("#email").val(),
+            "password": $("#password1").val(),
+            "password2" : $("#password2").val(),
+            "profileserializer": profileSerializer()
+        }
+
+        console.log(JSON.stringify(jsonarr));
+       $.ajax(
+          { "url": URL,
+              "processData": false,
+              "contentType" : "application/json;charset=utf-8",
+              "dataType": "json",
+              "data": JSON.stringify(jsonarr),
+              "type": "POST",
+              // "headers": {"X-CSRFToken": csrftoken},
+              "success": register_success,
+              "error": register_error
+          }
+      ); // ajax()
+    }
+
+    function register_success()
+    {
+        alert("Đăng ký thành công!");
+        window.location.href = "/account/login/";
+    }
+
+    function register_error()
+    {
+        alert("Tài khoản hoặc mật khẩu không hợp lệ!");
+        window.location.href = "/account/signup/";
+    }
+
+    // {#show password#}
+    function show_password() {
+        var pw1 = document.getElementById("password");
+        var pw2 = document.getElementById("password2");
+        if (pw1.type === "password") {
+            pw1.type = "text";
+        } else {
+            pw1.type = "password";
+        }
+        if (pw2.type === "password") {
+            pw2.type = "text";
+        } else {
+            pw2.type = "password";
+        }
+    }
+    // {#end show password#}
+    </script>
+    {% endblock %}
+{% endblock %}
+<body>
+
+
+<!-- JQuery js-->
+{% block js %}
+<!-- JQuery js-->
+<script src="{% static 'assets/js/vendors/jquery-3.2.1.min.js'%}"></script>
+
+<!-- Bootstrap js -->
+<script src="{% static 'assets/plugins/bootstrap-4.3.1-dist/js/popper.min.js'%}"></script>
+<script src="{% static 'assets/plugins/bootstrap-4.3.1-dist/js/bootstrap.min.js'%}"></script>
+
+<!--JQuery Sparkline Js-->
+<script src="{% static 'assets/js/vendors/jquery.sparkline.min.js'%}"></script>
+
+<!-- Circle Progress Js-->
+<script src="{% static 'assets/js/vendors/circle-progress.min.js'%}"></script>
+
+<!-- Star Rating Js-->
+<script src="{% static 'assets/plugins/rating/jquery.rating-stars.js'%}"></script>
+
+<!--Counters -->
+<script src="{% static 'assets/plugins/counters/counterup.min.js'%}"></script>
+<script src="{% static 'assets/plugins/counters/waypoints.min.js'%}"></script>
+<script src="{% static 'assets/plugins/counters/numeric-counter.js'%}"></script>
+
+<!--Owl Carousel js -->
+<script src="{% static 'assets/plugins/owl-carousel/owl.carousel.js'%}"></script>
+
+<!--Horizontal Menu-->
+<script src="{% static 'assets/plugins/horizontal/horizontal-menu/horizontal.js'%}"></script>
+
+<!--JQuery TouchSwipe js-->
+<script src="{% static 'assets/js/jquery.touchSwipe.min.js'%}"></script>
+
+<!--Select2 js -->
+<script src="{% static 'assets/plugins/select2/select2.full.min.js'%}"></script>
+<script src="{% static 'assets/js/select2.js'%}"></script>
+
+<!-- sticky Js-->
+<script src="{% static 'assets/js/sticky.js'%}"></script>
+
+<!-- Ion.RangeSlider -->
+<script src="{% static 'assets/plugins/jquery-uislider/jquery-ui.js'%}"></script>
+
+<!--Showmore Js-->
+<script src="{% static 'assets/js/jquery.showmore.js'%}"></script>
+<script src="{% static 'assets/js/showmore.js'%}"></script>
+
+<!-- Cookie js -->
+<script src="{% static 'assets/plugins/cookie/jquery.ihavecookies.js'%}"></script>
+<script src="{% static 'assets/plugins/cookie/cookie.js'%}"></script>
+
+<!-- Custom scroll bar Js-->
+<script src="{% static 'assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js'%}"></script>
+
+<!-- Swipe Js-->
+<script src="{% static 'assets/js/swipe.js'%}"></script>
+
+<!-- Scripts Js-->
+<script src="{% static 'assets/js/scripts2.js'%}"></script>
+
+<!-- Custom Js-->
+<script src="{% static 'assets/js/custom.js'%}"></script>
+{% endblock %}
+</body>
+</head>
+</html>
+
+

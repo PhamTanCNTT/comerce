@@ -1,0 +1,766 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+    <script>
+    var URL = "/connectdata/CourseCompanySerializerViewSet/";
+    var URL_company = "/connectdata/CompanyViewSet/";
+
+    $(document).ready(
+        function() {
+            $("#courses").hide();
+            $("#titles").hide();
+        }
+    );
+
+    function readCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    }
+
+    //list all course sd
+    var csrftoken = readCookie('csrftoken');
+    function getCourses()
+    {
+        $.getJSON(URL,{},showCourses);
+    }
+
+    //list all course sd
+    function showCourses(courses) {
+       $("#courserows").html("")
+       $.each(courses,
+              function(idx,course) {
+                    var com='';
+                    var adr='';
+                    var com_idc='';
+                    var ele;
+                    for (i = 0; i < course.company.length; i++) {
+                        ele = course.company[i];
+                        com += ele.ComName + "<br>"
+                        adr += ele.ComAddress+ "<br>"
+                        com_idc +=ele.IDC+ "<br>"
+                    }
+
+                    $("#courserows").append("<tr>"+
+                        "<td>" + course.IDC + "</td>" +
+                        "<td>" + course.code + "</td>" +
+                        "<td>" + course.title + "</td>" +
+                        "<td>" + course.duration + "</td>" +
+                        "<td>" + course.fee + "</td>" +
+                        "<td>" + com + "</td>" +
+                        "<td>" + adr + "</td>" +
+                        "<td>" + com_idc + "</td>" +
+                        "</tr>");
+
+              }
+        );
+
+        $("#courses").show();
+   } // showCourses
+
+    function deleteCourse()
+    {
+       $.ajax(
+          {  "url": URL + $("#code").val(),
+             "type" : "DELETE",
+             "success" : delete_success,
+             "error" : delete_error
+          }
+      ); // ajax()
+    }
+
+    function delete_success()
+    {
+      alert("Deleted Course Successfully");
+    }
+
+    function delete_error()
+    {
+      alert("Could not delete Course!");
+    }
+
+    {# table company #}
+    $(document).ready(
+        function() {
+            $("#table_company").hide();
+        }
+    );
+
+    //list detail theo ID sd
+    function getCourse_dong()
+    {
+        var detail = $("#id").val();
+
+       $.getJSON(URL + detail)
+           .done(form_create_Course) // on success - 200
+           .fail(function()    // on failure - 404
+                 {
+                      alert("Sorry! Course Not Found!");
+                 }
+           );
+    }
+    //list detail theo ID sd
+    var solannhap = 0;
+    function form_create_Course(course){
+
+        //create form
+        var x = document.createElement("FORM");
+        x.setAttribute("id", "myForm");
+        document.body.appendChild(x);
+
+        {# label #}
+        var label = document.createElement("label");
+        label.setAttribute("value", "label id");
+        label.setAttribute("class", "col a");
+        label.innerText = "id";
+        document.getElementById("myForm").appendChild(label);
+        {# input #}
+        var id = document.createElement("INPUT");
+        id.setAttribute("type", "number");
+        id.setAttribute("value", course.id);
+        id.setAttribute("id", "id");
+        id.setAttribute("class", "row");
+        document.getElementById("myForm").appendChild(id);
+
+        {# label #}
+        var label = document.createElement("label");
+        label.setAttribute("value", "label id");
+        label.innerText = "IDC";
+        label.setAttribute("class", "col a");
+        document.getElementById("myForm").appendChild(label);
+        {# input #}
+        var IDC = document.createElement("INPUT");
+        IDC.setAttribute("type", "number");
+        IDC.setAttribute("value", course.IDC);
+        IDC.setAttribute("id", "IDC");
+        IDC.setAttribute("class", "row");
+        document.getElementById("myForm").appendChild(IDC);
+
+        {# label #}
+        var label = document.createElement("label");
+        label.setAttribute("value", "label id");
+        label.innerText = "code";
+        label.setAttribute("class", "col a");
+        document.getElementById("myForm").appendChild(label);
+        {# input #}
+        var code = document.createElement("INPUT");
+        code.setAttribute("type", "text");
+        code.setAttribute("value", course.code);
+        code.setAttribute("id", "code");
+        code.setAttribute("class", "col");
+        document.getElementById("myForm").appendChild(code);
+
+        {# label #}
+        var label = document.createElement("label");
+        label.setAttribute("value", "label id");
+        label.innerText = "title";
+        label.setAttribute("class", "col a");
+        document.getElementById("myForm").appendChild(label);
+        {# input #}
+        var title = document.createElement("INPUT");
+        title.setAttribute("type", "text");
+        title.setAttribute("value", course.title);
+        title.setAttribute("id", "title");
+        title.setAttribute("class", "col");
+        document.getElementById("myForm").appendChild(title);
+
+        {# label #}
+        var label = document.createElement("label");
+        label.setAttribute("value", "label id");
+        label.innerText = "duration";
+        label.setAttribute("class", "col a");
+        document.getElementById("myForm").appendChild(label);
+        {# input #}
+        var duration = document.createElement("INPUT");
+        duration.setAttribute("type", "number");
+        duration.setAttribute("value", course.duration);
+        duration.setAttribute("id", "duration");
+        duration.setAttribute("class", "col");
+        document.getElementById("myForm").appendChild(duration);
+
+        {# label #}
+        var label = document.createElement("label");
+        label.setAttribute("value", "label id");
+        label.innerText = "fee";
+        label.setAttribute("class", "col a");
+        document.getElementById("myForm").appendChild(label);
+        {# input #}
+        var fee = document.createElement("INPUT");
+        fee.setAttribute("type", "number");
+        fee.setAttribute("value", course.fee);
+        fee.setAttribute("id", "fee");
+        fee.setAttribute("class", "col");
+        document.getElementById("myForm").appendChild(fee);
+
+        var btn_add_company = document.createElement("button");
+            btn_add_company.innerText = "add company";
+            btn_add_company.setAttribute("id", "addnew");
+            btn_add_company.onclick = function solanadd()
+            {
+                solannhap+=1;
+                {#label company new #}
+                var label = document.createElement("label");
+                label.innerText = "company new";
+                label.setAttribute("class", "col new");
+                document.getElementById("myForm").appendChild(label);
+
+                {# lable comname new #}
+                var label = document.createElement("label");
+                label.innerText = " comname company new";
+                label.setAttribute("class", "col a");
+                document.getElementById("myForm").appendChild(label);
+                {#input comname new #}
+                var comname_add = document.createElement("input");
+                comname_add.setAttribute("value", "");
+                comname_add.setAttribute("id", "comnew"+solannhap);
+                document.getElementById("myForm").appendChild(comname_add);
+
+                {# lable ComAddress new #}
+                var label = document.createElement("label");
+                label.innerText = " ComAddress company new";
+                label.setAttribute("class", "col a");
+                document.getElementById("myForm").appendChild(label);
+                {#input comname new #}
+                var ComAddress_add = document.createElement("input");
+                ComAddress_add.setAttribute("value","");
+                ComAddress_add.setAttribute("id","adressnew"+solannhap);
+                document.getElementById("myForm").appendChild(ComAddress_add);
+            };
+             document.body.appendChild(btn_add_company);
+
+        var com = {};
+        var adress = {};
+        var com_idc={};
+        for (i = 0; i < course.company.length; i++) {
+            var ele = course.company[i];
+            com = ele.ComName;
+            adress = ele.ComAddress;
+            com_idc = ele.IDC;
+            id = ele.id;
+
+            {# label #}
+            var label = document.createElement("label");
+            label.setAttribute("value", "label id");
+            label.innerText = com;
+            label.setAttribute("class", "col a");
+            document.getElementById("myForm").appendChild(label);
+
+            {# label #}
+            var label = document.createElement("label");
+            label.innerText = "id company";
+            label.setAttribute("class", "col a");
+            document.getElementById("myForm").appendChild(label);
+            {# input #}
+            var ComName = document.createElement("INPUT");
+            ComName.setAttribute("type", "text");
+            ComName.setAttribute("value", id);
+            ComName.setAttribute("id", id + "id");
+            ComName.setAttribute("class", "col");
+            document.getElementById("myForm").appendChild(ComName);
+
+
+            {# label #}
+            var label = document.createElement("label");
+            label.setAttribute("value", "label id");
+            label.innerText = "ComName";
+            label.setAttribute("class", "col a");
+            document.getElementById("myForm").appendChild(label);
+            {# input #}
+            var ComName = document.createElement("INPUT");
+            ComName.setAttribute("type", "text");
+            ComName.setAttribute("value", com);
+            ComName.setAttribute("id", id + "com");
+            ComName.setAttribute("class", "col");
+            document.getElementById("myForm").appendChild(ComName);
+
+            {# label #}
+            var label = document.createElement("label");
+            label.setAttribute("value", "label id");
+            label.innerText = "ComAddress";
+            label.setAttribute("class", "col a");
+            document.getElementById("myForm").appendChild(label);
+            {# input #}
+            var ComAddress = document.createElement("INPUT");
+            ComAddress.setAttribute("type", "text");
+            ComAddress.setAttribute("value", adress);
+            ComAddress.setAttribute("id",  id+"adress");
+            ComAddress.setAttribute("class", "col");
+            document.getElementById("myForm").appendChild(ComAddress);
+
+            {# label #}
+            {#var label = document.createElement("label");#}
+            {#label.setAttribute("value", "label id");#}
+            {#label.innerText = "company_IDC";#}
+            {#label.setAttribute("class", "col a");#}
+            {#document.getElementById("myForm").appendChild(label);#}
+            {# input #}
+            {#var company_IDC = document.createElement("INPUT");#}
+            {#company_IDC.setAttribute("type", "number");#}
+            {#company_IDC.setAttribute("value", com_idc);#}
+            {#company_IDC.setAttribute("id",  id + "com_idc");#}
+            {#company_IDC.setAttribute("class", "col");#}
+            {#document.getElementById("myForm").appendChild(company_IDC);#}
+        }
+        $("#myDIV").append(x);
+    }
+
+    //add course sd
+    function add_course_new()
+    {
+       $.getJSON(URL)
+           .done(course_new) // on success - 200
+           .fail(function()    // on failure - 404
+                 {
+                      alert("Sorry! Course Not Found!");
+                 }
+           );
+    }
+
+    //add course sd
+    function course_new(course){
+        var x = document.createElement("FORM");
+        x.setAttribute("id", "FormAdd");
+        document.body.appendChild(x);
+
+        {# label IDC #}
+        var label = document.createElement("label");
+        label.setAttribute("value", "label id");
+        label.innerText = "IDC";
+        label.setAttribute("class", "col a");
+        document.getElementById("FormAdd").appendChild(label);
+        {# input IDC #}
+        var IDC = document.createElement("INPUT");
+        IDC.setAttribute("type", "number");
+        //IDC.setAttribute("value", course.IDC);
+        IDC.setAttribute("id", "IDC");
+        IDC.setAttribute("class", "row");
+        document.getElementById("FormAdd").appendChild(IDC);
+
+        {# label code #}
+        var label = document.createElement("label");
+        label.setAttribute("value", "label id");
+        label.innerText = "code";
+        label.setAttribute("class", "col a");
+        document.getElementById("FormAdd").appendChild(label);
+        {# input code #}
+        var code = document.createElement("INPUT");
+        code.setAttribute("type", "text");
+        //code.setAttribute("value", course.code);
+        code.setAttribute("id", "code");
+        code.setAttribute("class", "col");
+        document.getElementById("FormAdd").appendChild(code);
+
+        {# label title #}
+        var label = document.createElement("label");
+        label.setAttribute("value", "label id");
+        label.innerText = "title";
+        label.setAttribute("class", "col a");
+        document.getElementById("FormAdd").appendChild(label);
+        {# input title #}
+        var title = document.createElement("INPUT");
+        title.setAttribute("type", "text");
+        //title.setAttribute("value", course.title);
+        title.setAttribute("id", "title");
+        title.setAttribute("class", "col");
+        document.getElementById("FormAdd").appendChild(title);
+
+        {# label duration #}
+        var label = document.createElement("label");
+        label.setAttribute("value", "label id");
+        label.innerText = "duration";
+        label.setAttribute("class", "col a");
+        document.getElementById("FormAdd").appendChild(label);
+        {# input duration #}
+        var duration = document.createElement("INPUT");
+        duration.setAttribute("type", "number");
+        //duration.setAttribute("value", course.duration);
+        duration.setAttribute("id", "duration");
+        duration.setAttribute("class", "col");
+        document.getElementById("FormAdd").appendChild(duration);
+
+        {# label fee #}
+        var label = document.createElement("label");
+        label.setAttribute("value", "label id");
+        label.innerText = "fee";
+        label.setAttribute("class", "col a");
+        document.getElementById("FormAdd").appendChild(label);
+        {# input fee #}
+        var fee = document.createElement("INPUT");
+        fee.setAttribute("type", "number");
+        //fee.setAttribute("value", course.fee);
+        fee.setAttribute("id", "fee");
+        fee.setAttribute("class", "col");
+        document.getElementById("FormAdd").appendChild(fee);
+
+        var btn_add_course = document.createElement("button");
+            btn_add_course.innerText = "add course";
+            btn_add_course.setAttribute("id", "addcourse");
+            btn_add_course.onclick = function addcourse()
+            {
+            };
+             document.body.appendChild(btn_add_course);
+
+        {# label company #}
+
+
+        {# label ComName #}
+        var label = document.createElement("label");
+        label.setAttribute("value", "label id");
+        label.innerText = "ComName";
+        label.setAttribute("class", "col a");
+        document.getElementById("FormAdd").appendChild(label);
+        {# input ComName #}
+        var ComName = document.createElement("INPUT");
+        ComName.setAttribute("type", "text");
+       // ComName.setAttribute("value", com);
+        ComName.setAttribute("id", "com");
+        ComName.setAttribute("class", "col");
+        document.getElementById("FormAdd").appendChild(ComName);
+
+        {# label ComAddress #}
+        var label = document.createElement("label");
+        label.setAttribute("value", "label id");
+        label.innerText = "ComAddress";
+        label.setAttribute("class", "col a");
+        document.getElementById("FormAdd").appendChild(label);
+        {# input ComAddress #}
+        var ComAddress = document.createElement("INPUT");
+        ComAddress.setAttribute("type", "text");
+        //ComAddress.setAttribute("value", adress);
+        ComAddress.setAttribute("id", "adress");
+        ComAddress.setAttribute("class", "col");
+        document.getElementById("FormAdd").appendChild(ComAddress);
+
+        $("#myDIV").append(x);
+    }
+
+        var jsonarr = {
+                "code": $("#code").val(),
+                "title": $("#title").val(),
+                "duration": $("#duration").val(),
+                "fee": $("#fee").val(),
+                "IDC": $("#IDC").val()
+                //"company": data_tam(),
+            };
+
+
+    //update course + company sd
+    function updatenew()
+    {
+        var detail = $("#id").val();
+       {#$.getJSON(URL + detail + sel.value)#}
+       $.getJSON(URL + detail)
+           .done(updatenew4) // on success - 200
+           .fail(function()    // on failure - 404
+                 {
+                      alert("Sorry! Course Not Found!");
+                 }
+           );
+    }
+
+    //update course + company sd
+    function updatenew4(course) {
+        var x = [];
+        function data_tam() {
+            for (i = 0; i < course.company.length; i++)
+            {
+                x[i] = {
+                    "id" : course.company[i].id = $("#" + course.company[i].id +"id").val(),
+                    "ComName" : course.company[i].ComName = $("#" + course.company[i].id +"com").val(),
+                    "ComAddress" : course.company[i].ComAddress = $("#"+ course.company[i].id +"adress").val(),
+                    "IDC" : course.company[i].IDC= $("#" + course.company[i].id+"com_idc").val()
+                }
+                console.log(x);
+            }
+            var arr=[];
+            for(var j = 0; j < solannhap; j++){
+                var n = j +1;
+                arr[j] = {
+                    "ComName" : $("#comnew"+n).val(),
+                    "ComAddress" : $("#adressnew" +n).val(),
+                }
+                console.log(arr)
+            }
+            x= x.concat(arr);
+
+            return x;
+        }
+
+
+        var jsonarr = {
+                "code": $("#code").val(),
+                "title": $("#title").val(),
+                "duration": $("#duration").val(),
+                "fee": $("#fee").val(),
+                "IDC": $("#IDC").val(),
+                "company": data_tam(),
+            };
+
+            console.log(JSON.stringify(jsonarr));
+
+            $.ajax({
+                "url": URL + $("#id").val() + "/",
+                "data": JSON.stringify(jsonarr),
+                "headers":{"X-CSRFToken": csrftoken},
+                "processData": false,
+                "contentType": 'application/json',
+                "type": "put",
+                "success": update_success,
+                "error": update_error
+            });
+    }
+
+    function update_success()
+    {
+      alert("Updated Course Successfully");
+    }
+
+    function update_error()
+    {
+      alert("Could not update Course!");
+    }
+
+    // SELECT FIELDS TITLE
+    {# List title #}
+    var sel = "";
+    function gettitle()
+    {
+        $.getJSON(URL,{},gettitle3);
+    }
+
+    function gettitle3(course) {
+        var x = document.createElement("SELECT");
+            x.setAttribute("id", "mySelect");
+            x.setAttribute("name", "mySelect");
+            x.onchange = function(){
+                sel = document.getElementById("mySelect");
+                if (sel.value === 0){
+                    return 0;
+                }else {
+                    //solannhap +=1;
+                    if (document.getElementById("select_comapny")){
+                        document.getElementById("select_comapny").remove();
+                    }
+                    getcompany();
+                }
+            }
+
+            document.body.appendChild(x);
+            //$("#select_title").append(x);
+
+        var a = document.createElement("option");
+            var ta = document.createTextNode("SELECT TITLE: ");
+            a.appendChild(ta);
+            document.getElementById("mySelect").appendChild(a);
+
+        for(var i = 0; i < course.length ;i++)
+        {
+            var z = document.createElement("option");
+            z.setAttribute("value", course[i].id);
+            var t = document.createTextNode(course[i].title);
+            z.appendChild(t);
+            document.getElementById("mySelect").appendChild(z);
+        }
+
+         var y = document.createElement("SELECT");
+            y.setAttribute("id", "select_comapny");
+            y.setAttribute("name", "select_comapny");
+            //x.setAttribute("onchange",getTitle_dong());
+            document.body.appendChild(y);
+            //$("#select_title").append(x);
+
+        var ya = document.createElement("option");
+            var yta = document.createTextNode("SELECT COMPANY: ");
+            ya.setAttribute("value", 0);
+            ya.appendChild(yta);
+            document.getElementById("select_comapny").appendChild(ya);
+   } // showCoursess
+
+    window.onload = gettitle();
+    // end select field TITLE
+
+
+    // SELECT FIELD COMPANY FOLLOW TITLE
+    function getcompany()
+    {
+        {#if (solannhap > 1){#}
+        {#    document.getElementById("select_comapny").remove();}#}
+       $.getJSON(URL + sel.value)
+           .done(getcompany1) // on success - 200
+           .fail(function()    // on failure - 404
+                 {
+                      alert("Sorry! Course Not Found! ???");
+                 }
+           );
+    }
+
+    {#danh sách company theo id Course#}
+    function getcompany1(course) {
+
+        var x = document.createElement("SELECT");
+            x.setAttribute("id", "select_comapny");
+            x.setAttribute("name", "select_comapny");
+            //x.setAttribute("onchange",getTitle_dong());
+            x.onchange = function () {
+                        //function để detail company theo id company
+                        get_company();
+                    }
+            document.body.appendChild(x);
+            //$("#select_title").append(x);
+
+        var a = document.createElement("option");
+            var ta = document.createTextNode("SELECT COMAPNY:  ");
+            a.setAttribute("value", 0);
+            a.appendChild(ta);
+            document.getElementById("select_comapny").appendChild(a);
+
+        for(var i = 0; i < course.company.length; i++){
+            var z = document.createElement("option");
+                z.setAttribute("id", course.company[i].id);
+                z.setAttribute("value", course.company[i].id);
+                var t = document.createTextNode(course.company[i].ComName);
+                z.appendChild(t);
+                document.getElementById("select_comapny").appendChild(z);
+        }
+   }
+
+    //List company
+    function get_company() {
+        var x = document.getElementById("select_comapny");
+        $.getJSON(URL_company + x.value )
+           .done(list_company) // on success - 200
+           .fail(function()    // on failure - 404
+                 {
+                      alert("Sorry! Course Not Found!");
+                 }
+           );
+    }
+    //List company
+    function list_company(company) {
+            //create form
+            var x = document.createElement("FORM");
+            x.setAttribute("id", "detail_company");
+            document.body.appendChild(x);
+
+            {# label #}
+            var label = document.createElement("label");
+                label.setAttribute("value", "label id");
+                label.setAttribute("class", "col a");
+                label.innerText = "id";
+                document.getElementById("detail_company").appendChild(label);
+            {# input #}
+            var id = document.createElement("INPUT");
+                id.setAttribute("type", "text");
+                id.setAttribute("value", company.id);
+                id.setAttribute("id", "id");
+                id.setAttribute("class", "row");
+                id.innerText = company.id;
+                document.getElementById("detail_company").appendChild(id);
+
+            {# label company name#}
+            var label = document.createElement("label");
+                label.setAttribute("class", "col a");
+                label.innerText = "Comapny Name";
+                document.getElementById("detail_company").appendChild(label);
+            {# input name #}
+            var name = document.createElement("INPUT");
+                name.setAttribute("type", "text");
+                name.setAttribute("value", company.ComName);
+                name.setAttribute("id","comname" + company.id);
+                name.setAttribute("class", "row");
+                name.innerText = company.ComName;
+                document.getElementById("detail_company").appendChild(name);
+
+            {# label company address#}
+            var label = document.createElement("label");
+                label.setAttribute("class", "col a");
+                label.innerText = "Comapny Name";
+                document.getElementById("detail_company").appendChild(label);
+            {# input name #}
+            var address = document.createElement("INPUT");
+                address.setAttribute("type", "text");
+                address.setAttribute("value", company.ComAddress);
+                address.setAttribute("id", "address" + company.id);
+                address.setAttribute("class", "row");
+                address.innerText = company.ComAddress;
+                document.getElementById("detail_company").appendChild(address);
+    }
+    //window.onload = getcompany();
+    // END SELECT DURATION FOLLOW TITLE
+
+    </script>
+    <style>
+        .a{
+            color: blueviolet;
+        }
+
+        .new{
+            color: red;
+            font-size: 20px;
+        }
+
+        table,th,td {
+            border : 1px solid black;
+            border-collapse: collapse;
+        }
+        th,td {
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div ></div>
+
+<div id="form_detail">
+    <form action="" >
+        <div style="background-color:navy;color:white;font-family:arial;font-size:20pt;font-weight:bold">Course Client</div>
+        <p/>
+        id <br/>
+        {#input nhập id muốn detail#}
+        <input type="text" id="id"/><br>
+    </form>
+</div>
+
+<div>{% csrf_token %}
+<form action="" id="myDIV">
+</form>
+<br>
+<form action="" id="form_add_company">
+</form>
+<br>
+<button id="addCourse" onclick="add_course_new()">Add </button>
+<button onclick="deleteCourse()">Delete </button>
+<button id="update" onclick="updatenew()">Update </button>
+<button onclick="getCourses()">List</button>
+<button onclick="getCourse_dong()">Details</button>
+<button onclick="getTitle_dong()">select title</button>
+<p/>
+
+<table border="1" cellpadding="5pt" id="courses">
+    <th>IDC</th>
+    <th>Code</th>
+    <th>Title</th>
+    <th>Duration</th>
+    <th>Fee</th>
+    <th>company-ComName</th>
+    <th>company-ComAddress</th>
+    <th>company-idc</th>
+    <tbody id="courserows"></tbody>
+</table>
+
+{# đặt vị trí cho selection opttion có id= select_title #}
+{# $("#select_title").append(x);  #}
+<div id="select_title">
+    <div id="select_company"></div>
+</div>
+
+</div>
+</body>
+</html>

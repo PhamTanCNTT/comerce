@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+    <script>
+        var URL_create_employ = "/connectdata/ProfileFullCheckViewSet/";
+
+        function readCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0;i < ca.length;i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+            }
+            return null;
+        }
+
+        var csrftoken = readCookie('csrftoken');
+
+        function add_employer() {
+            var json_add_employer = {
+                "isEmployee": false,
+                "isEmployer": true
+            };
+            console.log(JSON.stringify(json_add_employer));
+
+            $.ajax({
+                "url": URL_create_employ,
+                "data": JSON.stringify(json_add_employer),
+                "headers":{"X-CSRFToken": csrftoken},
+                "processData": false,
+                "contentType": 'application/json',
+                "type": "POST",
+                "success": add_employee_success,
+                "error": add_employee_error
+            });
+        }
+
+        function add_employee_success() {
+            window.location.href = "/";
+        }
+
+        function add_employee_error() {
+            alert("create employee error!")
+        }
+
+        function add_employee() {
+            var json_add_employee = {
+                "isEmployee": true,
+                "isEmployer": false
+            };
+            console.log(JSON.stringify(json_add_employee));
+
+            $.ajax({
+                "url": URL_create_employ,
+                "data": JSON.stringify(json_add_employee),
+                "headers":{"X-CSRFToken": csrftoken},
+                "processData": false,
+                "contentType": 'application/json',
+                "type": "POST",
+                "success": add_employer_success,
+                "error": add_employer_error
+            });
+        }
+        function add_employer_success() {
+            window.location.href = "/";
+        }
+        function add_employer_error() {
+            alert("create employer error!")
+        }
+
+        function render_employer() {
+            window.location.href = "/page/mydash/";
+        }
+
+        function render_employee() {
+            window.location.href = "/page/mydash/";
+        }
+        </script>
+</head>
+
+
+<div class="but">
+<body>
+    {% if user.employee %}
+        <script>
+            window.location.href = "/";
+        </script>
+    {% elif user.employee and user.employer %}
+{#        <span><a class="btn btn-info ad-post mt-1" href="/page/create_resume/" ><i class="fa fa-edit"></i> Tạo hồ sơ</a></span>#}
+        <div style="text-align: center;">
+        <button id="button_employer" style="width: 20%;height: 20%;margin: auto;padding-bottom: 5%;text-align: center;text-align-all: center;" onclick="render_employer()"> <img src="{% static 'assets/images/svg/home.svg' %}" alt="Bussiness">isEmployer </button>
+        <button id="button_employee" style="width: 20%;height: 20%;margin: auto;padding-bottom: 5%;text-align: center;text-align-all: center;" onclick="render_employee()"><img src="{% static 'assets/images/svg/person.svg' %}" alt="Bussiness"> isEmployee </button>
+    </div>
+    {% else %}
+    <div style="text-align: center;">
+        <button id="button_employer" style="width: 20%;height: 20%;margin: auto;padding-bottom: 5%;text-align: center;text-align-all: center;" onclick="add_employer()"><img src="{% static 'assets/images/svg/home.svg' %}" alt="Bussiness"> isEmployer </button>
+        <button id="button_employee" style="width: 20%;height: 20%;margin: auto;padding-bottom: 5%;text-align: center;text-align-all: center;" onclick="add_employee()"><img src="{% static 'assets/images/svg/person.svg' %}" alt="Bussiness"> isEmployee </button>
+    </div>
+    {% endif %}
+
+    <br>
+</body>
+</div>
+</html>

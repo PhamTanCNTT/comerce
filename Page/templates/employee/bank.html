@@ -1,0 +1,242 @@
+ {#\\\\\\\\ Bank ///////#}
+{#////////////////////////////////// ajax list Bank \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+<script>
+var URL_Bank = "/employee/EmployeeBankVSView/";
+
+function select_checkbox() {
+    alert("aaaaaaa")
+}
+
+function get_bank()
+{
+    $.getJSON(URL_Bank,{},list_bank);
+}
+
+function list_bank(employee) {
+    var j = 0;
+    var id1 = '';
+    var idtk1='';
+    var owntk1='';
+    var bankname1='';
+    var branchname1='';
+    for (var i = 0; i < employee[j].employeebank.length; i++)
+    {
+        id1 = employee[0].employeebank[i].id;
+        idtk1 = employee[0].employeebank[i].idTK;
+        owntk1 = employee[0].employeebank[i].ownTK;
+        bankname1 = employee[0].employeebank[i].BankName;
+        branchname1 = employee[0].employeebank[i].BranchName;
+
+        $.each(employee,
+        function(){
+            $("#bankrow").append("<tr>"+
+                "<td>" +
+                    '<label class="custom-control custom-checkbox">' +
+                        '<input type="checkbox" class="custom-control-input select_checkbox" onclick="select_checkbox()" name="checkbox" value='+id1+' id="checkbox_getid">'+
+                        '<span class="custom-control-label"></span>'+
+                    '</label>'
+                + "</td>" +
+                "<td>" + idtk1 + "</td>" +
+                "<td>" + owntk1 + "</td>" +
+                "<td>" + bankname1 + "</td>" +
+                "<td>" + branchname1 + "</td>" +
+
+                '<td>' +
+                    '<button onclick="get_detail_bank(id)" id='+id1+' class="btn btn-success btn-sm text-white" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i></button>' +
+                    '<button onclick="show_hide_bank()" id='+id1+' class="btn btn-danger btn-sm text-white" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash-o"></i></button>' +
+                    '<button onclick="show_hide_bank()" id='+id1+' class="btn btn-primary btn-sm text-white" data-toggle="tooltip" data-original-title="View"><i class="fa fa-eye"></i></button>' +
+                '</td>' +
+
+                "</tr>")}
+    );
+    }
+}
+
+window.onload = get_bank()
+</script>
+{#//////////////////////////////////// end ajax list Bank \\\\\\\\\\\\\\\\\\\\\\\\#}
+
+{#///////////////////////////////// html list bank \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+<div class="card" id="listbank">
+<div class="card-header ">
+    <h3 class="card-title">Bank</h3>
+    <div class="card-options">
+        <a onclick="showform_add()" class="btn btn-light btn-sm" href="#"><i class="fa fa-plus"></i> Add Another</a>
+    </div>
+</div>
+<div class="card-body pt-0 pt-md-5">
+    <div class="tab-content">
+        <div class="tab-pane active table-responsive border-top userprof-tab" id="tab1">
+            <table class="table table-bordered table-hover mb-0 text-nowrap">
+                <thead>
+                    <tr>
+                        <th>select</th>
+                        <th>id TK</th>
+                        <th>own TK</th>
+                        <th>Bank Name</th>
+                        <th>Branch Name</th>
+                        <th >Action</th>
+                    </tr>
+                </thead>
+                <tbody id="bankrow">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+{#//////////////////////////////////// end html list bank \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+{#//////////////////////////////////// html add bank \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+<div class="card" id="addbank">
+<div class="card-header ">
+    <h3 class="card-title">Add Bank</h3>
+</div>
+<div class="card-body">
+    <div class="form-group">
+        <label class="form-label text-dark">id TK</label>
+        <input type="text" class="form-control" placeholder="School Name" id="idtk" required>
+    </div>
+    <div class="form-group">
+        <label class="form-label text-dark">own TK</label>
+        <input type="text" class="form-control" placeholder="Qualification" id="owntk" required>
+    </div>
+    <div class="form-group">
+        <label class="form-label text-dark">Bank Name</label>
+        <input type="text" class="form-control" placeholder="School Name" id="bankname" required>
+    </div>
+    <div class="form-group">
+        <label class="form-label text-dark">Branch Name</label>
+        <input type="text" class="form-control" placeholder="Qualification" id="branchname" required>
+    </div>
+</div>
+<div class="card-footer ">
+    <button onclick="add_bank()">POST</button>
+</div>
+</div>
+{#//////////////////////////////////// end html add bank \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+{#//////////////////////////////////// html update bank \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+<div class="card" id="uploadbank">
+<div class="card-header ">
+    <h3 class="card-title">Upload Bank</h3>
+</div>
+<div class="card-body">
+    <div class="form-group">
+        <label class="form-label text-dark">id TK</label>
+        <input type="text" class="form-control" placeholder="School Name" id="idtk_update" required>
+    </div>
+    <div class="form-group">
+        <label class="form-label text-dark">own TK</label>
+        <input type="text" class="form-control" placeholder="Qualification" id="owntk_update" required>
+    </div>
+    <div class="form-group">
+        <label class="form-label text-dark">Bank Name</label>
+        <input type="text" class="form-control" placeholder="School Name" id="bankname_update" required>
+    </div>
+    <div class="form-group">
+        <label class="form-label text-dark">Branch Name</label>
+        <input type="text" class="form-control" placeholder="Qualification" id="branchname_update" required>
+    </div>
+</div>
+<div class="card-footer ">
+    <button onclick="update_bank()">Save</button>
+</div>
+</div>
+{#//////////////////////////////////// end html update bank \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+{#//////////////////////////////////// ajax add - detail - update bank \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+<script>
+var URL_detail_update_bank = "/connectdata/UserBankFullViewSet/";
+var URL_Add_Bank = "/connectdata/UserBankFullViewSet/";
+
+
+function get_detail_bank(id)
+{
+    $("#uploadbank").show();
+    $("#listbank").hide();
+    $.getJSON(URL_detail_update_bank = URL_detail_update_bank + id + "/",{},detail_bank);
+}
+
+function detail_bank(userbank) {
+    $("#idtk_update").val(userbank.idTK);
+    $("#owntk_update").val(userbank.ownTK);
+    $("#bankname_update").val(userbank.BankName);
+    $("#branchname_update").val(userbank.BankName);
+}
+
+function showform_add() {
+    $("#addbank").show();
+    $("#listbank").hide();
+}
+
+function add_bank() {
+
+    var jsonarr = {
+            "idTK": $("#idtk").val(),
+            "ownTK": $("#owntk").val(),
+            "BankName": $("#bankname").val(),
+            "BranchName": $("#branchname").val(),
+        };
+    console.log(JSON.stringify(jsonarr));
+
+    $.ajax({
+        "url": URL_Add_Bank,
+        "data": JSON.stringify(jsonarr),
+        "headers":{"X-CSRFToken": csrftoken},
+        "processData": false,
+        "contentType": 'application/json',
+        "type": "POST",
+        "success": add_bank_success,
+        "error": add_bank_error
+    });
+}
+
+function add_bank_success()
+{
+    {#$("#addbank").hide();#}
+    {#$("#listbank").show();#}
+    alert("add success");
+    location.reload()
+}
+
+function add_bank_error()
+{
+  alert("add error!");
+  location.reload()
+}
+
+function update_bank() {
+    var jsonarr = {
+            "idTK": $("#idtk_update").val(),
+            "ownTK": $("#owntk_update").val(),
+            "BankName": $("#bankname_update").val(),
+            "BranchName": $("#branchname_update").val(),
+        };
+    console.log(JSON.stringify(jsonarr));
+
+    $.ajax({
+        "url": URL_detail_update_bank,
+        "data": JSON.stringify(jsonarr),
+        "headers":{"X-CSRFToken": csrftoken},
+        "processData": false,
+        "contentType": 'application/json',
+        "type": "PUT",
+        "success": update_bank_success,
+        "error": update_bank_error
+    });
+}
+
+function update_bank_success()
+{
+    alert("Bank update success!");
+    location.reload()
+}
+
+function update_bank_error()
+{
+    alert("Bank update error!");
+    location.reload()
+}
+</script>
+{#//////////////////////////////////// end ajax add - detail - update bank \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}

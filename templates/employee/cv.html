@@ -1,0 +1,167 @@
+{% extends 'employee/emplopyee.html' %}
+{% load static %}
+
+{% block mydash2 %}
+{#////////////////////////////////// ajax list CurriculumVitae \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+<script>
+    var URL_CV = "/connectdata/EmployeeCVFullViewSet/";
+
+    function get_CV()
+    {
+        $.getJSON(URL_CV,{},list_CV);
+    }
+
+    function checkCV(employee) {
+        alert(employee.length)
+    }
+
+    var ID_CV = '';
+    function list_CV(employee) {
+        var UserIDCurriculumVitae = '';
+        var EmployeeIDCurriculumVitae='';
+        var Title='';
+        var FullName='';
+        var Sex='';
+        var BirthDay = '';
+        var Phone='';
+        var MaritalStatus='';
+        var Address='';
+        var Introduce='';
+        var Career = '';
+        var FormOfWork='';
+        var WorkLocation='';
+        var DesiredSalary='';
+        var CurriculumVitaeExperience='';
+        var CurriculumVitaeEducate='';
+        var Email='';
+        for (var i = 0; i < employee.length; i++)
+        {
+            ID_CV = employee[i].id
+
+            UserIDCurriculumVitae = employee[i].UserIDCurriculumVitae;
+            EmployeeIDCurriculumVitae = employee[i].EmployeeIDCurriculumVitae;
+            Title =  employee[i].Title;
+            FullName =  employee[i].FullName;
+            Email =  employee[i].Email;
+            Sex =  employee[i].Sex;
+            BirthDay = employee[i].BirthDay;
+            Phone = employee[i].Phone;
+            MaritalStatus =  employee[i].MaritalStatus;
+            Address =  employee[i].Address;
+            Introduce =  employee[i].Introduce;
+            Career = employee[i].Career;
+            FormOfWork = employee[i].FormOfWork;
+            DesiredSalary =  employee[i].DesiredSalary;
+            WorkLocation =  employee[i].WorkLocation;
+            CurriculumVitaeExperience =  employee[i].CurriculumVitaeExperience;
+            CurriculumVitaeEducate =  employee[i].CurriculumVitaeEducate;
+
+            $("#mycvrow").append("<tr>"+
+                "<td>" +
+                    '<label class="custom-control custom-checkbox">' +
+                        '<input type="checkbox" class="custom-control-input select_checkbox" name="checkbox" value='+ID_CV+' id="checkbox_getid">'+
+                        '<span class="custom-control-label"></span>'+
+                    '</label>'
+                + "</td>" +
+                "<td>" + UserIDCurriculumVitae + "</td>" +
+                "<td>" + EmployeeIDCurriculumVitae + "</td>" +
+                "<td>" + Title + "</td>" +
+                "<td>" + FullName + "</td>" +
+                "<td>" + Email + "</td>" +
+                "<td>" + Sex + "</td>" +
+                "<td>" + BirthDay + "</td>" +
+                "<td>" + Phone + "</td>" +
+                "<td>" + MaritalStatus + "</td>" +
+                "<td>" + Address + "</td>" +
+                "<td>" + Introduce + "</td>" +
+                "<td>" + Career + "</td>" +
+                "<td>" + FormOfWork + "</td>" +
+                "<td>" + DesiredSalary + "</td>" +
+                "<td>" + WorkLocation + "</td>" +
+                "<td>" + CurriculumVitaeExperience + "</td>" +
+                "<td>" + CurriculumVitaeEducate + "</td>" +
+
+                '<td>' +
+                    '<button onclick="showform_CurriculumVitae_update(value)" value='+ID_CV+' id='+ID_CV+' class="btn btn-success btn-sm text-white" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i></button>' +
+                    '<button onclick="show_hide_bank()" id='+ID_CV+' class="btn btn-danger btn-sm text-white" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash-o"></i></button>' +
+                    '<button onclick="show_hide_bank()" id='+ID_CV+' class="btn btn-primary btn-sm text-white" data-toggle="tooltip" data-original-title="View"><i class="fa fa-eye"></i></button>' +
+                '</td>' +
+
+                "</tr>")
+        }
+    }
+
+    window.onload = get_CV()
+</script>
+{#//////////////////////////////////// end ajax list CurriculumVitae \\\\\\\\\\\\\\\\\\\\\\\\#}
+
+{#///////////////////////////////// html list CurriculumVitae \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+    <div class="col-xl-9 col-lg-12 col-md-12">
+        <div class="card" id="listmycv">
+            <div class="card-header ">
+                <h3 class="card-title">Bank</h3>
+                <div class="card-options">
+                    <button onclick="showform_CurriculumVitae_add()" class="btn btn-light btn-sm" href="#"><i class="fa fa-plus"></i> Add Another</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="ads-tabs">
+                    <div class="tabs-menus">
+                        <!-- Tabs -->
+                        <ul class="nav panel-tabs">
+                            <li class=""><a href="#tab1" class="active" data-toggle="tab">All Ads (20)</a></li>
+                            <li><a href="#tab2" data-toggle="tab">Published (08)</a></li>
+                            <li><a href="#tab3" data-toggle="tab">Featured (05)</a></li>
+                            <li><a href="#tab4" data-toggle="tab">Sold (03)</a></li>
+                            <li><a href="#tab5" data-toggle="tab">Active (03)</a></li>
+                            <li><a href="#tab6" data-toggle="tab">Expired (01)</a></li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                    <div class="tab-pane active table-responsive border-top userprof-tab" id="tab1">
+                        <table class="table table-bordered table-hover mb-0 text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>select</th>
+                                    <th>UserIDCurriculumVitae</th>
+                                    <th>EmployeeIDCurriculumVitae</th>
+                                    <th>Title</th>
+                                    <th>FullName</th>
+                                    <th>Email</th>
+                                    <th>Sex</th>
+                                    <th>BirthDay</th>
+                                    <th>Phone</th>
+                                    <th>MaritalStatus</th>
+                                    <th>Address</th>
+                                    <th>Introduce</th>
+                                    <th>Career</th>
+                                    <th>FormOfWork</th>
+                                    <th>DesiredSalary</th>
+                                    <th>WorkLocation</th>
+                                    <th>CurriculumVitaeExperience</th>
+                                    <th>CurriculumVitaeEducate</th>
+                                    <th >Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="mycvrow">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+{#//////////////////////////////////// end html list CurriculumVitae \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+{#////////////////////////////////// ajax add - detail - update CurriculumVitae \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+    <script>
+        function showform_CurriculumVitae_add() {
+            window.location.href = "/employee/createcv/"
+        }
+    </script>
+{#//////////////////////////////////// end ajax add - detail - update CurriculumVitae \\\\\\\\\\\\\\\\\\\\\\\\#}
+
+{% endblock %}
