@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block ListInOut %}
+    <script>
+        var url_get_day = "/employer/ScheduleDateTime/" + {{ id_detail_sche }} +"/";
+        var url_get_InOut = "/employer/InOutViewSet/";
+        function list_day() {
+            $.getJSON(url_get_day,{},list_day1);
+        }
+        var ID_day = "";
+        function list_day1(day) {
+            var dateinout = "";
+
+            for (var i = 0; i < day.dateinoutschedule.length; i++){
+                ID_day = day.dateinoutschedule[i].id
+                dateinout = day.dateinoutschedule[i].DateIDInOut
+
+                $("#day").append(
+                    '<tr id='+ID_day+"tra"+'>'+
+                        '<td id='+ID_day+"tda"+'>'+
+                            dateinout +
+                        '</td>' +
+                    '</tr>'
+                )
+            }
+        }
+
+        function timeinout() {
+            $.getJSON(url_get_day,{},timeinout1);
+        }
+
+        function timeinout1(day) {
+            var j = 0;
+            for (var i = 0; i < day.dateinoutschedule.length; i++){
+                $.getJSON(url_get_InOut + day.dateinoutschedule[i].id,{},timeinout2);
+            }
+        }
+
+        function timeinout2(inout){
+            var inoutname = "";
+            var timein = "";
+            var timeout = "";
+            var id_day = inout.DateInOutIDInOut;
+                inoutname = inout.InOutName
+                timein = inout.TimeIn
+                timeout = inout.TimeOut
+                console.log(id_day)
+                for (var i = 1; i <= ID_day; i++){
+                    {#if (document.getElementById(i+"tra")){#}
+                    {#    alert("tt")}#}
+                    alert(i)
+                    $("#"+i+"tra").append(
+                        "<td id='td'>" +
+                            inoutname +
+                        "</td>" +
+                        "<td>" +
+                            "<span>" +
+                                timein +
+                            "</span>"+
+                        "</td>" +
+                        "<td>"+
+                            "<span>" +
+                                timeout +
+                            "</span>"+
+                        "</td>"
+                    )
+                }
+            }
+
+        window.onload = list_day();
+        window.onload = timeinout();
+    </script>
+
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Border Table</h3>
+
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered border-top mb-0">
+                    <thead>
+                        <tr>
+                            <th>Day \ Time</th>
+                            <th>In Out Name</th>
+                            <th>Time In</th>
+                            <th>Time Out</th>
+                        </tr>
+                    </thead>
+                    <tbody id="day">
+
+                    </tbody>
+                </table>
+
+{#                <table>#}
+{#                    <tr>#}
+{#                        <td>#}
+{#                            <p>This is a paragraph: </p>#}
+{#                        </td>#}
+{#                        <td>#}
+{#                            <table>#}
+{#                                <tr>#}
+{#                                    <td>A</td>#}
+{#                                    <td>A</td>#}
+{#                                    <td>A</td>#}
+{#                                </tr>#}
+{#                                <tr>#}
+{#                                    <td>C</td>#}
+{#                                    <td>c</td>#}
+{#                                    <td>C</td>#}
+{#                                </tr>#}
+{#                            </table>#}
+{#                        </td>#}
+{#                    </tr>#}
+{#                </table>#}
+
+
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

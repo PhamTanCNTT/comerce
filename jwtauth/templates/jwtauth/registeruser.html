@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+        var URL = "https://localhost:8000/jwtauth/register/";
+        function readCookie(name) {
+                var nameEQ = name + "=";
+                var ca = document.cookie.split(';');
+                for(var i=0;i < ca.length;i++) {
+                    var c = ca[i];
+                    while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+                }
+                return null;
+            }
+
+    var csrftoken = readCookie('csrftoken');
+
+    function userregister1()
+        {
+           $.ajax(
+              { "url": URL,
+                  "data": {
+                      "username": $("#username").val(),
+                      "email": $("#email").val(),
+                      "password": $("#password1").val(),
+                      "password2" : $("#password2").val(),
+                      // "userinfo.Employer" : $(".radio_check_Employer:checked").val(),
+                      // "userinfo.Worker": $(".radio_check_Worker:checked").val()
+                      "profileSerializer.isEmployer" : "True",
+                      "profileSerializer.isWorker": "False"
+                  },
+                  "type": "POST",
+                  "headers": {"X-CSRFToken": csrftoken},
+                  "success": add_success,
+                  "error": add_error
+              }
+          ); // ajax()
+        }
+
+    function add_success()
+    {
+        console.log($("#username").val()),
+        console.log($("#email").val())
+        console.log($("#password1").val())
+        console.log($("#password2").val())
+        alert("Đăng ký thành công!");
+    }
+
+    function add_error()
+    {
+        console.log($("#username").val()),
+        console.log($("#email").val())
+        console.log($("#password1").val())
+        console.log($("#password2").val())
+        alert("Tài khoản hoặc mật khẩu không hợp lệ!");
+    }
+
+    // {#show password#}
+    // {#end show password#}
+    </script>
+</head>
+<body>
+    <form method="POST">
+        {% csrf_token %}
+            <div>
+                <input type="text" name="name" id="username">
+                <label>Username</label>
+            </div>
+            <div>
+                <input type="email" name="mail" id="email">
+                <label>Email</label>
+            </div>
+            <div >
+                <input type="password" name="password" id="password1">
+                <label>Password</label>
+            </div>
+            <div>
+                <input type="password" name="password" id="password2">
+                <label>Repassword</label>
+            </div>
+<!--									<div class="size_radio">-->
+<!--											<input type="radio" class="radio_check_Employer" id="Employer" name="radio_check" ><label>I'm an employer</label>-->
+<!--									</div>-->
+<!--									<div class="size_radio">-->
+<!--											<input type="radio" class="radio_check_Worker" id="Worker" name="radio_check"><label>I need a job</label>-->
+<!--									</div>-->
+            <div>
+                <button onclick="userregister1()">Register</button>
+            </div>
+    </form>
+</body>
+</html>

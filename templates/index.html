@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Avatar Upload</title>
+</head>
+<body>
+<div >
+    <div >
+        {% csrf_token %}
+        <p><label>UserName: </label>{{ user }}</p>
+         <p><label>Profile: </label>{{ Profile.id}}</p>
+            <form id="login_form">
+                <div>
+                    <label for="id_email">UserName</label>
+                    <input type="text"  id="id_email"
+                           placeholder="UserName"/>
+                </div>
+                <div >
+                    <label for="id_password">Password</label>
+                    <input type="password" id="id_password" placeholder="Password"/>
+                </div>
+                <button type="submit">Log in</button>
+            </form>
+
+    </div>
+    <div>
+        <h1 class="my-3">2. Upload an avatar</h1>
+            <form id="avatar_form">
+                <div >
+                    <label for="id_avatar">Choose an image for your avatar</label>
+                    <input type="file" class="form-control-file" id="id_avatar"/>
+                </div>
+                <button type="submit" id="btn_upload" >Upload</button>
+            </form>
+            <img src="" id="id_img" class="brround" alt="user">
+{#            {% if Profile.UserImage %}#}
+{#                <img src="{{ Profile.UserImage.url}}" alt="Profile">#}
+{#            {% else %}#}
+{#                <img src="{{ Profile.UserImage.url}}" alt="Profile">#}
+{#            {% endif %}#}
+
+    </div>
+    <div id="result">Kết qua token:</div>
+</div>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+<script>
+     function readCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    }
+    var csrftoken = readCookie('csrftoken');
+
+    let userToken;
+    let refreshToken;
+    document.getElementById('login_form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    let username = document.getElementById('id_email').value;
+    let password = document.getElementById('id_password').value;
+    fetch('https://localhost:8000/jwtauth/signin/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            "username": username,
+            "password": password,
+        })
+    }).then( response => {
+        sessionStorage.setItem("access", null);
+        return response.json();
+    }).then(data => {
+        console.log(data);
+        userToken = data.access;
+        refreshToken = data.refresh;
+        console.log(userToken)
+        console.log(refreshToken)
+        console.log('Logged in. Got the token.');
+    }).catch((error) => {
+        console.error('Error:', error);
+    });
+
+});
+    userToken = sessionStorage.getItem("access");
+    {#var url_get_id = "/connectdata/ProfileUserViewSetToken/"#}
+    {#function get_id_profile() {#}
+    {#    $.getJSON(url_get_id,{},get_idpro);#}
+
+     var url_get_img = "/connectdata/ProfileUserViewSetToken/5/";
+     function get_img() {
+         $.getJSON(url_get_img,{},get_img1);
+     }
+     function get_img1(abc) {
+        $("#btn_upload").val(abc.id)
+        $("#id_img").prop('src',abc.UserImage)
+     }
+     window.onload = get_img()
+    document.getElementById('avatar_form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    let input = document.getElementById('id_avatar');
+    let data = new FormData();
+    data.append('UserImage', input.files[0]);
+    var id_image = document.getElementById("btn_upload").value
+
+    fetch('/connectdata/ProfileUserViewSetToken/'+id_image+"/",
+        {
+        method: 'PUT',
+        headers: {
+            'Authorization': `Bearer ${userToken}`,
+            'X-CSRFToken': csrftoken,
+        },
+        body: data
+        }).then(response => {
+            return response.json();
+            console.log(userToken);
+        }).then(data => {
+            console.log(data);
+            console.log(userToken);
+            get_img()
+        }).catch((error) => {
+            console.error('Error:', error);
+            console.log(userToken);
+        });
+    if (typeof(Storage) !== "undefined") {
+              // Store
+              sessionStorage.setItem("access", userToken);
+              // Retrieve
+              document.getElementById("result").innerHTML = sessionStorage.getItem("access");
+            } else {
+              document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+            }
+    });
+</script>
+
+
+</body>
+</html>

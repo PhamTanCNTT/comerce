@@ -1,0 +1,411 @@
+http://127.0.0.1:8000/getCourseSerializer/
+{
+    "code": "13",
+    "title": "13",
+    "duration": 13,
+    "fee": 13,
+    "IDC":1
+}
+http://127.0.0.1:8000/getCompanySerializer/
+{
+    "IDC": 1,
+    "ComName": 1,
+    "ComAddress": 1,
+    "UserID":1
+}
+http://127.0.0.1:8000/getCourseComSerializer/
+{
+        "code": "13",
+        "title": "13",
+        "duration": 13,
+        "fee": 13,
+        "IDC": {
+            "IDC": 1,
+            "ComName": "1",
+            "ComAddress": "1",
+            "UserID": 1
+        }
+    }
+
+http://127.0.0.1:8000/CourseCompanySerializerLibView/
+
+{
+        "code": "13",
+        "title": "13",
+        "duration": 13,
+        "fee": 13,
+        "IDC": 13,
+        "company": [
+            {
+                "ComName": "13",
+                "ComAddress": "13"
+            },
+            {
+                "ComName": "14",
+                "ComAddress": "14"
+            },
+            {
+                "ComName": "15",
+                "ComAddress": "15"
+            }
+        ]
+    }
+http://127.0.0.1:8000/CourseCompanySerializerLibView/13/
+
+{
+        "code": "13",
+        "title": "13",
+        "duration": 13,
+        "fee": 13,
+        "IDC": 13,
+        "company": [
+            {
+                "ComName": "13",
+                "ComAddress": "13",
+                "IDC": 12
+            },
+            {
+                "ComName": "14",
+                "ComAddress": "14",
+                "IDC": 12
+            },
+            {
+                "ComName": "15",
+                "ComAddress": "15",
+                "IDC": 12
+            }
+        ]
+    }
+
+
+
+##jwtauth
+
+### Form Đăng ký
+https://localhost:8000/jwtauth/register/
+
+{
+    "username": "abc",
+    "email": "abc@gmail.com",
+    "password": "123456@abc",
+    "password2": "123456@abc"
+}
+
+
+{
+    "username": "abcde",
+    "email": "abcde@gmail.com",
+    "password": "123456@abc",
+    "password2": "123456@abc",
+    "profileserializer": {
+            "isEmployer": "False",
+            "isEmployee": "False"
+    },
+    "employer":{
+            "isEmployer": "False"
+    },
+    "employee":{
+            "isEmployee": "False"
+    }
+}
+
+{
+    "username": "abcde",
+    "email": "abcde@gmail.com",
+    "password": "123456@abc",
+    "password2": "123456@abc",
+    "profileserializer": {
+            "isEmployer": "True",
+            "isEmployee": "False"
+    }
+ }
+
+https://localhost:8000/jwtauth/login/
+
+{
+    "username": "abc",
+    "password": "123456@abc"
+
+}
+
+### Form Đăng Nhập
+
+Facebook
+
+Client id: 256031925654829
+Secret key: 1d5086d980eda081f6e4a393f6e816ac
+
+Google
+
+Client id: 661679144266-ne20b892negg9eivj379ldocc0pp8gl8.apps.googleusercontent.com
+
+Secret key: 3R2gxG9X9H4wDbtqQJ1OQMyW
+
+https://localhost:8000/connectdata/ProfileUserViewSet/5/
+{
+        "id": 5,
+        "UserImage": null,
+        "UserFirstName": "Tan",
+        "UserMiddleName": "Tai",
+        "UserLastName": "Loc",
+        "UserFullName": "tantailoc",
+        "Address": "tantailoc",
+        "City": "tantailoc",
+        "PostalCode": 1,
+        "Description": "tantailoc",
+        "UserPhone": "0123456789"
+    }
+
+################# UserBank: Tai Khoan Ngan Hang User ##################
+
+https://localhost:8000/connectdata/UserBankFullViewSet/
+
+################## Prase #####################
+{
+    "idTK": null,
+    "ownTK": "",
+    "BankName": "",
+    "BranchName": ""
+}
+################## Template ####################
+
+{
+    "idTK": "1234567899",
+    "ownTK": "ABC ABC",
+    "BankName": "VietTinBank",
+    "BranchName": "Quan 7"
+}
+
+####################### UserBank: Tai Khoan Ngan Hang User######################
+
+####################### EmployeeBank: Tai Khoan Ngan Hang Employee ######################
+
+https://127.0.0.1:8000/employee/EmployeeBankListView/
+{
+    "UserNoted": "ABC",
+    "userbankid": [
+        {
+            "idTK":"1234567890",
+            "ownTK":"Quoc Viet",
+            "BankName": "Vietinbank",
+            "BranchName": "Quan 7"
+        }
+    ]
+}
+
+{
+    "id": 3,
+    "UserNoted": "ABC",
+    "employeebank": [
+{
+            "idTK":"1234567890",
+            "ownTK":"Quoc Viet",
+            "BankName": "Vietinbank",
+            "BranchName": "Quan 7"
+        },
+{
+            "idTK":"1234567890",
+            "ownTK":"Quoc Viet",
+            "BankName": "Vietinbank",
+            "BranchName": "Quan 7"
+        }
+
+]
+}
+
+####################### EmployeeBank: Tai Khoan Ngan Hang Employee ######################
+
+
+https://127.0.0.1:8000/employee/BankEmployListView/
+
+{
+    "idTK":"1234567890",
+    "ownTK":"Quoc Viet",
+    "BankName": "Vietinbank",
+    "BranchName": "Quan 7",
+     "employbankid": [
+            {"UserNoted": "ABC"},
+            {"UserNoted": "XYZ"}
+      ]
+}
+####################### EmployeeBank: Tai Khoan Ngan Hang Employee ######################
+
+https://localhost:8000/employee/EmployeeBankListView/
+
+####################### EmployeeBank: Tai Khoan Ngan Hang Employee ######################
+
+################################ Education - Employee ###########################################
+
+########################## Create Update Full Full - EduEmployee ################################
+
+https://localhost:8000/connectdata/EducationFullEmployeeViewSet/
+
+# Create New
+
+{
+    "Degree": "a",
+    "DegreePhotoBefor": "https://localhost:8000/media/users/a/Employee/20200801043855470.jpg",
+    "DegreePhotoAfter": "https://localhost:8000/media/users/a/Employee/20200801043855473.jpg",
+    "EducationalInstitution": "a",
+    "Specialized": "a",
+    "Language": 1,
+    "DegreeLevel": "a"
+}
+# Update
+
+{
+    "id": 1,
+    "Degree": "a",
+    "DegreePhotoBefor": "https://localhost:8000/media/users/a/Employee/20200801043855470.jpg",
+    "DegreePhotoAfter": "https://localhost:8000/media/users/a/Employee/20200801043855473.jpg",
+    "EducationalInstitution": "a",
+    "Specialized": "a",
+    "Language": 1,
+    "DegreeLevel": "a"
+}
+
+########################## Create Update Full Full - EduEmployee ################################
+
+################################ Update Edu of Employee for CV ##################################
+
+# https://localhost:8000/connectdata/CVEducationViewSet/id/
+
+# id: of Education
+
+# 2: id of CV
+
+{
+    "CurriculumVitaeIDEducation": [
+        2
+    ]
+}
+########################## Update Edu of Employee for CV################################
+
+########################## Update ScheduleC of Employee for CV################################
+
+https://localhost:8000/connectdata/ScheduleCVViewSet/
+#Post
+{
+    "SchName": "Làm Thêm Ngoài Giờ",
+    "inoutidschedule": [
+        {
+            "InOutName": "Hành Chánh",
+            "TimeIn": "08:00:00",
+            "TimeOut": "17:00:00"
+        },
+        {
+            "InOutName": "Bán Thời gian",
+            "TimeIn": "17:00:00",
+            "TimeOut": "21:00:00"
+        }
+    ]
+}
+#Put
+https://localhost:8000/connectdata/ScheduleCVViewSet/
+
+##### Search - Filter Address #####
+
+
+#ALL
+https://localhost:8000/connectdata/SearchCV/
+{
+    "AddressIDCurriculumVitae__WardIDAddress__NameWard":"Phường 1",
+    "AddressIDCurriculumVitae__DistrictIDAddress__NameDistrict":"Quận 1",
+    "AddressIDCurriculumVitae__ProvinceCityIDAddress__NameProvinceCity":"Thành Phố 1",
+    "AddressIDCurriculumVitae__CountryIDAddress__NameCountry":"Nước 1",
+
+    "search":"ABC"
+}
+
+#Country
+https://localhost:8000/connectdata/CountryFilter/
+All Country
+#ProvinceCity - Follow International
+https://localhost:8000/connectdata/ProvinceCityFilter/
+{
+    "CountryIDProvinceCity":""
+}
+#District
+https://localhost:8000/connectdata/DistrictFilter/
+{
+    "ProvinceCityIDDistrict":""
+}
+#Ward
+https://localhost:8000/connectdata/WardFilter/
+{
+    "DistrictIDWard":""
+}
+
+##### Add Update Edit Delete Country #####
+#Get ALL Post
+{
+    "NameCountry": "Việt nam",
+    "CodeCountry": "084"
+}
+https://localhost:8000/connectdata/CountryViewSet/
+#GetDetail - Update - Delete
+https://localhost:8000/connectdata/CountryViewSet/<int>:id/
+{
+    "id": 1,
+    "NameCountry": "Việt nam",
+    "CodeCountry": "084"
+}
+##### Add Update Edit Delete ProvinceCity #####
+#Get ALL - Post
+https://localhost:8000/connectdata/ProvinceCityViewSet/
+{
+    "id": 1,
+    "NameProvinceCity": "Hồ Chí Minh",
+    "CodeProvinceCity": 28,
+    "CountryIDProvinceCity": [
+        1
+    ]
+}
+#GetDetail - Update - Delete
+https://localhost:8000/connectdata/ProvinceCityViewSet/<int>:id/
+{
+    "id": 1,
+    "NameProvinceCity": "Hồ Chí Minh",
+    "CodeProvinceCity": 28,
+    "CountryIDProvinceCity": [
+        1
+    ]
+}
+##### Add Update Edit Delete District #####
+#Get ALL - Post
+https://localhost:8000/connectdata/DistrictViewSet/
+{
+    "NameDistrict": "1",
+    "ProvinceCityIDDistrict": [
+        1
+    ]
+}
+# GetDetail - Update - Delete
+https://localhost:8000/connectdata/DistrictViewSet/<int>:id/
+{
+    "id": 2,
+    "NameDistrict": "1",
+    "ProvinceCityIDDistrict": [
+        1
+    ]
+}
+
+##### Add Update Edit Delete District #####
+#Get ALL - Post
+https://localhost:8000/connectdata/WardViewSet/
+{
+    "NameWard": "Tân Phú",
+    "DistrictIDWard": [
+        10
+    ]
+}
+
+# GetDetail - Update - Delete
+https://localhost:8000/connectdata/WardViewSet/<int>:id/
+{
+    "id": 5,
+    "NameWard": "1",
+    "DistrictIDWard": [
+        1
+    ]
+}

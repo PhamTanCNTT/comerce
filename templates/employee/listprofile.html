@@ -1,0 +1,250 @@
+{% extends 'employee/base_admin_employee.html' %}
+
+<!-- ######################### Khai báo base_admin_employee ######################### -->
+
+{% block listprofile %}
+    <div>{% csrf_token %}</div>
+    {% if user.is_authenticated %}
+        <script>
+            window.onload = get_profile()
+        </script>
+        {% if not user.employee %}
+            <script> window.location.href = "/jwtauth/checkfunc/"</script>
+        {% endif %}
+    {% else %}
+        <script> window.location.href = "/account/login/"</script>
+    {% endif %}
+    <div class="col-xl-9 col-lg-12 col-md-12">
+            <div class="card mb-0" id="list_profile">
+                <div class="card-header">
+                    <h3 class="card-title">Thông tin cá nhân</h3>
+                </div>
+                <div class="card-body">
+                     <div class="row">
+                        <div class="col-sm">
+                            <div class="row">
+                                 <div class="col-3">
+                                    <label class="form-label">Họ tên</label>
+                                 </div>
+                                <div class="col-1">
+                                    <label class="form-label">:</label>
+                                 </div>
+                                <div class="col-6">
+                                    <label id="userfullname1"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="row">
+                                 <div class="col-3">
+                                    <label id="" class="form-label">Ngày sinh </label>
+                                 </div>
+                                <div class="col-1">
+                                    <label class="form-label">:</label>
+                                 </div>
+                                <div class="col-6">
+                                    <label id="userbirthday1"></label>
+                                </div>
+                            </div>
+                        </div>
+
+                     </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="row">
+                                 <div class="col-3">
+                                    <label id="" class="form-label">Giới tính </label>
+                                 </div>
+                                <div class="col-1">
+                                    <label class="form-label">:</label>
+                                 </div>
+                                <div class="col-6">
+                                    <label id="usersex1"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="row">
+                                 <div class="col-3">
+                                    <label id="" class="form-label">Di động </label>
+                                 </div>
+                                <div class="col-1">
+                                    <label class="form-label">:</label>
+                                 </div>
+                                <div class="col-6">
+                                     <label id="userphone1"></label>
+                                </div>
+                            </div>
+                        </div>
+                     </div>
+
+                     <div class="row">
+                        <div class="col-sm">
+                            <div class="row">
+                                 <div class="col-3">
+                                   <label class="form-label">Email </label>
+                                 </div>
+                                <div class="col-1">
+                                    <label class="form-label">:</label>
+                                 </div>
+                                <div class="col-6">
+                                   <label id="email1"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="row">
+                                 <div class="col-3">
+                                    <label class="form-label">Số CMND </label>
+                                 </div>
+                                <div class="col-1">
+                                    <label class="form-label">:</label>
+                                 </div>
+                                <div class="col-6">
+                                      <label id="useridcard1"></label>
+                                </div>
+                            </div>
+                        </div>
+                     </div>
+
+                     <div class="row">
+                        <div class="col-sm">
+                            <div class="row">
+                                 <div class="col-3">
+                                   <label class="form-label">Nơi cấp </label>
+                                 </div>
+                                <div class="col-1">
+                                    <label class="form-label">:</label>
+                                 </div>
+                                <div class="col-6">
+                                   <label id="idcardplaceofissue1"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="row">
+                                 <div class="col-3">
+                                    <label id="" class="form-label">Ngày cấp </label>
+                                 </div>
+                                <div class="col-1">
+                                    <label class="form-label">:</label>
+                                 </div>
+                                <div class="col-6">
+                                     <label id="userapplydate1"></label>
+                                </div>
+                            </div>
+                        </div>
+                     </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="row">
+                                 <div class="col-3">
+                                   <label id="" class="form-label">Quốc tịch </label>
+                                 </div>
+                                <div class="col-1">
+                                    <label class="form-label">:</label>
+                                 </div>
+                                <div class="col-6">
+                                   <label id="usernationality1"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="row">
+                                 <div class="col-5">
+                                    <label id="" class="form-label">Tình trạng hôn nhân: </label>
+                                 </div>
+                                <div class="col-4">
+                                     <label id="maritalstatus1"></label>
+                                </div>
+                            </div>
+                        </div>
+                     </div>
+
+                    <div class="row">
+                         <div class="col-1">
+                            <label id="" class="form-label">Nơi ở: </label>
+                         </div>
+                        <div class="col-9">
+                            <label id="select_address_full1"></label>
+                        </div>
+
+                    </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <label class="rounded mx-auto d-block">CMND mặt trước: </label>
+                    </div>
+                    <div class="row">
+                        <img class = "imagecmnd rounded mx-auto d-block border" src="" alt="error_image" id="imgcmnd1">
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <label class="rounded mx-auto d-block">CMND mặt sau: </label>
+                    </div>
+                    <div class="row">
+                        <img class = "imagecmnd rounded mx-auto d-block border" src="" alt="error_image" id="imgcmnd2">
+                    </div>
+                </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary" onclick="document.location='https://localhost:8000/employee/employeeprofile/'">Sửa</button>
+                </div>
+            </div>
+    </div>
+{% endblock %}
+
+<!-- ######################### Khai báo base_admin_employee ######################### -->
+
+<!-- ######################### Khai báo ajax_update_profile ######################### -->
+
+{% block ajax_update_profile %}
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+    <script>
+        var urlhttp = "https://localhost:8000"
+        var URL_profile = urlhttp + "/connectdata/ProfileUserViewSet/";
+        function readCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0;i < ca.length;i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+            }
+            return null;
+        }
+
+        var csrftoken = readCookie('csrftoken');
+
+        document.getElementById('avatar_form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let input = document.getElementById('id_avatar');
+            let data = new FormData();
+            data.append('UserImage', input.files[0]);
+            console.log(data)
+            var id_upload_img = document.getElementById("upload_img").value;
+
+            fetch( urlhttp + '/connectdata/ProfileUserViewSetToken/'+id_upload_img+"/",
+                {
+                    method: 'PUT',
+                    headers: {
+                        "X-CSRFToken": csrftoken
+                },
+            body: data
+            }).then(response => {
+                return response.json();
+                {#console.log(headers);#}
+            }).then(data => {
+                get_img()
+                console.log(data);
+            }).catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+{% endblock %}
+
+<!-- ######################### Khai báo ajax_update_profile ######################### -->
+
+

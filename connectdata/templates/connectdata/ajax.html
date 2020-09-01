@@ -1,0 +1,211 @@
+<html>
+<head>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+    <script>
+    var URL = "/PostCourseComView/";
+        URLDT = "/getCourseSerializer/";
+
+    $(document).ready(
+        function() {
+            $("#coursescom").hide();
+        }
+    );
+
+    function readCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    }
+    var csrftoken = readCookie('csrftoken');
+
+    function getCoursescom()
+    {
+
+        $.getJSON( URL,
+            {},
+            showCourses
+        );
+    }
+
+    function getCoursecom()
+    {
+       $.getJSON(
+           URLDT + $("#IDC").val())
+           .done(showCourse)
+           .fail(function()
+                 {
+                      alert("Xin lỗi! Không tìm thấy khóa học cần tìm!");
+                 }
+           );
+    }
+
+    function showCourse(course)
+    {
+
+        $("#IDC").val(course.IDC)
+        $("#code").val(course.code)
+        $("#title").val(course.title)
+        $("#duration").val(course.duration)
+        $("#fee").val(course.fee)
+        $("#ComName").val(course.company.ComName)
+        $("#ComAddress").val(course.company.ComAddress)
+    }
+
+    function showCourses(courses) {
+       $("#coursecomrows").html("")
+       $.each(courses,
+              function(idx,course) {
+                 $("#coursecomrows").append("<tr>" +
+                     "<td>" + course.code + "</td>" +
+                     "<td>" + course.title + "</td>" +
+                     "<td>" + course.duration + "</td>" +
+                     "<td>" + course.fee + "</td>" +
+                     "<td>" + course.IDC + "</td>" +
+                         "<td>" + course.company.ComName + "</td>" +
+                         "<td>" + course.company.ComAddress + "</td>" +
+                     "</tr>");
+              } // anonymous function
+        ); // each()
+
+        $("#coursescom").show();
+   } // showCourses
+
+    function addCoursecom()
+    {
+       $.ajax(
+          { "url": URL,
+             "data": {
+                       "code"     : $("#code").val(),
+                       "title"    : $("#title").val(),
+                       "duration" : $("#duration").val(),
+                       "fee"      : $("#fee").val(),
+                       "IDC"      :$("#IDC").val(),
+                       "company.ComName"    : $("#ComName").val(),
+                       "company.ComAddress" : $("#ComAddress").val(),
+                    },
+             "type" : "POST",
+             "headers":{"X-CSRFToken": csrftoken},
+             "success" : add_success,
+             "error" : add_error
+          }
+
+
+      ); // ajax()
+    }
+
+    function add_success()
+    {
+      alert("Added course Successfully");
+    }
+
+    function add_error()
+    {
+      alert("Could not add course!");
+    }
+
+    function deleteCoursecom()
+    {
+       $.ajax(
+          {  "url": URL + $("#code").val(),
+             "type" : "DELETE",
+             "success" : delete_success,
+             "error" : delete_error
+          }
+      ); // ajax()
+    }
+
+    function delete_success()
+    {
+      alert("Deleted Course Successfully");
+    }
+
+    function delete_error()
+    {
+      alert("Could not delete Course!");
+    }
+
+
+    function updateCoursecom()
+    {
+       $.ajax(
+          {  "url"     : URL + $("#id").val() + "/",
+             "data"    : { "code"     : $("#code").val(),
+                           "title"    : $("#title").val(),
+                           "duration" : $("#duration").val(),
+                           "fee"      : $("#fee").val(),
+                           "UserID"   : $("#UserID").val(),
+                           "company.ComName" : $("#ComName").val(),
+                           "company.ComAddress"      : $("#ComAddress").val(),
+                           "company.IDC"   : $("#UserID").val(),
+                          },
+             "type"    : "PUT",
+             "headers":{"X-CSRFToken": csrftoken},
+             "success" : update_success,
+             "error"   : update_error
+          }
+      ); // ajax()
+    }
+
+    function update_success()
+    {
+      alert("Updated Course Successfully");
+    }
+
+    function update_error()
+    {
+      alert("Could not update Course!");
+    }
+    </script>
+</head>
+<body>
+<div style="background-color:navy;color:white;font-family:arial;font-size:20pt;font-weight:bold">Course Client</div>
+<p/>
+Code <br/>
+<input type="text" id="code"/>
+<br/>
+Title <br/>
+<input type="text" id="title"/>
+<br/>
+Duration <br/>
+<input type="number" id="duration"/>
+<br/>
+Fee <br/>
+<input type="number" id="fee"/>
+<p/>
+IDC <br/>
+<input type="number" id="IDC"/>
+<p/>
+Company ComName <br/>
+<input type="text" id="ComName"/>
+<p/>
+Company ComAddress <br/>
+<input type="text" id="ComAddress"/>
+{% csrf_token %}
+<button onclick="getCoursecom()">Details</button>
+<button onclick="addCoursecom()">Add </button>
+<button onclick="deleteCoursecom()">Delete </button>
+<button onclick="updateCoursecom()">Update </button>
+<button onclick="getCoursescom()">List</button>
+<p/>
+
+<table border="1" cellpadding="5pt" id="coursescom">
+    <thead>
+    <tr>
+        <th>Code</th>
+        <th>Title</th>
+        <th>Duration</th>
+        <th>Fee</th>
+        <th>IDC</th>
+         <th>ComName</th>
+         <th>ComAddress</th>
+    </tr>
+    </thead>
+    <tbody id="coursecomrows"></tbody>
+</table>
+</body>
+</html>

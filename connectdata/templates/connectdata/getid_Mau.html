@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+    <script type='text/javascript'>
+        function addMarker(location) {
+        }
+
+        function initMap() {
+            var latitude,longitude;
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    latitude = position.coords.latitude;
+                    longitude = position.coords.longitude;
+                    console.log(latitude)
+                    console.log(longitude)
+
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                        center: new google.maps.LatLng(latitude, longitude),
+                        zoom: 20
+                    });
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(latitude, longitude),
+                        map: map
+                    });
+                    //initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                    //map.setCenter(initialLocation);
+                });
+            }
+
+        }
+
+        function readCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0;i < ca.length;i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+            }
+            return null;
+        }
+
+        var csrftoken = readCookie('csrftoken');
+
+        var url_get_id = "/connectdata/CompanyEmployerViewSet/"
+        function get_id() {
+            $.getJSON(url_get_id,{},get_id1);
+        }
+
+        function get_id1(company) {
+                var x = document.createElement("SELECT");
+                    x.setAttribute("id", "mySelect");
+                    x.setAttribute("name", "mySelect");
+                    document.body.appendChild(x);
+                    //$("#select_title").append(x);
+
+                var a = document.createElement("option");
+                    var ta = document.createTextNode("SELECT company: ");
+                    a.setAttribute("value", 0);
+                    a.appendChild(ta);
+                    document.getElementById("mySelect").appendChild(a);
+
+                for(var i = 0; i < company.length ;i++)
+                {
+                    var z = document.createElement("option");
+                    z.setAttribute("value", company[i].id);
+                    var t = document.createTextNode(company[i].ComName);
+                    z.appendChild(t);
+                    document.getElementById("mySelect").appendChild(z);
+                }
+           }
+        window.onload = get_id()
+
+        var urlip = "https://extreme-ip-lookup.com/json/"
+        function get_ip() {
+            $.getJSON(urlip, {}, checkinout);
+
+        }
+
+        function get_ip1(data){
+            console.log(data.query)
+            return ip=data.query
+        }
+
+        {#window.onload = get_ip()#}
+
+
+        function checkinout(data){
+            var latitude,longitude, ipAddres;
+            var companyid = '';
+            {#console.log(data.query)#}
+            ipAddres = data.query
+            ida = data.id
+            console.log(ipAddres)
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    latitude = position.coords.latitude;
+                    longitude = position.coords.longitude;
+
+                                {#companyid = $("#companyid").val();#}
+
+                    {#ipAddres = position.coords.accuracy.#}
+                    companyid = parseInt(document.getElementById("mySelect").value);
+                    console.log(companyid)
+
+                    console.log(ipAddres)
+
+                    var jsonarr = {
+
+                        'GPS_EMP_LAT':latitude,
+                        'GPS_EMP_LONG':longitude,
+                         "checkinout": {
+                            "CompanyIDCheckInOut": companyid,
+                            "IPAddressCheckInOut": ipAddres
+
+                            {#"IPAddressCheckInOut": ipAddress#}
+                        }
+                    };
+                    console.log(JSON.stringify(jsonarr));
+
+                /* Add "https://api.ipify.org?format=json" statement
+                   this will communicate with the ipify servers in
+                   order to retrieve the IP address $.getJSON will
+                   load JSON-encoded data from the server using a
+                   GET HTTP request */
+
+                    var url = "/connectdata/LocationViewSet/";
+                    {#var url = "/employee/EmployeeJobApply/";#}
+
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: JSON.stringify(jsonarr),
+                        headers:{"X-CSRFToken": csrftoken},
+                        'processData': false,
+                        'contentType': 'application/json',
+                        success:function(data) {
+                            {#console.log(data.query);#}
+                            //console.log(data.error.buttonvalue);
+                            {#$('#checkinout').val(data.error.buttonvalue)#}
+                            {#$('#checkinouttime').text(data.error.checkinouttime)#}
+                            //console.log(data.error.code);
+                            alert('Chúc mừng bạn chấm công thành công');
+
+                        },
+                        error: function(){
+                             var x, text;
+                                  // Get the value of the input field with id="numb"
+                                  x = document.getElementById("mySelect").value;
+
+                                  // If x is Not a Number or less than one or greater than 10
+                                  if (x != null) {
+                                    text = "Vui lòng chọn Công ty Chấm công";
+                                  } else {
+                                    text = "Input OK";
+                                  }
+                                  document.getElementById("demo").innerHTML = text;
+
+                        }
+                    });
+                });
+            }
+
+
+        }
+        //google.load("maps", "3.x", {other_params: "sensor=false", callback:initialize});
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDeoAiUnXHPPa-s6y66SF806wEfDYRK85Q&callback=initMap" async defer></script>
+</head>
+<body>
+
+	<div id="container">
+		<div id="map" style="width: 500px; height: 500px;float:left;"></div>
+		</div>
+
+		<div id="checkinoutdiv" style="float:left;">
+			UserName:{{ user.username }}
+			<br/>
+			Company Name:{{ Company.ComName }}
+{#            <select id="companyid" >#}
+{#                <option id="" value=""></option>#}
+{#            </select>#}
+			<br/>
+			Checkin Time : <label id="checkinouttime">{{ checkinouttime }}</label>
+			<input id="checkinout" type="button" onclick="get_ip();"></input>
+            <label id="demo">
+
+            </label>
+{#			<input type="hidden" id="companyid" value="{{ companyobj.pk }}"/>#}
+		</div>
+	</div>
+
+<div>
+{#        <h1>GeeksforGeeks</h1>#}
+{#        <h3>Public IP Address of user is:</h3>#}
+{##}
+{#        <p id="gfg"></p>#}
+    </div>
+</body>

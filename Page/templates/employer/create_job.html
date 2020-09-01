@@ -1,0 +1,823 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{#    {% block ajax_create_resume %}#}
+{#        <script src="{% static 'Page/create_resume.js' %}"></script>#}
+{#    {% endblock %}#}
+    {% block create_resume %}
+		<!--/Header Main-->
+        <div>{% csrf_token %}</div>
+            {% if user.is_authenticated %}
+                <script> window.onload = get_profile()</script>
+                {% if not user.employee %}
+                    <script> window.location.href = "/jwtauth/checkfunc/"</script>
+                {% endif %}
+            {% else %}
+                <script> window.location.href = "/account/login/"</script>
+            {% endif %}
+		<!--Sliders Section-->
+		<section>
+			<div class="bannerimg cover-image bg-background3" data-image-src="../assets/images/banners/banner2.jpg">
+				<div class="header-text mb-0">
+					<div class="container">
+						<div class="text-center text-white">
+							<h1>Create Job</h1>
+							<ol class="breadcrumb text-center">
+								<li class="breadcrumb-item"><a href="#">Home</a></li>
+								<li class="breadcrumb-item"><a href="#">Pages</a></li>
+								<li class="breadcrumb-item active text-white" aria-current="page">Create Job</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--/Sliders Section-->
+
+        {% block edit_profile_resume %}
+		<!--Job posts-section-->
+		<section class="sptb">
+			<div class="container">
+				<div class="row ">
+                    {#show profile#}
+                    {% block show_profile %}
+					<div class="col-lg-8 col-md-12 col-md-12">
+						<div class="card dropify-image-avatar" id="show_profile">
+							<div class="card-header ">
+								<h3 class="card-title">Personal Data</h3>
+                                    <div class="card-options">
+                                        <button  id="show_hide_profile" class="btn btn-light btn-sm" href="#"><i class="fa fa-edit"></i> Edit</button>
+                                    </div>
+							</div>
+							<div class="card-body" id="show_profile1">
+								<div class="row">
+									<div class="col-lg-3 mb-4 mb-lg-0">
+{#										<input type="file" class="dropify" data-default-file="../assets/images/users/avatar.png" data-height="180"/>#}
+                                        <img src="" id="id_img" alt="error">
+									</div>
+									<div class="col-lg-9">
+										<div class="row">
+											<div class="col-md-6">
+                                                <div class="form-group">
+													<label class="tieude">Full Name: </label>
+                                                    <label type="text" placeholder="User Full Name" required id="userfullname1"></label>
+												</div>
+                                                <div class="form-group">
+													<label class="tieude">Email: </label>
+                                                    <label type="email" placeholder="Email" required id="email1"></label>
+												</div>
+{#												<div class="form-group">#}
+{#													<label class="form-label text-dark">User First Name: </label>#}
+{#													<input type="text" class="form-control userfullname" placeholder="User First Name" required id="userfirtname1">#}
+{#												</div>#}
+{#												<div class="form-group">#}
+{#													<label class="form-label text-dark">User Middle Name</label>#}
+{#													<input type="text" class="form-control phonenumber" placeholder="User Middle Name" required id="usermiddlename1">#}
+{#												</div>#}
+{#												<div class="form-group">#}
+{#													<label class="form-label text-dark">User Last Name</label>#}
+{#													<input type="email" class="form-control city" placeholder="User Last Name" required id="userlastname1">#}
+{#												</div>#}
+                                                <div class="form-group">
+													<label class="tieude">Phone: </label>
+                                                    <label type="number" placeholder="User Phone" required id="userphone1"></label>
+												</div>
+											</div>
+											<div class="col-md-6">
+                                                <div class="form-group">
+													<label class="tieude">Birth Day: </label>
+                                                    <label type="date" placeholder="User Birth Day" required id="userbirthday1"></label>
+												</div>
+                                                <div class="form-group">
+													<label class="tieude">Sex: </label>
+                                                    <label type="text" placeholder="User Sex" required id="usersex1"></label>
+												</div>
+											</div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+													<label class="tieude" >Address: </label>
+                                                    <label name="select_address_full" id="select_address_full2"></label>
+												</div>
+                                            </div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+                        {# edit profile #}
+{#                            <div class="card dropify-image-avatar" id="edit_profile">#}
+                            <div class="card dropify-image-avatar" id="edit_profile">
+							<div class="card-header">
+								<h3 class="card-title">Edit Profile</h3>
+							</div>
+							<div class="card-body">
+								<div class="row">
+                                    <div class="col-md-6">
+												<div class="form-group">
+													<label class="form-label text-dark">User First Name </label>
+													<input type="text" class="form-control userfullname" placeholder="User First Name" required id="userfirtname">
+												</div>
+												<div class="form-group">
+													<label class="form-label text-dark">User Middle Name </label>
+													<input type="text" class="form-control phonenumber" placeholder="User Middle Name" required id="usermiddlename">
+												</div>
+												<div class="form-group">
+													<label class="form-label text-dark">User Last Name</label>
+													<input type="email" class="form-control city" placeholder="User Last Name" required id="userlastname">
+												</div>
+                                                <div class="form-group">
+													<label class="form-label text-dark">User Phone</label>
+													<input type="number" class="form-control address" placeholder="User Phone" required id="userphone">
+												</div>
+											</div>
+                                    <div class="col-md-6">
+												<div class="form-group">
+													<label class="form-label text-dark">User Full Name</label>
+													<input type="text" class="form-control address" placeholder="User Full Name" required id="userfullname">
+												</div>
+                                                <div class="form-group">
+													<label class="form-label text-dark">User Birth Day</label>
+													<input type="date" class="form-control postalcode" placeholder="User Birth Day" required id="userbirtday">
+												</div>
+                                                <div class="form-group">
+													<label class="form-label text-dark">User Sex</label>
+													<input type="text" class="form-control desctiption" placeholder="User Sex" required id="usersex">
+												</div>
+                                                <div class="form-group">
+													<label class="form-label text-dark">Email</label>
+													<input type="email" class="form-control postalcode" placeholder="Email" required id="email">
+												</div>
+											</div>
+{#                                    <div class="col-md-12">#}
+{#                                        <label for="">Address</label>#}
+{#                                        <div class="form-group">#}
+{#                                                    <select name="select_address_full" class="form-control" id="select_address_full"></select>#}
+{#                                                </div>#}
+{#                                    </div>#}
+                                    <img src="" alt="error" id="id_img1">
+                                   <form id="avatar_form">
+                                        <div>
+                                            <label for="id_avatar">Choose an image for your avatar</label>
+                                            <input type="file" class="form-control-file" id="id_avatar"/>
+                                        </div>
+                                        <button type="submit" id="upload_img">Upload</button>
+                                   </form>
+                                    {#///////////////////////////////////////  ajax upload image \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                                    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+                                    <script>
+                                        $(document).ready(
+                                                function() {
+                                                    $("#edit_profile").hide();
+                                                }
+                                            );
+
+                                        $(document).ready(function(){
+                                            $("#show_hide_profile").click(function(){
+                                                $("#edit_profile").show();
+                                                $("#show_profile").hide();
+                                            });});
+
+                                        function reload_profile(){
+                                            var container = document.getElementById("show_hide_profile");
+                                            var content = container.innerHTML;
+                                            container.innerHTML= content;
+
+                                           //this line is to watch the result in console , you can remove it later
+                                            console.log("Refreshed");
+                                        }
+
+                                        var URL_profile = "/connectdata/ProfileUserViewSet/";
+
+                                        function readCookie(name) {
+                                            var nameEQ = name + "=";
+                                            var ca = document.cookie.split(';');
+                                            for(var i=0;i < ca.length;i++) {
+                                                var c = ca[i];
+                                                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                                                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+                                            }
+                                            return null;
+                                        }
+
+                                        var csrftoken = readCookie('csrftoken');
+
+
+                                        document.getElementById('avatar_form').addEventListener('submit', function(event) {
+                                            event.preventDefault();
+                                            let input = document.getElementById('id_avatar');
+                                            let data = new FormData();
+                                            data.append('UserImage', input.files[0]);
+                                            console.log(data)
+                                            var id_img = document.getElementById("upload_img").value;
+                                            fetch('https://localhost:8000/jwtauth/ProfileUserViewSetToken/'+id_img+"/", {
+                                                method: 'PUT',
+                                                headers: {
+                                                    "X-CSRFToken": csrftoken
+                                                },
+                                                body: data
+
+                                                }).then(response => {
+                                                    return response.json();
+                                                }).then(data => {
+                                                    console.log(data);
+                                                    get_img()
+                                                }).catch((error) => {
+                                                    console.error('Error:', error);
+                                                });
+                                        });
+                                    </script>
+                                    {#/////////////////////////////////////// end ajax upload image \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+								</div>
+							</div>
+							<div class="card-footer">
+                                <button type="submit" class="btn btn-primary" onclick="upload_profile()" id="upload_img">Updated Profile</button>
+							</div>
+						</div>
+                            {# end edit profile #}
+                        {#\\\\\\\\ create Jobs ///////#}
+                        {#//////////////////////////////////// html add Jobs \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                        <div class="card" >
+							<div class="card-header" id="addJob">
+								<h3 class="card-title">Add Job</h3>
+                                <i class="card-options">(*)thông tin bắc buộc nhập</i>
+							</div>
+                            <div class="card-header" id="uploadJob">
+								<h3 class="card-title">Upload Job</h3>
+                                <i class="card-options">(*)thông tin bắc buộc nhập</i>
+							</div>
+							<div class="card-body">
+								<div class="form-group">
+									<label class="form-label text-dark">Company
+                                        <label for="" id="CompanyIDJob_detail"></label>
+                                    </label>
+                                    <button onclick="show_form_add_company()" id="btn_add_company" class="btn btn-success btn-sm  text-white"><i class="fa fa-plus"></i> Add</button>
+{#                                    <a onclick="show_form_add_address()" class="btn btn-light btn-sm" href="#"><i class="fa fa-plus"></i> Add Another</a>#}
+                                    <select type="text" class="form-control" placeholder="CompanyIDJob" id="CompanyIDJob_add" required></select>
+								</div>
+
+                                {#/////////////  form add company \\\\\\\\\\\\#}
+                                <div id="form_add_company">
+                                    <div class="form-group">
+                                        <label class="form-label text-dark">Address Company</label>
+                                        <select id="AddressIDCompany_com" class="form-control"></select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label text-dark">Com Name</label>
+                                        <input id="ComName_com" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label text-dark">Com Tel</label>
+                                        <input type="number" id="ComTel_com" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label text-dark">ComTax</label>
+                                        <input type="number" id="ComTax_com" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label text-dark">ComEmail</label>
+                                        <input type="email" id="ComEmail_com" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label text-dark">ComWeb</label>
+                                        <input id="ComWeb_com" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label text-dark">Status</label>
+                                        <input id="Status_com" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <button onclick="add_company()">Add company</button>
+                                    </div>
+                                </div>
+                                {#///////// end form add company \\\\\\\\\\\\\#}
+
+                                <div class="form-group">
+									<label class="form-label text-dark">Address <label for="" id="AddressIDJob_detail"></label></label>
+
+                                    <button onclick="show_form_add_address()" id="btn_add_address" class="btn btn-success btn-sm  text-white"><i class="fa fa-plus"></i> Add</button>
+                                    <select class="form-control" placeholder="AddressIDJob" id="select_address_full" required></select>
+                                    <button onclick="show_form_update_address()" class="btn btn-success btn-sm text-white" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i></button>
+                                    <button class="btn btn-danger btn-sm text-white" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash-o"></i></button>
+								</div>
+
+
+                                 {#/////////////// form add address \\\\\\\\\\\\\\\\\#}
+                                    <div class="col-sm-6 col-md-6" id="add_address">
+                                        <label for="">Address profile</label>
+                                        <div class="form-group">
+                                            <label class="form-label">Nation</label>
+                                            <select name="" id="Select_Nation" class="form-control" onchange="listprovince()">
+{#                                                <option id="option_Nation">Nation</option>#}
+                                            </select>
+                                            <div id="nation"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Province</label>
+                                            <select name="" id="Select_Province" onchange="district()" class="form-control">
+{#                                                <option id="option_Province">Province</option>#}
+                                            </select>
+                                            <div id="province"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">District</label>
+                                            <select name="" id="Select_District" class="form-control" onchange="ward()">
+{#                                                <option id="option_District">District</option>#}
+                                            </select>
+                                            <div id="district"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Ward</label>
+                                            <select name="" id="Select_Ward" class="form-control">
+{#                                                <option value="" id="option_Ward">Ward</option>#}
+                                            </select>
+                                            <div id="ward"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Place</label>
+                                            <input type="text" class="form-control" placeholder="Place" id="place">
+                                        </div>
+                                        <button onclick="add_address()" id="btn_add">Add Address</button>
+                                        <button onclick="update_address()" id="btn_save">Save</button>
+									</div>
+                                    {#////////////////////////// end form add address \\\\\\\\\\\\\\\\#}
+
+
+                                <div class="form-group">
+									<label class="form-label text-dark">Schedule</label>
+                                    <button onclick="create_calendar()" id="btn_add_address" class="btn btn-success btn-sm  text-white"><i class="fa fa-plus"></i> Add</button>
+                                    <select class="form-control" id="schedule" required></select>
+                                    <button onclick="show_form_update_address()" class="btn btn-success btn-sm text-white" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i></button>
+                                    <button class="btn btn-danger btn-sm text-white" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash-o"></i></button>
+								</div>
+
+                                <div class="form-group">
+									<label class="form-label text-dark">Job Title</label>
+									<input type="text" class="form-control" placeholder="JobTitle" id="JobTitle_add" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">Job Type</label>
+									<input type="text" class="form-control" placeholder="JobType" id="JobType_add" required>
+								</div>
+								<div class="form-group">
+									<label class="form-label text-dark">Job Role</label>
+									<input type="text" class="form-control" placeholder="JobRole" id="JobRole_add" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">Job Requirements</label>
+									<input type="text" class="form-control" placeholder="JobRequirements" id="JobRequirements_add" required>
+								</div>
+								<div class="form-group">
+									<label class="form-label text-dark">Job Experience(year)</label>
+									<input type="number" class="form-control" placeholder="JobExperience" id="JobExperience_add" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">Job Description</label>
+									<input type="text" class="form-control" placeholder="JobDescription" id="JobDescription_add" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">MinSalary</label>
+									<input type="number" class="form-control" placeholder="MinSalary" id="MinSalary_add" required>
+								</div>
+                                <div class="form-group">
+									<label class="form-label text-dark">Max Salary</label>
+									<input type="number" class="form-control" placeholder="MaxSalary" id="MaxSalary_add" required>
+								</div>
+							</div>
+{#                            <div class="card-footer ">#}
+{#								<button onclick="update_bank()">POST</button>#}
+{#							</div>#}
+						</div>
+                        {#//////////////////////////////////// end html add Jobs \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+                        {#//////////////////////////////////// end html upload Jobs \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+                        {#//////////////////////////////////// ajax add - detail - update Jobs \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+                        <script>
+                            var url_select_company = "/employer/EmployerCompayFullViewSet/";
+                            var URL_job = "/employer/EmployerJobsFullViewSet/";
+
+                            $(document).ready(
+                                function() {
+                                    $("#form_add_company").hide();
+                                    $("#uploadJob").hide();
+                                    $("#btn_Save").hide();
+                                });
+
+                            function show_form_add_company() {
+                                $("#form_add_company").show();
+                                $("#CompanyIDJob_add").hide();
+                                $("#btn_add_company").hide();
+                            }
+
+                            function list_company() {
+                                $.getJSON(url_select_company,{},list_company1);
+                            }
+                            function list_company1(company) {
+                                for (var i = 0; i < company.length; i++){
+                                    var a1 = document.createElement("option");
+                                        a1.setAttribute("id", i+"option_list_company");
+                                        a1.setAttribute("value", company[i].id);
+                                        a1.setAttribute("class", "form-control option_addr_full");
+                                        var ta1 = document.createTextNode(company[i].ComName);
+                                        a1.appendChild(ta1);
+                                        document.getElementById("CompanyIDJob_add").appendChild(a1);
+                                }
+                            }
+
+                            function add_company() {
+                                var jsonarr_add_company = {
+                                    "AddressIDCompany": parseInt($("#AddressIDCompany_com").val()),
+                                    "ComName": $("#ComName_com").val(),
+                                    "ComTel": $("#ComTel_com").val(),
+                                    "ComTax": $("#ComTax_com").val(),
+                                    "ComEmail": $("#ComEmail_com").val(),
+                                    "ComWeb": $("#ComWeb_com").val(),
+                                    "Status": $("#Status_com").val(),
+                                };
+                                console.log(JSON.stringify(jsonarr_add_company));
+
+                                $.ajax({
+                                    "url": url_select_company,
+                                    "data": JSON.stringify(jsonarr_add_company),
+                                    "headers":{"X-CSRFToken": csrftoken},
+                                    "processData": false,
+                                    "contentType": 'application/json',
+                                    "type": "POST",
+                                    "success": add_company_success,
+                                    "error": add_company_error
+                                });
+                            }
+                            function add_company_success() {
+                                $.getJSON(url_select_company,{},function (company) {
+                                    for (var i = 0; i < company.length - 1; i++){
+                                        document.getElementById(i+"option_list_company").remove()
+                                    }
+                                    list_company()
+                                    $("#form_add_company").hide();
+                                    $("#CompanyIDJob_add").show();
+                                    $("#btn_add_company").show();
+                                    alert("add company sucess!")
+                                });
+                            }
+                            function add_company_error() {
+                                $("#form_add_company").hide();
+                                $("#CompanyIDJob_add").show();
+                                $("#btn_add_company").show();
+                                alert("add company error!")
+                            }
+
+                            function add_job() {
+                                var jsonarr_add_job = {
+                                    "CompanyIDJob": parseInt($("#CompanyIDJob_add").val()),
+                                    "AddressIDJob": parseInt($("#select_address_full").val()),
+                                    "JobTitle": $("#JobTitle_add").val(),
+                                    "JobType": $("#JobType_add").val(),
+                                    "JobRole": $("#JobRole_add").val(),
+                                    "JobRequirements": $("#JobRequirements_add").val(),
+                                    "JobExperience": $("#JobExperience_add").val(),
+                                    "JobDescription": $("#JobDescription_add").val(),
+                                    "MinSalary": $("#MinSalary_add").val(),
+                                    "MaxSalary": $("#MaxSalary_add").val(),
+                                    "ScheduleIDJob":parseInt($("#schedule").val())
+                                };
+                                console.log(JSON.stringify(jsonarr_add_job));
+
+                                $.ajax({
+                                    "url": URL_job,
+                                    "data": JSON.stringify(jsonarr_add_job),
+                                    "headers":{"X-CSRFToken": csrftoken},
+                                    "processData": false,
+                                    "contentType": 'application/json',
+                                    "type": "POST",
+                                    "success": add_job_success,
+                                    "error": add_job_error
+                                });
+                            }
+                            function add_job_success(){
+                                window.location.href = "/page/myjobs/";
+                                alert("add job success!");
+                            }
+                            function add_job_error(){
+                                alert("add job error!")
+                                location.reload()
+                            }
+
+                            var URL_detail_update_job ="/employer/EmployerJobsFullViewSet/" + {{ ID_job }} + "/";
+                            function get_detail_job()
+                            {
+                                $.getJSON(URL_detail_update_job,{},get_detail_job1);
+                            }
+
+                            var educate_checked = '';
+                            function get_detail_job1(employee) {
+                                {#$("#CompanyIDJob_detail").text(employee.CompanyIDJob);#}
+                                {#$("#AddressIDJob_detail").text(employee.AddressIDJob);#}
+                                $("#JobTitle_add").val(employee.JobTitle);
+                                $("#JobType_add").val(employee.JobType);
+                                $("#JobRole_add").val(employee.JobRole);
+                                $("#JobRequirements_add").val(employee.JobRequirements);
+                                $("#JobExperience_add").val(employee.JobExperience);
+                                $("#JobDescription_add").val(employee.JobDescription);
+                                $("#MinSalary_add").val(employee.MinSalary);
+                                $("#MaxSalary_add").val(employee.MaxSalary);
+                            }
+
+                            function get_detail_field_CompanyIDJob(){
+                                $.getJSON(URL_job + {{ ID_job }} +"/",{},get_detail_field_CompanyIDJob1);
+                            }
+                            function get_detail_field_CompanyIDJob1(company){
+                                $.getJSON(url_select_company + company.CompanyIDJob +"/",{},get_detail_field_CompanyIDJob2);
+                            }
+                            function get_detail_field_CompanyIDJob2(job){
+                                $("#CompanyIDJob_detail").text(job.ComName);
+                            }
+
+                            function get_detail_field_AddressIDJob(){
+                                $.getJSON(URL_job + {{ ID_job }} +"/",{},get_detail_field_AddressIDJob1);
+                            }
+                            function get_detail_field_AddressIDJob1(company){
+                                $.getJSON(url_address_full + company.AddressIDJob +"/",{},get_detail_field_AddressIDJob2);
+                            }
+                            function get_detail_field_AddressIDJob2(job){
+                                $("#AddressIDJob_detail").text(job.AddressFull);
+                            }
+
+                            function update_job() {
+                                var jsonarr_update_job = {
+                                    "CompanyIDJob": parseInt($("#CompanyIDJob_add").val()),
+                                    "AddressIDJob": parseInt($("#select_address_full").val()),
+                                    "JobTitle": $("#JobTitle_add").val(),
+                                    "JobType": $("#JobType_add").val(),
+                                    "JobRole": $("#JobRole_add").val(),
+                                    "JobRequirements": $("#JobRequirements_add").val(),
+                                    "JobExperience": $("#JobExperience_add").val(),
+                                    "JobDescription": $("#JobDescription_add").val(),
+                                    "MinSalary": $("#MinSalary_add").val(),
+                                    "MaxSalary": $("#MaxSalary_add").val(),
+                                    "ScheduleIDJob": parseInt($("#schedule").val())
+                                    };
+                                console.log(JSON.stringify(jsonarr_update_job));
+
+                                $.ajax({
+                                    "url": URL_job + {{ ID_job }} + "/",
+                                    "data": JSON.stringify(jsonarr_update_job),
+                                    "headers":{"X-CSRFToken": csrftoken},
+                                    "processData": false,
+                                    "contentType": 'application/json',
+                                    "type": "PUT",
+                                    "success": update_job_success,
+                                    "error": update_job_error
+                                });
+                            }
+                            function update_job_success(){
+                                window.location.href = "/page/myjobs/";
+                                alert("update job success!")
+                            }
+                            function update_job_error(){
+                                alert("update job error!")
+                            }
+
+                            function address_company() {
+                                $.getJSON(url_address_full,{},address_company1);
+                            }
+                            function address_company1(address) {
+                                for (var i = 0; i < address.length; i++){
+                                    var a3 = document.createElement("option");
+                                        a3.setAttribute("value", address[i].id);
+                                        a3.setAttribute("class", "form-control option_addr_full");
+                                        var ta3 = document.createTextNode(address[i].AddressFull);
+                                        a3.appendChild(ta3);
+                                        document.getElementById("AddressIDCompany_com").appendChild(a3);
+                                }
+                            }
+
+                            //list schedule
+                            var url_select_schedule = "/employer/ScheduleJob/";
+                            function select_schedule() {
+                                $.getJSON(url_select_schedule,{},select_schedule1);
+                            }
+                            function select_schedule1(sche) {
+                                var a1 = document.createElement("option");
+                                    a1.setAttribute("id", "schedule");
+                                    a1.setAttribute("value", sche[0].id);
+                                    a1.setAttribute("class", "form-control option_addr_full");
+                                    var ta1 = document.createTextNode(sche[0].SchName);
+                                    a1.appendChild(ta1);
+                                    document.getElementById("schedule").appendChild(a1);
+                            }
+
+                            function create_calendar(){
+                                window.location.href = "/page/createcalendar2/";
+                            }
+
+                            window.onload = select_schedule()
+                            window.addEventListener("load",list_company(),true)
+                            window.addEventListener("load",get_detail_job(),true)
+                            window.addEventListener("load",address_company(),true)
+                            {#window.addEventListener("load",get_detail_field_CompanyIDJob(),true)#}
+                            {#window.addEventListener("load",get_detail_field_AddressIDJob(),true)#}
+                        </script>
+                        {% if ID_job %}
+                            <script>
+                                $(document).ready(
+                                function() {
+                                    $("#addJob").hide();
+                                    $("#btn_Finish").hide();
+                                    $("#uploadJob").show();
+                                    $("#btn_Save").show();
+                                });
+                            </script>
+                        {% endif %}
+						<div class="float-right mb-4 mb-lg-0">
+                            <button class="btn btn-success w-150" href="#" onclick="add_job()" id="btn_Finish">Finish</button>
+						</div>
+                        <div class="float-right mb-4 mb-lg-0">
+                            <button class="btn btn-success w-150" href="#" onclick="update_job()" id="btn_Save">Save</button>
+						</div>
+					</div>
+                    {% endblock %}
+                    {#end show profile#}
+
+					<div class="col-lg-4 col-md-12">
+						<div class="card">
+							<div class="card-header">
+								<h3 class="card-title">Terms And Conditions</h3>
+							</div>
+							<div class="card-body">
+								<ul class="list-unstyled widget-spec  mb-0">
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Money Not Refundable
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>You can renew your Premium ad after experted.
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium ads are active for depend on package.
+									</li>
+									<li class="ml-5 mb-0">
+										<a href="tips.html"> View more..</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="card">
+							<div class="card-header">
+								<h3 class="card-title">Benefits Of Premium Ad</h3>
+							</div>
+							<div class="card-body pb-2">
+								<ul class="list-unstyled widget-spec vertical-scroll mb-0">
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium Ads Active
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium ads are displayed on top
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium ads will be Show in Google results
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium Ads Active
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium ads are displayed on top
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium ads will be Show in Google results
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium Ads Active
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium ads are displayed on top
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium ads will be Show in Google results
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium Ads Active
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium ads are displayed on top
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium ads will be Show in Google results
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium Ads Active
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium ads are displayed on top
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i>Premium ads will be Show in Google results
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="card mb-0">
+							<div class="card-header">
+								<h3 class="card-title">Safety Tips For Buyers</h3>
+							</div>
+							<div class="card-body">
+								<ul class="list-unstyled widget-spec  mb-0">
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i> Meet Seller at public Place
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i> Check item before you buy
+									</li>
+									<li>
+										<i class="fa fa-check text-success" aria-hidden="true"></i> Pay only after collecting item
+									</li>
+									<li class="ml-5 mb-0">
+										<a href="tips.html"> View more..</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--/Job posts-section-->
+        {% endblock %}
+		<!--Blogs-->
+		<section class="sptb bg-white">
+			<div class="container">
+				<div class="section-title center-block text-center">
+					<h2>How It Works?</h2>
+					<p>Mauris ut cursus nunc. Morbi eleifend, ligula at consectetur vehicula</p>
+				</div>
+				<div class="row">
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<div class="">
+							<div class="mb-lg-0 mb-4">
+								<div class="service-card text-center">
+									<div class="bg-light icon-bg  icon-service text-purple">
+										<img src="#" alt="img">
+									</div>
+									<div class="servic-data mt-3">
+										<h4 class="font-weight-semibold mb-2">Find Candidates</h4>
+										<p class="text-muted mb-0">Nam libero tempore, cum soluta nobis est eligendi cumque facere possimus</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<div class="">
+							<div class="mb-lg-0 mb-4">
+								<div class="service-card text-center">
+									<div class="bg-light icon-bg icon-service text-purple">
+										<img src="#" alt="img">
+									</div>
+									<div class="servic-data mt-3">
+										<h4 class="font-weight-semibold mb-2">Pay Online</h4>
+										<p class="text-muted mb-0">Nam libero tempore, cum soluta nobis est eligendi cumque facere possimus</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<div class="">
+							<div class="mb-lg-0 mb-4">
+								<div class="service-card text-center">
+									<div class="bg-light icon-bg  icon-service text-purple">
+										<img src="#" alt="img">
+									</div>
+									<div class="servic-data mt-3">
+										<h4 class="font-weight-semibold mb-2">Hire Candidate</h4>
+										<p class="text-muted mb-0">Nam libero tempore, cum soluta nobis est eligendi cumque facere possimus</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<div class="">
+							<div class="">
+								<div class="service-card text-center">
+									<div class="bg-light icon-bg  icon-service text-purple">
+										<img src="#" alt="img">
+									</div>
+									<div class="servic-data mt-3">
+										<h4 class="font-weight-semibold mb-2">Work</h4>
+										<p class="text-muted mb-0">Nam libero tempore, cum soluta nobis est eligendi cumque facere possimus</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+{% endblock %}
+		<!--Blogs-->
+
+		<!--Footer Section-->
+
+		<!--Footer Section-->
+
+		<!-- Notification -->

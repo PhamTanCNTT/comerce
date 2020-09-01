@@ -1,0 +1,207 @@
+{% extends 'base_admin2.html' %}
+
+{% block mydash2 %}
+                <div>{% csrf_token %}</div>
+                {% if user.is_authenticated %}
+                    <script>
+                        window.onload = get_profile()
+                    </script>
+                    {% if not user.employee %}
+                        <script> window.location.href = "/jwtauth/checkfunc/"</script>
+                    {% endif %}
+                {% else %}
+                    <script> window.location.href = "/account/login/"</script>
+                {% endif %}
+                <div class="col-xl-9 col-lg-12 col-md-12">
+						<div class="card mb-0">
+							<div class="card-header">
+								<h3 class="card-title">Edit Profile</h3>
+							</div>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-6 col-md-6">
+                                        <label id="error_firtname" style="color: red"></label>
+										<div class="form-group">
+											<label class="form-label">User First Name</label>
+											<input type="text" class="form-control" placeholder="First Name" id="userfirtname">
+										</div>
+									</div>
+									<div class="col-sm-6 col-md-6">
+                                        <label id="error_middname" style="color: red"></label>
+										<div class="form-group">
+											<label class="form-label">User Middle Name</label>
+											<input type="text" class="form-control" placeholder="Middle Name" id="usermiddlename">
+										</div>
+									</div>
+									<div class="col-sm-6 col-md-6">
+                                        <label id="error_lastname" style="color: red"></label>
+										<div class="form-group">
+											<label class="form-label">User Last Name</label>
+											<input type="text" class="form-control" placeholder="Last Name" id="userlastname">
+										</div>
+									</div>
+                                    <div class="col-sm-6 col-md-6">
+                                        <label id="error_fullname" style="color: red"></label>
+										<div class="form-group">
+											<label id="" class="form-label">User Full Name</label>
+											<input type="text" class="form-control" placeholder="Full Name" id="userfullname">
+										</div>
+									</div>
+									<div class="col-sm-6 col-md-6">
+                                        <label id="error_birthday" style="color: red"></label>
+										<div class="form-group">
+											<label id="" class="form-label">User Birth Day</label>
+											<input type="date" class="form-control" placeholder="UserBirthDay" id="userbirtday">
+										</div>
+									</div>
+									<div class="col-sm-6 col-md-6">
+                                        <label id="error_sex" style="color: red"></label>
+										<div class="form-group">
+											<label id="" class="form-label">User Sex</label>
+											<input type="text" class="form-control" placeholder="User Sex" id="usersex">
+										</div>
+									</div>
+									<div class="col-sm-6 col-md-6">
+                                        <label id="error_phone" style="color: red"></label><br>
+                                        <label id="error_phone2" style="color: red"></label>
+										<div class="form-group">
+											<label id="" class="form-label">User Phone</label>
+											<input type="number" class="form-control" placeholder="User Phone" id="userphone">
+										</div>
+									</div>
+									<div class="col-sm-6 col-md-6">
+                                        <label id="error_email" style="color: red"></label><br>
+                                        <label id="error_email2" style="color: red"></label>
+										<div class="form-group">
+											<label class="form-label">Email</label>
+											<input type="email" class="form-control" placeholder="Email" id="email">
+										</div>
+									</div>
+                                    <div class="col-sm-6 col-md-6" id="list_address">
+                                        <label id="error_address" style="color: red"></label>
+										<div class="form-group">
+											<label class="form-label">Address: </label>
+{#                                            <select class="form-control" id="select_address_full2"></select>#}
+                                            <br>
+                                            <a onclick="show_form_add_address()" class="btn btn-light btn-sm" href="#"><i class="fa fa-plus"></i> Add Another</a>
+                                            <select class="form-control" id="select_address_full"></select>
+                                                <button onclick="show_form_update_address()" class="btn btn-success btn-sm text-white" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i></button>
+                                                <button class="btn btn-danger btn-sm text-white" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash-o"></i></button>
+										</div>
+									</div>
+                                    <div class="col-sm-6 col-md-6" id="add_address">
+                                        <label for="">Address profile</label>
+                                        <div class="form-group">
+                                            <label class="form-label">Nation</label>
+                                            <select name="" id="Select_Nation" class="form-control" onchange="listprovince()">
+{#                                                <option id="option_Nation">Nation</option>#}
+                                            </select>
+                                            <div id="nation"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Province</label>
+                                            <select name="" id="Select_Province" onchange="district()" class="form-control">
+{#                                                <option id="option_Province">Province</option>#}
+                                            </select>
+                                            <div id="province"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">District</label>
+                                            <select name="" id="Select_District" class="form-control" onchange="ward()">
+{#                                                <option id="option_District">District</option>#}
+                                            </select>
+                                            <div id="district"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Ward</label>
+                                            <select name="" id="Select_Ward" class="form-control">
+{#                                                <option value="" id="option_Ward">Ward</option>#}
+                                            </select>
+                                            <div id="ward"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Place</label>
+                                            <input type="text" class="form-control" placeholder="Place" id="place">
+                                        </div>
+                                        <button onclick="add_address()" id="btn_add">Add Address</button>
+                                        <button onclick="update_address()" id="btn_save">Save</button>
+									</div>
+{#                                    upload image#}
+{#                                    <div class="col-sm-6 col-md-3">#}
+{#                                        <div class="form-group">#}
+{#                                            <label class="form-label">User Image: </label>#}
+{#                                            {% if user.profile.UserImage %}#}
+{#                                            <p class="file-upload">Currently:  <a href="{{ user.profile.UserImage.url }}">{{ user.profile.UserImage }}</a>#}
+{#                                            <span class="clearable-file-input">#}
+{#                                                <input type="checkbox" name="picture-clear" id="picture-clear_id">#}
+{#                                                <label for="picture-clear_id">Clear</label></span><br>#}
+{#                                            {% endif %}#}
+{#                                            <input id="user_image">#}
+{#                                        </div>#}
+{#                                    </div>#}
+                                    <br>
+                                    <br>
+                                   <form id="avatar_form">
+                                        <div >
+                                            <label for="id_avatar">User Image</label>
+                                            <input type="file" class="form-control-file" id="id_avatar"/>
+                                        </div>
+                                        <button type="submit" id="upload_img" >Upload</button>
+                                    </form>
+								</div>
+							</div>
+							<div class="card-footer">
+                                <button type="submit" class="btn btn-primary" onclick="validation_mydash2()">Updated Profile</button>
+							</div>
+						</div>
+                </div>
+    <script src="../../static/Page/uploadimage.js"></script>
+{% endblock %}
+
+
+{% block ajax_update_profile %}
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+
+<script>
+    var URL_profile = "/connectdata/ProfileUserViewSet/";
+    function readCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    }
+
+    var csrftoken = readCookie('csrftoken');
+
+    document.getElementById('avatar_form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        let input = document.getElementById('id_avatar');
+        let data = new FormData();
+        data.append('UserImage', input.files[0]);
+        console.log(data)
+        var id_upload_img = document.getElementById("upload_img").value;
+    fetch('https://localhost:8000/jwtauth/ProfileUserViewSetToken/'+id_upload_img+"/", {
+        method: 'PUT',
+        headers: {
+            "X-CSRFToken": csrftoken
+        },
+        body: data
+
+        }).then(response => {
+            return response.json();
+            {#console.log(headers);#}
+        }).then(data => {
+            get_img()
+            console.log(data);
+        }).catch((error) => {
+            console.error('Error:', error);
+        });
+
+});
+</script>
+{% endblock %}
+

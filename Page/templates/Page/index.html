@@ -1,0 +1,397 @@
+{% extends "base.html" %}
+{% load static %}
+{% block index_a %}
+    <script>
+        var URL_get_resume = "/employee/GetallCVView/";
+
+        var url_logo_job = "/employer/GetallJobView_img/";
+        function get_img_job()
+        {
+            $.getJSON(url_logo_job,{},get_img_job1);
+        }
+        function get_img_job1(job) {
+            for (var i = 0; i < job.length; i++){
+                 {#$("#" + course.company[i].id +"id").val(),#}
+                $("#"+job[i].id+"img_logo_job").prop('src',job[i].ImageJob)
+            }
+        }
+
+
+        function get_resume()
+        {
+            $.getJSON(URL_get_resume,{},get_resume1);
+        }
+        function get_resume1(cv) {
+            var ID_resume = '';
+            var Title1 = '';
+            var Career1 = '';
+            {#cv.length#}
+            for (var i = 0; i < 12; i++){
+                ID_resume = cv[i].id;
+                Title1 = cv[i].Title;
+                Career1 = cv[i].Career;
+                 {#$("#show_title_resume").append(#}
+                 {#    '<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6" onclick="detail_resume('+ID_resume+')">'+#}
+                 {#        '<div class="item-all-card text-dark text-center">' +#}
+                 {#               '<div class="item-all-text mt-3">'+#}
+                 {#                   '<label class="mb-0 text-body" id='+ID_resume+'>'+#}
+                 {#                   Title1 +#}
+                 {#                   '</label>'+#}
+                 {#               '</div>'+#}
+                 {#               '<div class="item-all-text mt-3">' +#}
+                 {#                   Career1+#}
+                 {#               '</div>' +#}
+                 {#           '</div>'+#}
+                 {#    '</div>'#}
+                 {#)#}
+                $("#show_title_resume").append(
+                    '<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6" onclick="detail_resume('+ID_resume+')">\n' +
+                    '\t\t\t\t\t\t\t<div class="item-all-card text-dark text-center">\n' +
+                    '\t\t\t\t\t\t\t\t<a ></a>\n' +
+                    '\t\t\t\t\t\t\t\t<div >\n' +
+                    '\t\t\t\t\t\t\t\t\t<div src="" id="'+ID_resume+'img_logo_job" class="imag-service" alt="Cashier">\n' +
+                    '\t\t\t\t\t\t\t\t</div>\n' +
+                    '\t\t\t\t\t\t\t\t<div class="item-all-text mt-3">\n' +
+                    '\t\t\t\t\t\t\t\t\t<h5 class="mb-0 text-body" id='+ID_resume+'>'+Title1+'</h5>\n' +
+                    '\t\t\t\t\t\t\t\t</div>\n' +
+                    '\t\t\t\t\t\t\t</div>\n' +
+                    '\t\t\t\t\t\t</div>'+
+                        '</div'
+                )
+            }
+            get_img_job()
+        }
+
+
+        var URL_get_job = "/employer/GetallJobView/";
+        function get_job()
+        {
+            $.getJSON(URL_get_job,{},get_job1);
+        }
+        function get_job1(job) {
+            var ID_job = '';
+            var JobTitle1 = '';
+            var JobRequirements1 = '';
+            var Img_logo_job = '';
+            for (var i = 0; i < 12; i++){
+                ID_job = job[i].id;
+                JobTitle1 = job[i].JobTitle;
+                JobRequirements1 = job[i].JobRequirements;
+                Img_logo_job = job[i].ImageJob;
+                 {#$("#show_title_resume").append(#}
+                 {#    '<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6" onclick="detail_job('+ID_job+')">'+#}
+                 {#        '<div class="item-all-card text-dark text-center">' +#}
+                 {#               '<div class="iteam-all-icon">'+#}
+                 {#                   '<img src="" id="'+ID_job+'img_logo_job" class="imag-service" alt="Cashier">'+#}
+                 {#               '</div>'+#}
+                 {#               '<div class="item-all-text mt-3">'+#}
+                 {#                   '<h5 class="mb-0 text-body" id='+ID_job+'>'+#}
+                 {#                   JobTitle1 +#}
+                 {#                   '</h5>'+#}
+                 {#               '</div>'+#}
+                 {#       '</div>'+#}
+                 {#    '</div>'#}
+                 {#)#}
+                $("#show_title_resume").append(
+                     '<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6" onclick="detail_job('+ID_job+')">\n' +
+                    '\t\t\t\t\t\t\t<div class="item-all-card text-dark text-center">\n' +
+                    '\t\t\t\t\t\t\t\t<a ></a>\n' +
+                    '\t\t\t\t\t\t\t\t<div >\n' +
+                    '\t\t\t\t\t\t\t\t\t<img src="" id="'+ID_job+'img_logo_job" class="imag-service" alt="Cashier">\n' +
+                    '\t\t\t\t\t\t\t\t</div>\n' +
+                    '\t\t\t\t\t\t\t\t<div class="item-all-text mt-3">\n' +
+                    '\t\t\t\t\t\t\t\t\t<h5 class="mb-0 text-body" id='+ID_job+'>'+JobTitle1+'</h5>\n' +
+                    '\t\t\t\t\t\t\t\t</div>\n' +
+                    '\t\t\t\t\t\t\t</div>\n' +
+                    '\t\t\t\t\t\t</div>'+
+                        '</div'
+                )
+            }
+            get_img_job();
+        }
+
+        function detail_resume(id){
+            window.location.href = "/page/index/"+id+"/";
+        }
+
+        function detail_job(id) {
+            window.location.href = "/page/updatejob/"+id+"/";
+        }
+
+
+        {% if user.employee.isEmployee == True %}
+           {#window.addEventListener("load",get_job,true);#}
+           {#window.addEventListener("load",get_img_job,true);#}
+            window.onload = get_job();
+        {% endif %}
+        {% if user.employer.isEmployer == True %}
+            window.onload = get_resume();
+        {% endif %}
+         window.onload = get_img_job();
+
+    </script>
+    <!--Sliders Section-->
+		<section>
+			<div class="banner-1 cover-image sptb-3 pb-14 sptb-tab bg-background2" data-image-src="../assets/images/banners/banner1.jpg">
+				<div class="header-text mb-0">
+					<div class="container">
+						<div class="text-center text-white mb-7">
+							<h1 class="mb-1">Find The Best Resume For Your Future</h1>
+							<p>It is a long established fact that a reader will be distracted by the readable.</p>
+						</div>
+						<div class="row">
+							<div class="col-xl-10 col-lg-12 col-md-12 d-block mx-auto">
+								<div class="search-background bg-transparent">
+									<div class="form row no-gutters ">
+										<div class="form-group  col-xl-4 col-lg-3 col-md-12 mb-0 bg-white ">
+											<input type="text" class="form-control input-lg br-tr-md-0 br-br-md-0" id="text4" placeholder="Search Jobs">
+										</div>
+										<div class="form-group  col-xl-3 col-lg-3 col-md-12 mb-0 bg-white">
+											<input type="text" class="form-control input-lg br-md-0" id="text5" placeholder="Select Location">
+											<span><img src="#" class="location-gps"></span>
+										</div>
+										<div class="form-group col-xl-3 col-lg-3 col-md-12 select2-lg  mb-0 bg-white">
+											<select class="form-control select2-show-search  border-bottom-0" data-placeholder="Select Category">
+												<optgroup label="Categories">
+													<option>All Categories</option>
+													<option value="1">Accountant</option>
+													<option value="2">IT Software</option>
+													<option value="3">Banking</option>
+													<option value="4">Finaces</option>
+													<option value="5">Cook/Chef</option>
+													<option value="6">Driveing</option>
+													<option value="7">HR Recruiter</option>
+													<option value="8">IT Hardware</option>
+													<option value="9">Sales</option>
+												</optgroup>
+											</select>
+										</div>
+										<div class="col-xl-2 col-lg-3 col-md-12 mb-0">
+											<a href="#" class="btn btn-lg btn-block btn-secondary br-tl-md-0 br-bl-md-0"><i class="fa fa-search mr-1"></i>Search</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div><!-- /header-text -->
+				<div class="header-slider-img">
+					<div class="container">
+						<div id="small-categories" class="owl-carousel owl-carousel-icons7">
+							<div class="item">
+								<div class="card mb-0">
+									<div class="card-body p-3">
+										<div class="cat-item d-flex">
+											<a href="jobs-list.html"></a>
+											<div class="cat-img mr-4 bg-primary-transparent p-3 brround">
+												<img src="{% static "assets/images/LinhVucSGV/cashier.png" %}" alt="img">
+											</div>
+											<div class="cat-desc text-left">
+												<h5 class="mb-3 mt-0">Call Centers</h5>
+												<small class="badge badge-pill badge-primary mr-2">7,485 Jobs</small>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="card mb-0">
+									<div class="card-body p-3">
+										<div class="cat-item d-flex">
+											<a href="jobs-list.html"></a>
+											<div class="cat-img mr-4 bg-secondary-transparent p-3 brround">
+												<img src="{% static "assets/images/LinhVucSGV/hand.png" %}" alt="img">
+											</div>
+											<div class="cat-desc text-left">
+												<h5 class="mb-3">Cashier</h5>
+												<small class="badge badge-pill badge-secondary mr-2">3,451 Jobs</small>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="card mb-0">
+									<div class="card-body p-3">
+										<div class="cat-item d-flex">
+											<a href="jobs-list.html"></a>
+											<div class="cat-img mr-4 bg-success-transparent p-3 brround">
+												<img src="{% static "assets/images/LinhVucSGV/operator.png" %}" alt="img">
+											</div>
+											<div class="cat-desc text-left">
+												<h5 class="mb-3">BPO</h5>
+												<small class="badge badge-pill badge-success mr-2">4,758 Jobs</small>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="card mb-0">
+									<div class="card-body p-3">
+										<div class="cat-item d-flex">
+											<a href="jobs-list.html"></a>
+											<div class="cat-img mr-4 bg-danger-transparent p-3 brround">
+												<img src="{% static "assets/images/LinhVucSGV/truck.png" %}" alt="img">
+											</div>
+											<div class="cat-desc text-left">
+												<h5 class="mb-3">Delivery Jobs</h5>
+												<small class="badge badge-pill badge-danger mr-2">6,457 Jobs</small>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="card mb-0">
+									<div class="card-body p-3">
+										<div class="cat-item d-flex">
+											<a href="jobs-list.html"></a>
+											<div class="cat-img mr-4 bg-warning-transparent p-3 brround">
+												<img src="../assets/images/products/categories/hand.png" alt="img">
+											</div>
+											<div class="cat-desc text-left">
+												<h5 class="mb-3">Life Insurance</h5>
+												<small class="badge badge-pill badge-warning mr-2">2,875 Jobs</small>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="card mb-0">
+									<div class="card-body p-3">
+										<div class="cat-item d-flex">
+											<a href="jobs-list.html"></a>
+											<div class="cat-img mr-4 bg-info-transparent p-3 brround">
+												<img src="../assets/images/products/categories/presentation.png" alt="img">
+											</div>
+											<div class="cat-desc text-left">
+												<h5 class="mb-3">Teacher/lecturer</h5>
+												<small class="badge badge-pill badge-info mr-2">2,154 Jobs</small>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="card mb-0">
+									<div class="card-body p-3">
+										<div class="cat-item d-flex">
+											<a href="jobs-list.html"></a>
+											<div class="cat-img mr-4 bg-primary-transparent p-3 brround">
+												<img src="../assets/images/products/categories/nurse.png" alt="img">
+											</div>
+											<div class="cat-desc text-left">
+												<h5 class="mb-3">Nurse</h5>
+												<small class="badge badge-pill badge-primary mr-2">1,785 Jobs</small>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="card mb-0">
+									<div class="card-body p-3">
+										<div class="cat-item d-flex">
+											<a href="jobs-list.html"></a>
+											<div class="cat-img mr-4 bg-secondary-transparent p-3 brround">
+												<img src="../assets/images/products/categories/web.png" alt="img">
+											</div>
+											<div class="cat-desc text-left">
+												<h5 class="mb-3">IT Software</h5>
+												<small class="badge badge-pill badge-secondary mr-2">2,456 Jobs</small>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="card mb-0">
+									<div class="card-body p-3">
+										<div class="cat-item d-flex">
+											<a href="jobs-list.html"></a>
+											<div class="cat-img mr-4 bg-success-transparent p-3 brround">
+												<img src="../assets/images/products/categories/charts.png" alt="img">
+											</div>
+											<div class="cat-desc text-left">
+												<h5 class="mb-3">Sales</h5>
+												<small class="badge badge-pill badge-success mr-2">1,456 Jobs</small>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="card mb-0">
+									<div class="card-body p-3">
+										<div class="cat-item d-flex">
+											<a href="jobs-list.html"></a>
+											<div class="cat-img mr-4 bg-info-transparent p-3 brround">
+												<img src="../assets/images/products/categories/chauffer.png" alt="img">
+											</div>
+											<div class="cat-desc text-left">
+												<h5 class="mb-3">Driver</h5>
+												<small class="badge badge-pill badge-info mr-2">896 Jobs</small>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="card mb-0">
+									<div class="card-body p-3">
+										<div class="cat-item d-flex">
+											<a href="jobs-list.html"></a>
+											<div class="cat-img mr-4 bg-warning-transparent p-3 brround">
+												<img src="../assets/images/products/categories/makeup.png" alt="img">
+											</div>
+											<div class="cat-desc text-left">
+												<h5 class="mb-3">Beautician</h5>
+												<small class="badge badge-pill badge-warning mr-2">1,478 Jobs</small>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="card mb-0">
+									<div class="card-body p-3">
+										<div class="cat-item d-flex">
+											<a href="jobs-list.html"></a>
+											<div class="cat-img mr-4 bg-danger-transparent p-3 brround">
+												<img src="../assets/images/products/categories/cooking.png" alt="img">
+											</div>
+											<div class="cat-desc text-left">
+												<h5 class="mb-3">Cooking</h5>
+												<small class="badge badge-pill badge-danger mr-2">2,424 Jobs</small>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--Sliders Section-->
+
+		<!--Categories-->
+		<section class="sptb">
+			<div class="container">
+				<div class="section-title center-block text-center">
+                    <div class="item-all-card text-dark text-center">
+{#                        <h1>Job Categories</h1>#}
+{#					    <p>Mauris ut cursus nunc. Morbi eleifend, ligula at consectetur vehicula</p>#}
+                    </div>
+				</div>
+				<div class="item-all-cat center-block text-center education-categories">
+					<div class="row" id="show_title_resume">
+
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--Categories-->
+{% endblock %}

@@ -1,0 +1,338 @@
+{% extends 'employee/base_admin_employee.html' %}
+
+<!-- ######################### Khai báo base_admin_employee ######################### -->
+
+{% block base_admin_employee %}
+    <div>{% csrf_token %}</div>
+    {% if user.is_authenticated %}
+        <script>
+            window.onload = get_profile()
+        </script>
+        {% if not user.employee %}
+            <script> window.location.href = "/jwtauth/checkfunc/"</script>
+        {% endif %}
+    {% else %}
+        <script> window.location.href = "/account/login/"</script>
+    {% endif %}
+
+    <!-- ####################### Cập nhật thông tin cá nhân ####################### -->
+
+    <div class="col-xl-9 col-lg-12 col-md-12">
+        <div class="card mb-0">
+            <div class="card-header">
+                <h3 class="card-title">Chỉnh sữa thông tin cá nhân</h3>
+            </div>
+            <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6">
+                            <label id="error_firtname" style="color: red"></label>
+                            <div class="form-group">
+                                <label class="form-label">Họ: </label>
+                                <input type="text" class="form-control" placeholder="Họ" id="userfirtname">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <label id="error_middname" style="color: red"></label>
+                            <div class="form-group">
+                                <label class="form-label">Lót: </label>
+                                <input type="text" class="form-control" placeholder="Lót" id="usermiddlename">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6">
+                            <label id="error_lastname" style="color: red"></label>
+                            <div class="form-group">
+                                <label class="form-label">Tên: </label>
+                                <input type="text" class="form-control" placeholder="Tên" id="userlastname">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <label id="error_birthday" style="color: red"></label>
+                            <div class="form-group">
+                                <label id="" class="form-label">Ngày sinh: </label>
+                                <input type="date" class="form-control" placeholder="Ngày sinh" id="userbirthday">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6">
+                            <label id="error_sex" style="color: red"></label><br>
+                            <label id="error_sex2" style="color: red"></label>
+                            <div class="form-group">
+                                <label id="" class="form-label">Giới tính</label>
+                                <input type="text" class="form-control" placeholder="Giới tính" id="usersex">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <label id="error_phone" style="color: red"></label><br>
+                            <label id="error_phone2" style="color: red"></label>
+                            <div class="form-group">
+                                <label id="" class="form-label">Di động: </label>
+                                <input type="number" class="form-control" placeholder="0336803368" id="userphone">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6">
+                            <label id="error_email" style="color: red"></label><br>
+                            <label id="error_email2" style="color: red"></label>
+                            <div class="form-group">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" placeholder="Email" id="email">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <label id="error_useridcard" style="color: red"></label><br>
+                            <label id="error_useridcard2" style="color: red"></label>
+                            <div class="form-group">
+                                <label class="form-label">Số CMND: </label>
+                                <input type="number" class="form-control" placeholder="Số CMND" id="useridcard">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                         <div class="col-sm-6 col-md-6">
+                            <label id="error_idcardplaceofissue" style="color: red"></label><br>
+                            <label id="error_idcardplaceofissue2" style="color: red"></label>
+                            <div class="form-group">
+                                <label class="form-label">Nơi cấp: </label>
+                                <input type="text" class="form-control" placeholder="Nơi cấp" id="idcardplaceofissue">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <label id="error_userapplydate" style="color: red"></label><br>
+                            <label id="error_userapplydate2" style="color: red"></label>
+                            <div class="form-group">
+                                <label id="" class="form-label">Ngày cấp: </label>
+                                <input type="date" class="form-control" placeholder="Ngày cấp" id="userapplydate">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                         <div class="col-sm-6 col-md-6">
+                            <label id="error_usernationality" style="color: red"></label>
+                            <div class="form-group">
+                                <label id="" class="form-label">Quốc tịch: </label>
+                                <input type="text" class="form-control" placeholder="Quốc tịch" id="usernationality">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <label id="error_maritalstatus" style="color: red"></label>
+                            <div class="form-group">
+                                <label id="" class="form-label">Tình trạng hôn nhân: </label>
+                                <input type="text" class="form-control" placeholder="Tình trạng hôn nhân" id="maritalstatus">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="list_address">
+                        <label id="error_address" style="color: red"></label>
+                        <div >
+                            <div class="row">
+                                    <label>Nơi ở: </label>
+                                    <select class="form-control" id="select_address_full"></select>
+                            </div><br>
+
+                            <div class="row">
+                                <div class="col-1">
+                                    <button onclick="show_form_add_address()" class="btn btn-success btn-sm text-white"><i class="fa fa-plus"></i> Add </button>
+                                 </div>
+                                <div class="col-1">
+                                    <button onclick="show_form_update_address()" class="btn btn-success btn-sm text-white"><i class="fa fa-pencil"></i> Edit</button>
+                                </div>
+                                <div class="col-1">
+                                    <button class="btn btn-danger btn-sm text-white" data-original-title="Delete">
+                                        <i class="fa fa-trash-o"></i> Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ####################### Add Address ####################### -->
+
+                    <div class="col-sm-6 col-md-6" id="add_address">
+                            <label for="">Address profile</label>
+                            <div class="form-group">
+                                <label class="form-label">Nation</label>
+                                <select name="" id="Select_Nation" class="form-control" onchange="listprovince()">
+                                    <option id="option_Nation">Nation</option>
+                                </select>
+                                <div id="nation"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Province</label>
+                                <select name="" id="Select_Province" onchange="district()" class="form-control">
+                                    <option id="option_Province">Province</option>
+                                </select>
+                                <div id="province"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">District</label>
+                                <select name="" id="Select_District" class="form-control" onchange="ward()">
+                                    <option id="option_District">District</option>
+                                </select>
+                                <div id="district"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Ward</label>
+                                <select name="" id="Select_Ward" class="form-control">
+                                    <option value="" id="option_Ward">Ward</option>
+                                </select>
+                                <div id="ward"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">NameStreet</label>
+                                <input type="text" class="form-control" placeholder="NameStreet" id="NameStreet">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">No Load</label>
+                                <input type="text" class="form-control" placeholder="NameStreet" id="NoLoad">
+                            </div>
+                            <button onclick="add_address()" id="btn_add">Add Address</button>
+                            <button onclick="update_address()" id="btn_save">Save</button>
+                        </div>
+
+                    <!-- ####################### Add Address ####################### -->
+        </div>
+        <div class="card mb-0">
+                 <div class="card-footer">
+                         <form id="cmnd1_form">
+                            <div >
+                                <div class="row">
+                                    <div class="col-2">
+                                        <label>CMND mặt trước: </label>
+                                    </div>
+                                    <div class="col-7">
+                                    <input type="file" class="form-control-file" id="id_cmnd1"/>
+                                    </div>
+                                    <div class="col-1">
+                                        <button type="submit" class="btn btn-primary" id="upload_cmnd1" >Upload</button>
+                                    </div>
+                                </div>
+                            <div class="row row-cols-2">
+                                <img class = "imagecmnd rounded mx-auto d-block border" src="" alt="error_image" id="imgcmnd1">
+                            </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer">
+                        <form id="cmnd2_form">
+                            <div >
+                                <div class="row">
+                                    <div class="col-2">
+                                        <label>CMND mặt sau: </label>
+                                    </div>
+                                    <div class="col-7">
+                                        <input type="file" class="form-control-file" id="id_cmnd2"/>
+                                    </div>
+                                    <div class="col-1">
+                                        <button type="submit" class="btn btn-primary" id="upload_cmnd2" >Upload</button>
+                                    </div>
+                                </div>
+                            <div class="row row-cols-2">
+                                <img class = "imagecmnd rounded mx-auto d-block border" src="" alt="error_image" id="imgcmnd2">
+                            </div>
+                            </div>
+                        </form>
+                    </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary" onclick="validation_employeedash()">Updated Profile</button>
+                </div>
+         </div>
+    </div>
+
+    <!-- ####################### Cập nhật thông tin cá nhân ####################### -->
+
+{% endblock %}
+
+<!-- ######################### Khai báo base_admin_employee ######################### -->
+
+<!-- ######################### Khai báo ajax_update_profile ######################### -->
+
+{% block ajax_update_profile %}
+    <script>
+        var urlhttp = "https://localhost:8000";
+
+        <!-- ################################ readCookie ############################# -->
+
+        function readCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0;i < ca.length;i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+            }
+            return null;
+        }
+
+        var csrftoken = readCookie('csrftoken');
+
+        <!-- ################################ readCookie ############################# -->
+
+
+        <!-- ####################### Cập nhật Hình CMND 1 AJAX ####################### -->
+
+        document.getElementById('cmnd1_form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let input = document.getElementById('id_cmnd1');
+            let data = new FormData();
+            data.append('CMND1', input.files[0]);
+            console.log(data)
+            var id_upload_cmnd1 = document.getElementById("upload_cmnd1").value;
+
+            fetch( urlhttp + '/connectdata/profilecmnd1/'+id_upload_cmnd1+"/",
+                {
+                    method: 'PUT',
+                    headers: {
+                        "X-CSRFToken": csrftoken
+                },
+            body: data
+            }).then(response => {
+                return response.json();
+            }).then(data => {
+                get_cmnd1()
+                console.log(data);
+            }).catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+
+        <!-- ####################### Cập nhật Hình CMND 1 AJAX ####################### -->
+
+        <!-- ####################### Cập nhật Hình CMND 2 AJAX ####################### -->
+
+        document.getElementById('cmnd2_form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let input = document.getElementById('id_cmnd2');
+            let data = new FormData();
+            data.append('CMND2', input.files[0]);
+            console.log(data)
+            var id_upload_cmnd2 = document.getElementById("upload_cmnd2").value;
+
+            fetch( urlhttp + '/connectdata/profilecmnd2/'+id_upload_cmnd2+"/",
+                {
+                    method: 'PUT',
+                    headers: {
+                        "X-CSRFToken": csrftoken
+                },
+            body: data
+            }).then(response => {
+                return response.json();
+            }).then(data => {
+                get_cmnd2()
+                console.log(data);
+            }).catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+
+        <!-- ####################### Cập nhật Hình CMND 2 AJAX ####################### -->
+
+    </script>
+{% endblock %}
+
+<!-- ######################### Khai báo ajax_update_profile ######################### -->
+
+

@@ -1,0 +1,90 @@
+{% extends "base_admin2.html" %}
+{% load static %}
+{% block mydash2 %}
+    <script>
+        var url_list_schedule = "/employer/ScheduleGetAllView/";
+
+        function list_schedule() {
+            $.getJSON(url_list_schedule,{},list_schedule1);
+        }
+        var ID_sche = '';
+        function list_schedule1(sche) {
+            for (var i = 0; i < sche.length; i++){
+                ID_sche = sche[i].id;
+                var sche_name = sche[i].SchName;
+
+                $("#schedulerow").append(
+                    "<tr>"+
+                        "<td>" +
+                            '<label class="custom-control custom-checkbox">' +
+                                '<input type="checkbox" class="custom-control-input select_checkbox" name="checkbox" value='+ID_sche+' id="checkbox_getid">'+
+                                '<span class="custom-control-label"></span>'+
+                            '</label>'
+                        + "</td>" +
+                        "<td>"+
+                            sche_name+
+                        "</td>"+
+                        '<td>' +
+                            '<button onclick="edit_sche(value)" value='+ID_sche+' id='+ID_sche+' class="btn btn-success btn-sm text-white" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i></button>' +
+                            '<button id='+ID_sche+' class="btn btn-danger btn-sm text-white" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash-o"></i></button>' +
+                            '<button id='+ID_sche+' class="btn btn-primary btn-sm text-white" data-toggle="tooltip" data-original-title="View"><i class="fa fa-eye"></i></button>' +
+                        '</td>' +
+                    "</tr>"
+                )
+            }
+        }
+
+        function edit_sche(id){
+            window.location.href = "/page/createcalendar2/" + id + "/"
+        }
+
+        window.onload = list_schedule();
+    </script>
+
+
+    {#///////////////////////////////// html list Schedule \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+    <div class="col-xl-9 col-lg-12 col-md-12">
+        <div class="card" id="listmycv">
+            <div class="card-header ">
+                <h3 class="card-title">List Schedule</h3>
+                <div class="card-options">
+                    <button onclick="showform_job_add()" class="btn btn-light btn-sm" href="#"><i class="fa fa-plus"></i> Add Another</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="ads-tabs">
+                    <div class="tabs-menus">
+                        <!-- Tabs -->
+                        <ul class="nav panel-tabs">
+                            <li class=""><a href="#tab1" class="active" data-toggle="tab">All Ads (20)</a></li>
+                            <li><a href="#tab2" data-toggle="tab">Published (08)</a></li>
+                            <li><a href="#tab3" data-toggle="tab">Featured (05)</a></li>
+                            <li><a href="#tab4" data-toggle="tab">Sold (03)</a></li>
+                            <li><a href="#tab5" data-toggle="tab">Active (03)</a></li>
+                            <li><a href="#tab6" data-toggle="tab">Expired (01)</a></li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                    <div class="tab-pane active table-responsive border-top userprof-tab" id="tab1">
+                        <table class="table table-bordered table-hover mb-0 text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>select</th>
+                                    <th>Schedule name</th>
+                                    <th >Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="schedulerow">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    {#//////////////////////////////////// end html list Schedule \\\\\\\\\\\\\\\\\\\\\\\\\\\\#}
+
+{% endblock %}

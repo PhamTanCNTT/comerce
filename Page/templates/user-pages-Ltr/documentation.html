@@ -1,0 +1,685 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="Description" content="Job board html template">
+		<meta name="Author" content="Spruko Technologies Private Limited">
+		<meta name="keywords" content="bootstrap job board template, bootstrap job template, hr consultancy website template, job board bootstrap template, job board html template, job listing html template, job portal html template, job portal templates html5, job posting website template, job recruitment website template, job template bootstrap, job template html, simple html and css templates, simple html css templates, directory listing html template, classified website template, responsive css template, html5 responsive template, job posting template, simple bootstrap template, bootstrap 4 templates, job application template, html5 template, premium, recruitment, template, html, job alert, directory"/>
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="HandheldFriendly" content="True">
+		<meta name="MobileOptimized" content="320">
+		<link rel="icon" href="favicon.ico" type="image/x-icon"/>
+		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+
+		<!-- Title -->
+		<title>rejoin - Job board html template</title>
+
+		<!-- Bootstrap Css -->
+		<link href="../assets/plugins/bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet" />
+
+		<!-- Dashboard Css -->
+		<link href="../assets/css/style.css" rel="stylesheet" />
+		<link href="../assets/css/admin-custom.css" rel="stylesheet" />
+
+		<!-- Sidemenu Css -->
+		<link href="../assets/plugins/toggle-sidebar/sidemenu2.css" rel="stylesheet" />
+
+		<!-- Custom scroll bar css-->
+		<link href="../assets/plugins/scroll-bar/jquery.mCustomScrollbar.css" rel="stylesheet" />
+
+		<!---Font icons-->
+		<link href="../assets/css/icons.css" rel="stylesheet"/>
+
+		<!-- COLOR-SKINS -->
+		<link id="theme" rel="stylesheet" type="text/css" media="all" href="../assets/color-skins/color-skins/color10.css" />
+
+	</head>
+	<body class="app sidebar-mini">
+
+		<!--Loader-->
+		<div id="global-loader">
+			<img src="../assets/images/loader.svg" class="loader-img" alt="">
+		</div>
+
+		<!--Page-->
+		<div class="page">
+			<div class="page-main">
+
+				<!--header-->
+				<div class="app-header1 header py-1 d-flex">
+					<div class="container-fluid">
+						<div class="d-flex">
+							<a class="header-brand ml-sm-0 ml-4" href="documentation.html">
+								<img src="../assets/images/brand/logo-white.png" class="header-brand-img" alt="rejoin logo">
+							</a>
+							<a aria-label="Hide Sidebar" class="app-sidebar__toggle" data-toggle="sidebar" href="#"></a>
+							<div class="header-navicon">
+								<a href="#" data-toggle="search" class="nav-link d-lg-none navsearch-icon">
+									<i class="fa fa-search"></i>
+								</a>
+							</div>
+							<div class="header-navsearch">
+								<a href="#" class=" "></a>
+								<form class="form-inline mr-auto">
+									<div class="nav-search">
+										<input type="search" class="form-control header-search" placeholder="Search…" aria-label="Search" >
+										<button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+									</div>
+								</form>
+							</div>
+							<div class="d-flex order-lg-2 ml-auto">
+								<div class="dropdown d-none d-md-flex" >
+									<a  class="nav-link icon full-screen-link">
+										<i class="fe fe-maximize floating"  id="fullscreen-button"></i>
+									</a>
+								</div>
+								<div class="dropdown d-none d-md-flex country-selector">
+									<a href="#" class="d-flex nav-link leading-none" data-toggle="dropdown">
+										<img src="../assets/images/us_flag.jpg" alt="img" class="avatar avatar-xs mr-1 align-self-center">
+										<div>
+											<strong class="text-dark">English</strong>
+										</div>
+									</a>
+									<div class="language-width dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+										<a href="#" class="dropdown-item d-flex pb-3">
+											<img src="../assets/images/french_flag.jpg"  alt="flag-img" class="avatar  mr-3 align-self-center" >
+											<div>
+												<strong>French</strong>
+											</div>
+										</a>
+										<a href="#" class="dropdown-item d-flex pb-3">
+											<img src="../assets/images/germany_flag.jpg"  alt="flag-img" class="avatar  mr-3 align-self-center" >
+											<div>
+												<strong>Germany</strong>
+											</div>
+										</a>
+										<a href="#" class="dropdown-item d-flex pb-3">
+											<img src="../assets/images/italy_flag.jpg"  alt="flag-img" class="avatar  mr-3 align-self-center" >
+											<div>
+												<strong>Italy</strong>
+											</div>
+										</a>
+										<a href="#" class="dropdown-item d-flex pb-3">
+											<img src="../assets/images/russia_flag.jpg"  alt="flag-img" class="avatar  mr-3 align-self-center" >
+											<div>
+												<strong>Russia</strong>
+											</div>
+										</a>
+										<a href="#" class="dropdown-item d-flex pb-3">
+											<img src="../assets/images/spain_flag.jpg"  alt="flag-img" class="avatar  mr-3 align-self-center" >
+											<div>
+												<strong>Spain</strong>
+											</div>
+										</a>
+									</div>
+								</div>
+								<div class="dropdown d-none d-md-flex">
+									<a class="nav-link icon" data-toggle="dropdown">
+										<i class="fa fa-bell-o floating"></i>
+										<span class=" nav-unread badge badge-danger  badge-pill">4</span>
+									</a>
+									<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+										<a href="#" class="dropdown-item text-center">You have 4 notification</a>
+										<div class="dropdown-divider"></div>
+										<a href="#" class="dropdown-item d-flex pb-3">
+											<div class="notifyimg">
+												<i class="fa fa-envelope-o"></i>
+											</div>
+											<div>
+												<strong>2 new Messages</strong>
+												<div class="small text-muted">17:50 Pm</div>
+											</div>
+										</a>
+										<a href="#" class="dropdown-item d-flex pb-3">
+											<div class="notifyimg">
+												<i class="fa fa-calendar"></i>
+											</div>
+											<div>
+												<strong> 1 Event Soon</strong>
+												<div class="small text-muted">19-10-2019</div>
+											</div>
+										</a>
+										<a href="#" class="dropdown-item d-flex pb-3">
+											<div class="notifyimg">
+												<i class="fa fa-comment-o"></i>
+											</div>
+											<div>
+												<strong> 3 new Comments</strong>
+												<div class="small text-muted">05:34 Am</div>
+											</div>
+										</a>
+										<a href="#" class="dropdown-item d-flex pb-3">
+											<div class="notifyimg">
+												<i class="fa fa-exclamation-triangle"></i>
+											</div>
+											<div>
+												<strong> Application Error</strong>
+												<div class="small text-muted">13:45 Pm</div>
+											</div>
+										</a>
+										<div class="dropdown-divider"></div>
+										<a href="#" class="dropdown-item text-center">See all Notification</a>
+									</div>
+								</div>
+								<div class="dropdown d-none d-md-flex">
+									<a class="nav-link icon" data-toggle="dropdown">
+										<i class="fa fa-envelope-o floating"></i>
+										<span class=" nav-unread badge badge-warning  badge-pill">3</span>
+									</a>
+									<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+										<a href="#" class="dropdown-item d-flex pb-3">
+											<img src="../assets/images/users/male/41.jpg" alt="avatar-img" class="avatar brround mr-3 align-self-center">
+											<div>
+												<strong>Blake</strong> I've finished it! See you so.......
+												<div class="small text-muted">30 mins ago</div>
+											</div>
+										</a>
+										<a href="#" class="dropdown-item d-flex pb-3">
+											<img src="../assets/images/users/female/1.jpg" alt="avatar-img" class="avatar brround mr-3 align-self-center">
+											<div>
+												<strong>Caroline</strong> Just see the my Admin....
+												<div class="small text-muted">12 mins ago</div>
+											</div>
+										</a>
+										<a href="#" class="dropdown-item d-flex pb-3">
+											<img src="../assets/images/users/male/18.jpg" alt="avatar-img" class="avatar brround mr-3 align-self-center">
+											<div>
+												<strong>Jonathan</strong> Hi! I'am singer......
+												<div class="small text-muted">1 hour ago</div>
+											</div>
+										</a>
+										<a href="#" class="dropdown-item d-flex pb-3">
+											<img src="../assets/images/users/female/18.jpg" alt="avatar-img" class="avatar brround mr-3 align-self-center">
+											<div>
+												<strong>Emily</strong> Just a reminder that you have.....
+												<div class="small text-muted">45 mins ago</div>
+											</div>
+										</a>
+										<div class="dropdown-divider"></div>
+										<a href="#" class="dropdown-item text-center">View all Messages</a>
+									</div>
+								</div>
+								<div class="dropdown d-none d-md-flex">
+									<a class="nav-link icon" data-toggle="dropdown">
+										<i class="fe fe-grid floating"></i>
+									</a>
+									<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow  app-selector">
+										<ul class="drop-icon-wrap">
+											<li>
+												<a href="#" class="drop-icon-item">
+													<i class="si si-envelope text-dark"></i>
+													<span class="block"> E-mail</span>
+												</a>
+											</li>
+											<li>
+												<a href="#" class="drop-icon-item">
+													<i class="si si-map text-dark"></i>
+													<span class="block">map</span>
+												</a>
+											</li>
+
+											<li>
+												<a href="#" class="drop-icon-item">
+													<i class="si si-bubbles text-dark"></i>
+													<span class="block">Messages</span>
+												</a>
+											</li>
+											<li>
+												<a href="#" class="drop-icon-item">
+													<i class="si si-user-follow text-dark"></i>
+													<span class="block">Followers</span>
+												</a>
+											</li>
+											<li>
+												<a href="#" class="drop-icon-item">
+													<i class="si si-picture text-dark"></i>
+													<span class="block">Photos</span>
+												</a>
+											</li>
+											<li>
+												<a href="#" class="drop-icon-item">
+													<i class="si si-settings text-dark"></i>
+													<span class="block">Settings</span>
+												</a>
+											</li>
+										</ul>
+										<div class="dropdown-divider"></div>
+										<a href="#" class="dropdown-item text-center">View all</a>
+									</div>
+								</div>
+								<div class="mt-3">
+									<a href="https://themeforest.net/item/rejoin-job-board-html-template/25292154?s_rank=2" class="buy-now-button btn-secondary mr-4 mr-md-0"><i class="fa fa-shopping-cart"></i> Buy Now</a>
+								</div>
+								<div class="dropdown ">
+									<a href="#" class="nav-link pr-0 leading-none user-img" data-toggle="dropdown">
+										<img src="../assets/images/users/male/25.jpg" alt="profile-img" class="avatar avatar-md brround">
+									</a>
+									<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow ">
+										<a class="dropdown-item" href="profile.html">
+											<i class="dropdown-icon si si-user"></i> My Profile
+										</a>
+										<a class="dropdown-item" href="emailservices.html">
+											<i class="dropdown-icon si si-envelope"></i> Inbox
+										</a>
+										<a class="dropdown-item" href="editprofile.html">
+											<i class="dropdown-icon  si si-settings"></i> Account Settings
+										</a>
+										<a class="dropdown-item" href="login.html">
+											<i class="dropdown-icon si si-power"></i> Log out
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--header-->
+
+				<!-- Sidebar menu-->
+				<div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+				<aside class="app-sidebar doc-sidebar">
+					<ul class="side-menu">
+						<li>
+							<a class="side-menu__item" href="documentation.html"><i class="side-menu__icon fa fa-file-text"></i>
+							<span class="side-menu__label">Documentation</span></a>
+						</li>
+						<li>
+							<a class="side-menu__item" href="form-elements.html"><i class="side-menu__icon fa fa-file-text"></i>
+							<span class="side-menu__label">Form Elements</span></a>
+						</li>
+						<li>
+							<a class="side-menu__item" href="maps.html"><i class="side-menu__icon fa fa-map-marker"></i><span class="side-menu__label"> Maps</span></a>
+						</li>
+						<li class="slide">
+							<a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-rocket"></i><span class="side-menu__label">Apps</span><i class="angle fa fa-angle-right"></i></a>
+							<ul class="slide-menu">
+								<li>
+									<a href="cards.html" class="slide-item">Cards design</a>
+								</li>
+								<li>
+									<a href="sweetalert.html" class="slide-item">Sweet alerts</a>
+								</li>
+								<li>
+									<a href="rangeslider.html" class="slide-item">Range slider</a>
+								</li>
+								<li>
+									<a href="scroll.html" class="slide-item">Content Scroll bar</a>
+								</li>
+								<li>
+									<a href="counters.html" class="slide-item">Counters</a>
+								</li>
+								<li>
+									<a href="loaders.html" class="slide-item">Loaders</a>
+								</li>
+								<li>
+									<a href="time-line.html" class="slide-item">Time Line</a>
+								</li>
+								<li>
+									<a href="rating.html" class="slide-item">Rating </a>
+								</li>
+								<li>
+									<a href="users-list.html" class="slide-item">User List</a>
+								</li>
+								<li>
+									<a href="search.html" class="slide-item">Search page</a>
+								</li>
+								<li>
+									<a href="crypto-currencies.html" class="slide-item">Crypto-currencies</a>
+								</li>
+							</ul>
+						</li>
+
+						<li class="slide">
+							<a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-table"></i><span class="side-menu__label">Tables</span><i class="angle fa fa-angle-right"></i></a>
+							<ul class="slide-menu">
+								<li>
+									<a href="tables.html" class="slide-item">Default table</a>
+								</li>
+								<li>
+									<a href="datatable.html" class="slide-item">Data Table</a>
+								</li>
+							</ul>
+						</li>
+
+						<li class="slide">
+							<a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-codepen"></i><span class="side-menu__label">Icons</span><i class="angle fa fa-angle-right"></i></a>
+							<ul class="slide-menu">
+								<li>
+									<a href="icons.html" class="slide-item">Font Awesome</a>
+								</li>
+								<li>
+									<a href="icons2.html" class="slide-item">Material Design Icons</a>
+								</li>
+								<li>
+									<a href="icons3.html" class="slide-item">Simple Line Iocns</a>
+								</li>
+								<li>
+									<a href="icons4.html" class="slide-item">Feather Icons</a>
+								</li>
+								<li>
+									<a href="icons5.html" class="slide-item">Ionic Icons</a>
+								</li>
+								<li>
+									<a href="icons6.html" class="slide-item">Flag Icons</a>
+								</li>
+								<li>
+									<a href="icons7.html" class="slide-item">pe7 Icons</a>
+								</li>
+								<li>
+									<a href="icons8.html" class="slide-item">Themify Icons</a>
+								</li>
+								<li>
+									<a href="icons9.html" class="slide-item">Typicons Icons</a>
+								</li>
+								<li>
+									<a href="icons10.html" class="slide-item">Weather Icons</a>
+								</li>
+							</ul>
+						</li>
+						<li class="slide">
+							<a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-cubes"></i><span class="side-menu__label"> Elements</span><i class="angle fa fa-angle-right"></i></a>
+							<ul class="slide-menu">
+								<li>
+									<a href="alerts.html" class="slide-item">Alerts</a>
+								</li>
+								<li>
+									<a href="buttons.html" class="slide-item">Buttons</a>
+								</li>
+								<li>
+									<a href="colors.html" class="slide-item">Colors</a>
+								</li>
+								<li>
+									<a href="avatars.html" class="slide-item">Avatar-Square</a>
+								</li>
+								<li>
+									<a href="avatar-round.html" class="slide-item">Avatar-Rounded</a>
+								</li>
+								<li>
+									<a href="avatar-radius.html" class="slide-item">Avatar-Radius</a>
+								</li>
+								<li>
+									<a href="dropdown.html" class="slide-item">Drop downs</a>
+								</li>
+								<li>
+									<a href="thumbnails.html" class="slide-item">Thumbnails</a>
+								</li>
+								<li>
+									<a href="mediaobject.html" class="slide-item">Media Object</a>
+								</li>
+								<li>
+									<a href="list.html" class="slide-item">List</a>
+								</li>
+								<li>
+									<a href="tags.html" class="slide-item">Tags</a>
+								</li>
+								<li>
+									<a href="pagination.html" class="slide-item">Pagination</a>
+								</li>
+								<li>
+									<a href="navigation.html" class="slide-item">Navigation</a>
+								</li>
+								<li>
+									<a href="typography.html" class="slide-item">Typography</a>
+								</li>
+								<li>
+									<a href="breadcrumbs.html" class="slide-item">Breadcrumbs</a>
+								</li>
+								<li>
+									<a href="badge.html" class="slide-item">Badges</a>
+								</li>
+								<li>
+									<a href="jumbotron.html" class="slide-item">Jumbotron</a>
+								</li>
+								<li>
+									<a href="panels.html" class="slide-item">Panels</a>
+								</li>
+								<li>
+									<a href="modal.html" class="slide-item">Modal</a>
+								</li>
+								<li>
+									<a href="tooltipandpopover.html" class="slide-item">Tooltip and popover</a>
+								</li>
+								<li>
+									<a href="progress.html" class="slide-item">Progress</a>
+								</li>
+								<li>
+									<a href="carousel.html" class="slide-item">Carousels</a>
+								</li>
+								<li>
+									<a href="accordion.html" class="slide-item">Accordions</a>
+								</li>
+								<li>
+									<a href="tabs.html" class="slide-item">Tabs</a>
+								</li>
+							</ul>
+						</li>
+						<li class="slide">
+							<a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-chain-broken"></i><span class="side-menu__label">Custom  Pages</span><i class="angle fa fa-angle-right"></i></a>
+							<ul class="slide-menu">
+								<li>
+									<a href="login.html" class="slide-item">Login</a>
+								</li>
+								<li>
+									<a href="register.html" class="slide-item">Register</a>
+								</li>
+								<li>
+									<a href="forgot-password.html" class="slide-item">Forgot password</a>
+								</li>
+								<li>
+									<a href="lockscreen.html" class="slide-item">Lock screen</a>
+								</li>
+							</ul>
+						</li>
+						<li class="slide">
+							<a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-diamond"></i><span class="side-menu__label">Error pages</span><i class="angle fa fa-angle-right"></i></a>
+							<ul class="slide-menu">
+								<li>
+									<a href="400.html" class="slide-item">400 Error</a>
+								</li>
+								<li>
+									<a href="401.html" class="slide-item">401 Error</a>
+								</li>
+								<li>
+									<a href="403.html" class="slide-item">403 Error</a>
+								</li>
+								<li>
+									<a href="404.html" class="slide-item">404 Error</a>
+								</li>
+								<li>
+									<a href="500.html" class="slide-item">500 Error</a>
+								</li>
+								<li>
+									<a href="503.html" class="slide-item">503 Error</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</aside>
+				<!--header-->
+
+				<!--app content-->
+				<div class="app-content">
+					<div class="side-app">
+						<div class="page-header">
+							<h4 class="page-title">Documentation</h4>
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="#">Home</a></li>
+								<li class="breadcrumb-item active" aria-current="page">Documentation</li>
+							</ol>
+						</div>
+
+						<div class="row">
+							<div class="col-md-12">
+								<div class="card">
+									<div class="card-header">
+										<h3 class="card-title">Introduction</h3>
+									</div>
+									<div class="card-body">
+										<div class="doc-intro">
+											<p class="mb-0"><span class="fs-16 font-weight-semibold">rejoin</span> – Multipurpose listing,Jobs and Directory usages Big Bundle HTML Template. bootstrap job board template, bootstrap job template, hr consultancy website template, job board bootstrap template, job board html template, job listing html template, job portal html template, job portal templates html5, job posting website template, job recruitment website template, job template bootstrap, job template html, simple html and css templates, simple html css templates, directory listing html template, classified website template, responsive css template, html5 responsive template, job posting template, simple bootstrap template, bootstrap 4 templates, job application template, html5 template, premium, recruitment, template, html, job alert, directory etc.This Documentation will guide to How to include/insert various plugins and elements in your pages or Template.</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-12">
+								<div class="card">
+									<div class="card-header">
+										<h3 class="card-title">File Structure</h3>
+									</div>
+									<div class="card-body">
+										<div class="doc-structure fs-18">
+											<pre class="prettyprint mb-0"><span class="path">HTML</span><span class="tree"> ──</span><span class="path">
+	</span><span class="tree">├──</span><span class="path"> assets</span><span class="tree"></span><span class="path">
+	</span><span class="tree"></span><span class="path">   </span><span class="tree">├──</span><span class="path"> color-skins
+	</span><span class="tree"></span><span class="path">   </span><span class="tree">├──</span><span class="path"> css
+	</span><span class="tree"></span><span class="path">   </span><span class="tree">├──</span><span class="path"> images
+	</span><span class="tree"></span><span class="path">   </span><span class="tree">├──</span><span class="path"> js
+	</span><span class="tree"></span><span class="path">   </span><span class="tree">├──</span><span class="path"> plugins
+	</span><span class="tree"></span><span class="path">   </span><span class="tree">├──</span><span class="path"> Video
+	</pre>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-12">
+								<div class="card">
+									<div class="card-header">
+										<h3 class="card-title">Page Structure</h3>
+									</div>
+									<div class="card-body">
+										<div class="doc-img">
+											<img src="../assets/images/document.jpg" alt="img">
+										</div>
+									</div>
+								</div>
+							<div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-12">
+								<div class="card">
+									<div class="card-header">
+										<h3 class="card-title">Credits</h3>
+									</div>
+									<div class="card-body">
+										<div class="doc-credits">
+											<ul class="mb-0">
+												<li class="fs-16 text-dark">Bootstrap FrameWork<li>
+												<li class="fs-14 text-primary"><a href="https://getbootstrap.com/" class="text-primary">https://getbootstrap.com/</a></li>
+												<li class="fs-16 mt-2 text-dark">Jquery<li>
+												<li class="fs-14 text-primary"><a href="https://jquery.com/" class="text-primary">https://jquery.com/</a></li>
+												<li class="fs-16 mt-2 text-dark">Jquery Datepicker<li>
+												<li class="fs-14 text-primary"><a href="https://jqueryui.com/datepicker/" class="text-primary">https://jqueryui.com/datepicker/</a></li>
+												<li class="fs-16 mt-2 text-dark">Full Calendar<li>
+												<li class="fs-14 text-primary"><a href="https://fullcalendar.io/" class="text-primary">https://fullcalendar.io/</a></li>
+												<li class="fs-16 mt-2 text-dark">File Uploads<li>
+												<li class="fs-14 text-primary"><a href="https://www.jqueryscript.net/demo/jQuery-Plugin-To-Beautify-File-Inputs-with-Custom-Styles-Dropify/" class="text-primary">https://www.jqueryscript.net/demo/jQuery-Plugin-To-Beautify-File-Inputs-with-Custom-Styles-Dropify/</a></li>
+												<li class="fs-16 mt-2 text-dark">mcustomScrollbar<li>
+												<li class="fs-14 text-primary"><a href="http://manos.malihu.gr/jquery-custom-content-scroller/" class="text-primary">http://manos.malihu.gr/jquery-custom-content-scroller/</a></li>
+												<li class="fs-16 mt-2 text-dark">Ion-RangeSlider<li>
+												<li class="fs-14 text-primary"><a href="http://ionden.com/a/plugins/ion.rangeSlider/documentation.html" class="text-primary">http://ionden.com/a/plugins/ion.rangeSlider/documentation.html</a></li>
+												<li class="fs-16 mt-2 text-dark">Chat<li>
+												<li class="fs-14 text-primary"><a href="https://www.jqueryscript.net/form/Create-Live-Chat-Bot-From-Html-Form-convForm.html" class="text-primary">https://www.jqueryscript.net/form/Create-Live-Chat-Bot-From-Html-Form-convForm.html</a></li>
+												<li class="fs-16 mt-2 text-dark">Select2<li>
+												<li class="fs-14 text-primary"><a href="https://select2.org/" class="text-primary">https://select2.org/</a></li>
+												<li class="fs-16 mt-2 text-dark">Jquery Timepicker<li>
+												<li class="fs-14 text-primary"><a href="https://jonthornton.github.io/jquery-timepicker/" class="text-primary">https://jonthornton.github.io/jquery-timepicker/</a></li>
+												<li class="fs-16 mt-2 text-dark">Bootstrap-wizard<li>
+												<li class="fs-14 text-primary"><a href="http://vinceg.github.io/twitter-bootstrap-wizard/" class="text-primary">http://vinceg.github.io/twitter-bootstrap-wizard/</a></li>
+												<li class="fs-16 mt-2 text-dark">Wysiwyag Editor(form editor)<li>
+												<li class="fs-14 text-primary"><a href="https://www.froala.com/wysiwyg-editor" class="text-primary">https://www.froala.com/wysiwyg-editor</a></li>
+												<li class="fs-16 mt-2 text-dark">Datatable<li>
+												<li class="fs-14 text-primary"><a href="https://datatables.net/examples/styling/bootstrap4" class="text-primary">https://datatables.net/examples/styling/bootstrap4</a></li>
+												<li class="fs-16 mt-2 text-dark">Google Maps<li>
+												<li class="fs-14 text-primary"><a href="https://tilotiti.github.io/jQuery-Google-Map/" class="text-primary">https://tilotiti.github.io/jQuery-Google-Map/</a></li>
+												<li class="fs-16 mt-2 text-dark">Font Awesome Icons<li>
+												<li class="fs-14 text-primary"><a href="https://fontawesome.com/" class="text-primary">https://fontawesome.com/</a></li>
+												<li class="fs-16 mt-2 text-dark">Material Design Icons<li>
+												<li class="fs-14 text-primary"><a href="https://materialdesignicons.com/" class="text-primary">https://materialdesignicons.com/</a></li>
+												<li class="fs-16 mt-2 text-dark">Simpleline Icons<li>
+												<li class="fs-14 text-primary"><a href="https://iconify.design/icon-sets/simple-line-icons/" class="text-primary">https://iconify.design/icon-sets/simple-line-icons/</a></li>
+												<li class="fs-16 mt-2 text-dark">Ionicons<li>
+												<li class="fs-14 text-primary"><a href="https://ionicons.com/" class="text-primary">https://ionicons.com/</a></li>
+												<li class="fs-16 mt-2 text-dark">Themify Icons<li>
+												<li class="fs-14 text-primary"><a href="https://themify.me/themify-icons" class="text-primary">https://themify.me/themify-icons</a></li>
+												<li class="fs-16 mt-2 text-dark">Owl-carousel<li>
+												<li class="fs-14 text-primary"><a href="https://owlcarousel2.github.io/OwlCarousel2/demos/demos.html" class="text-primary">https://owlcarousel2.github.io/OwlCarousel2/demos/demos.html</a></li>
+												<li class="fs-16 mt-2 text-dark">Bootstrap-Colorpicker<li>
+												<li class="fs-14 text-primary"><a href="https://farbelous.io/bootstrap-colorpicker/v2/" class="text-primary">https://farbelous.io/bootstrap-colorpicker/v2/</a></li>
+												<li class="fs-16 mt-2 text-dark">Sparkline Charts<li>
+												<li class="fs-14 text-primary"><a href="https://omnipotent.net/jquery.sparkline/#s-about" class="text-primary">https://omnipotent.net/jquery.sparkline/#s-about</a></li>
+												<li class="fs-16 mt-2 text-dark">Gallery Zoom<li>
+												<li class="fs-14 text-primary"><a href="https://www.jqueryscript.net/gallery/jQuery-Plugin-For-Product-Viewer-with-Image-Hover-Zoom-BZoom.html" class="text-primary">https://www.jqueryscript.net/gallery/jQuery-Plugin-For-Product-Viewer-with-Image-Hover-Zoom-BZoom.html</a></li>
+												<li class="fs-16 mt-2 text-dark">Vertical Scrollbar<li>
+												<li class="fs-14 text-primary"><a href="https://www.jqueryscript.net/slider/Responsive-jQuery-News-Ticker-Plugin-with-Bootstrap-3-Bootstrap-News-Box.html" class="text-primary">https://www.jqueryscript.net/slider/Responsive-jQuery-News-Ticker-Plugin-with-Bootstrap-3-Bootstrap-News-Box.html</a></li>
+												<li class="fs-16 mt-2 text-dark">Echart<li>
+												<li class="fs-14 text-primary"><a href="https://ecomfe.github.io/echarts-examples/public/documentation.html" class="text-primary">https://ecomfe.github.io/echarts-examples/public/documentation.html</a></li>
+												<li class="fs-16 mt-2 text-dark">Morris Chart<li>
+												<li class="fs-14 text-primary"><a href="https://morrisjs.github.io/morris.js/" class="text-primary">https://morrisjs.github.io/morris.js/</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<!--footer-->
+			<footer class="footer">
+				<div class="container">
+					<div class="row align-items-center flex-row-reverse">
+						<div class="col-md-12 col-sm-12 mt-3 mt-lg-0 text-center">
+							Copyright © 2019 <a href="#">rejoin</a>. Designed by <a href="#">Spruko</a> All rights reserved.
+						</div>
+					</div>
+				</div>
+			</footer>
+			<!-- End Footer-->
+		</div>
+
+		<!-- Back to top -->
+		<a href="#top" id="back-to-top" ><i class="fa fa-arrow-up"></i></a>
+
+		<!-- Dashboard Core -->
+		<script src="../assets/js/vendors/jquery-3.2.1.min.js"></script>
+		<script src="../assets/plugins/bootstrap-4.3.1-dist/js/popper.min.js"></script>
+		<script src="../assets/plugins/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+		<script src="../assets/js/vendors/jquery.sparkline.min.js"></script>
+		<script src="../assets/js/vendors/selectize.min.js"></script>
+		<script src="../assets/js/vendors/jquery.tablesorter.min.js"></script>
+		<script src="../assets/js/vendors/circle-progress.min.js"></script>
+		<script src="../assets/plugins/rating/jquery.rating-stars.js"></script>
+
+		<!--Counters -->
+		<script src="../assets/plugins/counters/counterup.min.js"></script>
+		<script src="../assets/plugins/counters/waypoints.min.js"></script>
+		<script src="../assets/plugins/counters/numeric-counter.js"></script>
+
+		<!-- Fullside-menu Js-->
+		<script src="../assets/plugins/toggle-sidebar/sidemenu.js"></script>
+
+		<!-- Custom scroll bar Js-->
+		<script src="../assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
+
+		<!-- ECharts Plugin -->
+		<script src="../assets/plugins/echarts/echarts.js"></script>
+		<script src="../assets/plugins/echarts/echarts.js"></script>
+
+		<!-- Custom Js-->
+		<script src="../assets/js/admin-custom.js"></script>
+
+	</body>
+</html>

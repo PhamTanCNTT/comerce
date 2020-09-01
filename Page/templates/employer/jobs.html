@@ -1,0 +1,497 @@
+{% extends "base.html" %}
+
+{% block jobs_employer %}
+    <script>
+        var url_detail_job = "/employer/GetJobDetailView/";
+        var url_sche_job = "/employer/GetScheduleDetailView/";
+
+        var UserIDEmployerJobApply = '';
+        var EmployerIDJobApply = '';
+        var JobIDJobApply = '';
+        var CurriculumVitaeIDJobApply = '';
+        var DateStartWork = '';
+        var DateEndWork = '';
+        var TimeStartWork = '';
+        var TimeEndWork = '';
+        var AddressWork = '';
+
+        {#$(document).ready(#}
+        {#    function () {#}
+        {#        $("#list_cv").hide();#}
+        {#    }#}
+        {#)#}
+
+        function detail_job() {
+            $.getJSON(url_detail_job + {{ ID_job }} + "/",{},detail_job1);
+        }
+        function detail_job1(job) {
+            {#console.log(job.UserIDJob)#}
+            {#console.log(job.EmployerIDJob)#}
+            {#console.log(job.CompanyIDJob)#}
+            UserIDEmployerJobApply = job.UserIDJob;
+            EmployerIDJobApply = job.EmployerIDJob;
+            JobIDJobApply = job.id;
+            AddressWork = job.AddressIDJob;
+            $("#jobdescripttion").text(job.JobDescription);
+            $("#jobtitle").text(job.JobTitle);
+            $("#jobtype").text(job.JobType);
+            $("#comtype").text(job.JobType);
+            $("#jobrole").text(job.JobRole);
+            $("#jobminsalari").text(job.MinSalary);
+            $("#jobmaxsalary").text(job.MaxSalary);
+            $("#jobexp").text(job.JobExperience);
+            $("#jobaddress").text(job.AddressIDJob);
+            $("#jobrequiment").text(job.JobRequirements);
+
+            //company port
+            $("#job_tpye2").text(job.JobType);
+        }
+
+        function detail_sche_job() {
+            $.getJSON(url_detail_job + {{ ID_job }} + "/",{},detail_sche_job1);
+        }
+        function detail_sche_job1(job) {
+            $.getJSON(url_sche_job + job.ScheduleIDJob + "/",{},detail_sche_job2);
+        }
+        function detail_sche_job2(sche) {
+
+            DateStartWork = sche.DateStartWork;
+            DateEndWork = sche.DateEndWork;
+            TimeStartWork = sche.inoutidschedule[0].TimeIn;
+            TimeEndWork = sche.inoutidschedule[0].TimeOut;
+
+            $("#schedule_name").text(sche.SchName);
+            $("#datestartwork").text(sche.DateStartWork);
+            $("#dateendwork").text(sche.DateEndWork);
+            $("#inoutname").text(sche.inoutidschedule[0].InOutName);
+            $("#timein").text(sche.inoutidschedule[0].TimeIn);
+            $("#timeout").text(sche.inoutidschedule[0].TimeOut);
+        }
+
+        window.onload = detail_sche_job();
+
+
+        var url_logo_job1 = "/employer/GetallJobView_img1/";
+        function get_img_job()
+        {
+            $.getJSON(url_logo_job1 + {{ ID_job }} + "/",{},get_img_job1);
+        }
+        function get_img_job1(job) {
+            $("#id_img_com").prop('src',job.ImageJob);
+            $("#img_logo_com2").prop('src',job.ImageJob);
+        }
+
+        {#var url_company = "/employer/EmployerCompayFullViewSet/";#}
+        var url_company = "/employer/GetDetailCompany/";
+        function job_company(){
+            $.getJSON(url_detail_job + {{ ID_job }} + "/",{},job_company1);
+        }
+        function job_company1(job){
+            {#alert(job.CompanyIDJob)#}
+            $.getJSON(url_company + job.CompanyIDJob +"/",{},job_company2);
+        }
+        function job_company2(company){
+            {#alert(company.ComName)#}
+            $("#comname").text(company.ComName);
+            $("#comname2").text(company.ComName);
+            $("#email_com").text(company.ComEmail);
+            $("#comtel_com").text(company.ComTel);
+            $("#linkweb_com").text(company.ComWeb);
+        }
+
+        function type_apply_job() {
+            {#var answer = window.confirm("Create CV new?");#}
+            {#if (answer) {#}
+            {#    window.location.href = "/page/create_resume/";}#}
+            {#else {#}
+            {#    $("#list_cv").show();}#}
+            $("#list_cv").show();
+        }
+
+        var url_apply_job = "/employee/JobApplyFullViewSet/";
+
+        function apply_job() {
+            var jsonarr_apply_job = {
+                "UserIDEmployerJobApply": UserIDEmployerJobApply,
+                "EmployerIDJobApply": EmployerIDJobApply,
+                "JobIDJobApply": JobIDJobApply,
+                "CurriculumVitaeIDJobApply": parseInt($("#select_cv").val()),
+                "DateStartWork": DateStartWork,
+                "DateEndWork": DateEndWork,
+                "TimeStartWork": TimeStartWork,
+                "TimeEndWork": TimeEndWork,
+                "AddressWork": AddressWork
+            };
+            console.log(JSON.stringify(jsonarr_apply_job));
+
+            $.ajax({
+                "url": url_apply_job,
+                "data": JSON.stringify(jsonarr_apply_job),
+                "headers":{"X-CSRFToken": csrftoken},
+                "processData": false,
+                "contentType": 'application/json',
+                "type": "POST",
+                "success": add_apply_job_success,
+                "error": add_apply_job_error
+            });
+        }
+        function add_apply_job_success() {
+            alert("apply job sucess!")
+        }
+        function add_apply_job_error() {
+            alert("apply job error!")
+        }
+
+        var URL_CV = "/employee/EmployeeCVFullViewSet/";
+
+        function get_CV()
+        {
+            $.getJSON(URL_CV,{},list_CV);
+        }
+
+        var ID_CV = '';
+        function list_CV(employee) {
+            var UserIDCurriculumVitae = '';
+            var EmployeeIDCurriculumVitae='';
+            var Title='';
+            var MaritalStatus='';
+            var Introduce='';
+            var Career = '';
+            var FormOfWork='';
+            var WorkLocation='';
+            var DesiredSalary='';
+            var Skill='';
+            var CurriculumVitaeExperience='';
+            var CurriculumVitaeEducate='';
+
+            var z1 = document.createElement("option");
+                z1.setAttribute("value", 0);
+                var t1 = document.createTextNode("Choose CV apply");
+                z1.appendChild(t1);
+                document.getElementById("select_cv").appendChild(z1);
+
+            for (var i = 0; i < employee.length; i++)
+            {
+                ID_CV = employee[i].id
+
+                UserIDCurriculumVitae = employee[i].UserIDCurriculumVitae;
+                EmployeeIDCurriculumVitae = employee[i].EmployeeIDCurriculumVitae;
+                Title =  employee[i].Title;
+                MaritalStatus =  employee[i].MaritalStatus;
+                Introduce =  employee[i].Introduce;
+                Career = employee[i].Career;
+                FormOfWork = employee[i].FormOfWork;
+                DesiredSalary =  employee[i].DesiredSalary;
+                WorkLocation =  employee[i].WorkLocation;
+                {#CurriculumVitaeExperience =  employee[i].CurriculumVitaeExperience;#}
+                {#CurriculumVitaeEducate =  employee[i].CurriculumVitaeEducate;#}
+
+
+                var z = document.createElement("option");
+                z.setAttribute("value", employee[i].id);
+                var t = document.createTextNode(employee[i].Title);
+                z.appendChild(t);
+                document.getElementById("select_cv").appendChild(z);
+            }
+        }
+
+        window.onload = get_CV()
+        window.onload = job_company();
+        window.onload = detail_job();
+        window.onload = get_img_job();
+        {#window.addEventListener("load", job_company(),true);#}
+        {#window.addEventListener("load", detail_job(),true);#}
+        {#window.addEventListener("load", get_img_job(),true)#}
+    </script>
+
+    <!--Sliders Section-->
+		<div>
+			<div class="cover-image sptb-1 bg-background" data-image-src="../assets/images/banners/banner1.jpg">
+				<div class="header-text1 mb-0">
+					<div class="container">
+						<div class="row">
+							<div class="col-xl-8 col-lg-12 col-md-12 d-block mx-auto">
+								<div class="text-center text-white ">
+									<h1 ><span class="font-weight-bold">16,25,365</span> Jobs Available In Hyderabad</h1>
+								</div>
+								<div class=" search-background">
+									<div class="form row no-gutters">
+										<div class="form-group  col-xl-6 col-lg-5 col-md-12 mb-0">
+											<input type="text" class="form-control input-lg border-right-0 br-tr-md-0 br-br-md-0" id="text" placeholder="Search Jobs">
+										</div>
+										<div class="form-group col-xl-4 col-lg-4 select2-lg  col-md-12 mb-0">
+											<select class="form-control select2-show-search border-bottom-0 w-100" data-placeholder="Select">
+												<optgroup label="Categories">
+													<option>All Categories</option>
+													<option value="1">Accountant</option>
+													<option value="2">IT Software</option>
+													<option value="3">Banking</option>
+													<option value="4">Finaces</option>
+													<option value="5">Cook/Chef</option>
+													<option value="6">Driveing</option>
+													<option value="7">HR Recruiter</option>
+													<option value="8">IT Hardware</option>
+													<option value="9">Sales</option>
+												</optgroup>
+											</select>
+										</div>
+										<div class="col-xl-2 col-lg-3 col-md-12 mb-0">
+											<a href="#" class="btn btn-lg btn-block btn-secondary br-bl-0 br-tl-0">Search</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div><!-- /header-text -->
+			</div>
+		</div>
+		<!--/Sliders Section-->
+
+		<!--BreadCrumb-->
+		<div class="bg-white border-bottom">
+			<div class="container">
+				<div class="page-header">
+					<h4 class="page-title">Jobs</h4>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#">Home</a></li>
+						<li class="breadcrumb-item"><a href="#">Categories</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Jobs</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+		<!--/BreadCrumb-->
+
+		<!--Job listing-->
+		<section class="sptb">
+			<div class="container">
+				<div class="row">
+					<div class="col-xl-8 col-lg-12 col-md-12">
+						<!--Jobs Description-->
+						<div class="card overflow-hidden">
+							<div class="ribbon ribbon-top-right text-danger"><span class="bg-danger">Urgent</span></div>
+							<div class="card-body h-100">
+								<div class="row">
+									<div class="col">
+										<div class="profile-pic mb-0">
+											<div class="d-md-flex">
+												<img src="" id="id_img_com" class="w-20 h-20" alt="user">
+												<div class="ml-4">
+                                                    <a href="#" class="text-dark"><h4 class="mt-3 mb-1 fs-20 font-weight-bold"><span id="comname"></span></h4></a>
+													<div class="">
+														<ul class="mb-0 d-flex">
+															<li class="mr-3"><a href="#" class="icons"><i class="si si-briefcase text-muted mr-1"> <span id="comtype"></span></i></a></li>
+															<li class="mr-3"><a href="#" class="icons" id="comaddress"><i class="si si-location-pin text-muted mr-1"></i> USA</a></li>
+															<li class="mr-3"><a href="#" class="icons" id="comtime"><i class="si si-calendar text-muted mr-1"></i> 5 hours ago</a></li>
+{#															<li class="mr-3"><a href="#" class="icons" id=""><i class="si si-eye text-muted mr-1"></i> 765</a></li>#}
+														</ul>
+														<div class="rating-stars d-inline-flex mb-4 mr-3 mt-2">
+															<input type="number" readonly="readonly" class="rating-value star" name="rating-stars-value"  value="4">
+															<div class="rating-stars-container mr-2">
+																<div class="rating-star sm">
+																	<i class="fa fa-star"></i>
+																</div>
+																<div class="rating-star sm">
+																	<i class="fa fa-star"></i>
+																</div>
+																<div class="rating-star sm">
+																	<i class="fa fa-star"></i>
+																</div>
+																<div class="rating-star sm">
+																	<i class="fa fa-star"></i>
+																</div>
+																<div class="rating-star sm">
+																	<i class="fa fa-star"></i>
+																</div>
+															</div> 4.0
+														</div>
+														<div class="rating-stars d-inline-flex mb-4">
+															<div class="rating-stars-container mr-1">
+																<div class="rating-star sm">
+																	<i class="fa fa-heart"></i>
+																</div>
+															</div> 145
+														</div>
+													</div>
+													<div class="icons">
+														<button onclick="apply_job()" class="btn btn-info icons" data-toggle="modal" data-target="#apply"><i class="fa fa-check mr-1"></i> Apply</button>
+														<a href="#" class="btn btn-primary icons" data-toggle="modal" data-target="#contact"><i class="si si-phone mr-1"></i> Contact Now</a>
+													</div>
+
+												</div>
+											</div>
+										</div>
+                                        <br>
+                                        <div id="list_cv">
+                                            <label style="color: #1A01CC; font-weight: bold">CV apply: </label>
+                                            <select id="select_cv"></select>
+                                        </div>
+
+									</div>
+								</div>
+							</div>
+							<div class="card-body border-top">
+								<h4 class="mb-4 card-title">Job Description</h4>
+								<div class="mb-4">
+                                    <p id="jobdescripttion"></p>
+                                </div>
+								<h4 class="mb-4 card-title">Job Details</h4>
+								<div class="row">
+									<div class="col-xl-12 col-md-12">
+										<div class="table-responsive">
+											<table class="table row table-borderless w-100 m-0 text-nowrap ">
+												<tbody class="col-lg-12 col-xl-6 p-0">
+                                                    <tr>
+														<td class="w-150 px-0"><span class="font-weight-semibold">Job Title</span></td> <td>: <span ></span></td> <td><span id="jobtitle">  </span></td>
+													</tr>
+													<tr>
+														<td class="w-150 px-0"><span class="font-weight-semibold">Job Type</span></td> <td>: <span ></span></td> <td><span id="jobtype">  </span></td>
+													</tr>
+													<tr>
+														<td class="w-150 px-0"><span class="font-weight-semibold">Role</span></td> <td><span>:</span></td> <td> <span id="jobrole"> </span></td>
+													</tr>
+													<tr>
+														<td class="w-150 px-0"><span class="font-weight-semibold" >Min Salary</span></td> <td><span>:</span></td> <td> <span id="jobminsalari"> </span></td>
+													</tr>
+													<tr>
+														<td class="w-150 px-0"><span class="font-weight-semibold">Max Salary</span></td> <td><span>:</span></td> <td> <span id="jobmaxsalary"></span></td>
+													</tr>
+													<tr>
+														<td class="w-150 px-0"><span class="font-weight-semibold" >Min Exp</span></td> <td><span>:</span></td> <td><span>0yrs</span></td>
+													</tr>
+												</tbody>
+												<tbody class="col-lg-12 col-xl-6 p-0">
+													<tr>
+														<td class="w-150 px-0"><span class="font-weight-semibold" >Max Exp</span></td> <td><span>:</span></td> <td> <span id="jobexp"></span>yrs</td>
+													</tr>
+													<tr>
+														<td class="w-150 px-0"><span class="font-weight-semibold">Languages</span></td> <td><span>:</span></td> <td><span> English </span></td>
+													</tr>
+													<tr>
+														<td class="w-150 px-0"><span class="font-weight-semibold" >Locality</span></td> <td><span>:</span></td> <td> <span id="jobaddress"></span></td>
+													</tr>
+													<tr>
+														<td class="w-150 px-0"><span class="font-weight-semibold">Eligibility</span></td> <td><span>:</span></td> <td><span id="jobrequiment"></span></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+                            <div class="card-body border-top">
+								<h4 class="mb-4 card-title">schedule job</h4>
+								<div class="mb-4">
+                                    <p id="jobdescripttion"></p>
+                                </div>
+								<h4 class="mb-4 card-title">schedule job Details</h4>
+								<div class="row">
+									<div class="col-xl-12 col-md-12">
+										<div class="table-responsive">
+											<table class="table row table-borderless w-100 m-0 text-nowrap ">
+												<tbody class="col-lg-12 col-xl-6 p-0">
+													<tr>
+														<td class="w-150 px-0"><span class="font-weight-semibold">schedule Name</span></td> <td>: <span ></span></td> <td><span id="schedule_name">  </span></td>
+													</tr>
+													<tr>
+														<td class="w-150 px-0"><span class="font-weight-semibold">Date Start Work</span></td> <td><span>:</span></td> <td> <span id="datestartwork"> </span></td>
+													</tr>
+													<tr>
+														<td class="w-150 px-0"><span class="font-weight-semibold" >Date End Work</span></td> <td><span>:</span></td> <td> <span id="dateendwork"> </span></td>
+													</tr>
+												</tbody>
+												<tbody class="col-lg-12 col-xl-6 p-0">
+													<tr>
+														<td class="w-150 px-0"><span class="font-weight-semibold" >InOut Name</span></td> <td><span>:</span></td> <td> <span id="inoutname"></span></td>
+													</tr>
+													<tr>
+														<td class="w-150 px-0"><span class="font-weight-semibold">TimeIn</span></td> <td><span>:</span></td> <td><span id="timein"></span></td>
+													</tr>
+													<tr>
+														<td class="w-150 px-0"><span class="font-weight-semibold" >TimeOut</span></td> <td><span>:</span></td> <td> <span id="timeout"></span></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+{#							<div class="card-body">#}
+{#								<div class="list-id">#}
+{#									<div class="row">#}
+{#										<div class="col">#}
+{#											<a class="mb-0">Job ID : #8976542</a>#}
+{#										</div>#}
+{#										<div class="col col-auto">#}
+{#											Posted By <a class="mb-0 font-weight-bold">Company</a> / 25th Dec 2018#}
+{#										</div>#}
+{#									</div>#}
+{#								</div>#}
+{#							</div>#}
+							<div class="card-footer bg-light-50">
+								<div class="icons">
+{#									<a href="#" class="btn btn-success icons mt-1 mb-1" data-toggle="modal" data-target="#apply"><i class="fa fa-check mr-1"></i> Apply</a>#}
+									<a href="#" class="btn btn-primary icons mt-1 mb-1"><i class="si si-share mr-1"></i> Share Job</a>
+									<a href="#" class="btn btn-info icons mt-1 mb-1"><i class="si si-printer  mr-1"></i> Print</a>
+									<a href="#" class="btn btn-danger icons mt-1 mb-1" data-toggle="modal" data-target="#report"><i class="icon icon-exclamation mr-1"></i> Report Abuse</a>
+								</div>
+							</div>
+						</div>
+                        {# list cv #}
+{#                        <div class="card overflow-hidden">#}
+{#                            <h4 class="mb-4 card-title">List CV</h4>#}
+{#                            <div id="mycvrow">#}
+{#                            </div>#}
+{#                        </div>#}
+                        {# end list cv #}
+						<!--Jobs Description-->
+                        <!--Right Side Content-->
+
+
+					</div>
+                    <div class="col-xl-4 col-lg-12 col-md-12">
+                        <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Company</h3>
+                </div>
+                <div class="card-body  item-user">
+                    <div class="profile-pic mb-0">
+                        <img src="" id="img_logo_com2" class="brround avatar-xxl" alt="user">
+                        <div class="">
+                            <a href="#" class="text-dark"><h4 class="mt-3 mb-1 font-weight-semibold"><span id="comname2"></span></h4></a>
+                            <span class="text-gray" id="job_tpye2"></span>
+{#                            <span class="text-muted">Member Since November 2008</span>#}
+                            <h6 class="mt-2 mb-0"><a href="#" class="btn btn-primary btn-sm">See All Jobs</a></h6>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card-body item-user">
+                    <h4 class="mb-4 card-title">Contact Info</h4>
+                    <div>
+                        <h6><span class="font-weight-semibold"><i class="fa fa-envelope mr-2 mb-2"></i></span><a href="#" class="text-body"> <span id="email_com"></span></a></h6>
+                        <h6><span class="font-weight-semibold"><i class="fa fa-phone mr-2  mb-2"></i></span><a href="#" class="text-primary"> <span id="comtel_com"></span></a></h6>
+                        <h6><span class="font-weight-semibold"><i class="fa fa-link mr-2 "></i></span><a href="#" class="text-primary" id="linkweb_com"></a></h6>
+                    </div>
+                    <div class=" item-user-icons mt-4">
+                        <a href="#" class="facebook-bg mt-0"><i class="fa fa-facebook"></i></a>
+                        <a href="#" class="twitter-bg"><i class="fa fa-twitter"></i></a>
+                        <a href="#" class="google-bg"><i class="fa fa-google"></i></a>
+                        <a href="#" class="dribbble-bg"><i class="fa fa-dribbble"></i></a>
+                    </div>
+                </div>
+                <div class="card-footer bg-light-50">
+                    <div class="text-left">
+                        <a href="#" class="btn  btn-info"><i class="fa fa-envelope"></i> Chat</a>
+                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#contact"><i class="fa fa-user"></i> Contact Me</a>
+                    </div>
+                </div>
+            </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+{% endblock %}
