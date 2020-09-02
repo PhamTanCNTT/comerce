@@ -469,7 +469,8 @@ class TaxCode(models.Model):
 #     Skill = models.TextField()  # Kỹ năng
 #     Interests = models.TextField()  # Sở thích
 #
-#     # IDE = models.ForeignKey(Educate, on_delete=models.CASCADE)
+#     # IDE = models.ForeignKey(
+, on_delete=models.CASCADE)
 #     def __str__(self):
 #         return self.DesiredPositionIDCurriculumVitae
 #
@@ -489,7 +490,9 @@ class Education(models.Model):
     Specialized = models.CharField(max_length=128)  # Chuyên ngành
 
     DateTimeSupply = models.DateField(auto_now_add=False)  # Thời gian học
-    DateTimeEnd = models.DateTimeField(auto_now_add=False)  # Thời gian học
+    DateTimeStart = models.DateField(auto_now_add=False)  # Thời gian học
+
+    DateTimeEnd = models.DateField(auto_now_add=False)  # Thời gian học
 
     DegreeLevel = models.CharField(max_length=128)  # Loại tốt nghiệp
     Degree = models.CharField(max_length=128)  # Tên bằng tốt nghiệp
